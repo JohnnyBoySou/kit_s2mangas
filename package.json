@@ -1,0 +1,47 @@
+{
+  "name": "s2mangas",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm i",
+    "release": "pnpm build && changeset publish",
+    "release-npm": "pnpm changeset && pnpm version-packages && pnpm i && pnpm build && pnpm release",
+    "release-beta": "pnpm changeset pre enter beta && pnpm version-packages && pnpm i && pnpm build && pnpm release --tag beta && pnpm changeset pre exit",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint:fix",
+    "typecheck": "pnpm -r run typecheck",
+    "check": "pnpm -r run check",
+    "test": "pnpm -r run test",
+    "test:watch": "pnpm -r run test:watch",
+    "test:coverage": "pnpm -r run test:coverage",
+    "format": "pnpm -r run format",
+    "format:check": "pnpm -r run format:check",
+    "clean": "pnpm -r run clean",
+    "dev": "pnpm -r run dev",
+    "prepare": "husky install"
+  },
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c429992a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
+  "devDependencies": {
+    "@changesets/cli": "^2.29.5",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "changesets": "^1.0.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

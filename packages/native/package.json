@@ -1,0 +1,64 @@
+{
+  "name": "@s2mangas/native",
+  "version": "0.0.1",
+  "description": "React Native UI components library for S2Mangas",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index.ts",
+  "source": "src/index.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "react-native",
+    "ui-components",
+    "s2mangas",
+    "typescript"
+  ],
+  "author": "S2Mangas Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s2mangas/kit-s2mangas.git"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.73"
+  },
+  "dependencies": {
+    "@s2mangas/core": "workspace:*",
+    "lucide-react-native": "^0.539.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.9",
+    "@types/react-native": "^0.73.0",
+    "react-native-builder-bob": "^0.23.2",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.1.0",
+    "prettier": "^3.2.5",
+    "husky": "^9.0.11"
+  },
+  "scripts": {
+    "build": "bob build",
+    "prepare": "bob build",
+    "postinstall": "husky",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
+    "typecheck": "tsc --noEmit --project tsconfig.build.json",
+    "typecheck:strict": "tsc --noEmit --project tsconfig.strict.json",
+    "check": "pnpm lint && pnpm typecheck",
+    "check:strict": "pnpm lint && pnpm typecheck:strict"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

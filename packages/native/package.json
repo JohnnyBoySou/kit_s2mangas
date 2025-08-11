@@ -62,7 +62,17 @@
     "react-native": "^0.80.2",
     "react-native-builder-bob": "^0.23.2",
     "react-test-renderer": "^18.3.1",
-    "ts-jest": "^29.1.2"
+    "ts-jest": "^29.1.2",
+    "@storybook/react": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/addon-actions": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "storybook": "^8.6.14",
+    "vite": "^4.5.2",
+    "react-native-web": "^0.19.10",
+    "react-dom": "^18.3.1"
   },
   "scripts": {
     "build": "bob build",
@@ -78,7 +88,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "test:debug": "jest --detectOpenHandles --forceExit"
+    "test:debug": "jest --detectOpenHandles --forceExit",
+    "storybook": "storybook dev -p 7007",
+    "storybook:build": "storybook build",
+    "storybook:loader": "react-native-storybook-loader"
   },
   "publishConfig": {
     "access": "public",

@@ -1,0 +1,17 @@
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Esconder scrollbar para navegadores WebKit */
+.scroll-horizontal::-webkit-scrollbar,
+.scroll-vertical::-webkit-scrollbar {
+  display: none;
+}
+
+/* Esconder scrollbar para Firefox */
+.scroll-horizontal,
+.scroll-vertical {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

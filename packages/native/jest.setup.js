@@ -1,5 +1,48 @@
 // Configurações básicas do Jest para React Native
-import '@testing-library/jest-native/extend-expect';
+
+// Mock do @react-native/js-polyfills para evitar problemas de sintaxe
+jest.mock('@react-native/js-polyfills', () => ({
+  errorGuard: jest.fn(),
+}));
+
+// Mock do React Native para evitar problemas com módulos ES6
+jest.mock('react-native', () => {
+  const React = require('react');
+  
+  const MockComponent = (props) => React.createElement('div', props, props.children);
+  const MockText = (props) => React.createElement('span', props, props.children);
+  const MockImage = (props) => React.createElement('img', props);
+  const MockPressable = (props) => React.createElement('button', props, props.children);
+  const MockActivityIndicator = (props) => React.createElement('div', { ...props, 'data-testid': 'activity-indicator' });
+  
+  return {
+    View: MockComponent,
+    Text: MockText,
+    TouchableOpacity: MockComponent,
+    ScrollView: MockComponent,
+    TextInput: MockComponent,
+    Image: MockImage,
+    FlatList: MockComponent,
+    Pressable: MockPressable,
+    ActivityIndicator: MockActivityIndicator,
+    StyleSheet: {
+      create: (styles) => styles,
+      absoluteFillObject: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
+    },
+    Dimensions: {
+      get: () => ({ width: 375, height: 667 }),
+    },
+    Platform: {
+      OS: 'ios',
+      select: (obj) => obj.ios || obj.default,
+    },
+    Animated: {
+      Value: jest.fn(),
+      timing: jest.fn(),
+      spring: jest.fn(),
+    },
+  };
+});
 
 // Mock do react-native-svg
 jest.mock('react-native-svg', () => {
@@ -22,39 +65,57 @@ jest.mock('lucide-react-native', () => {
   return new Proxy({}, { get: () => (props) => React.createElement(View, props) });
 });
 
-// Mock do react-native-reanimated (comentado por padrão)
-// jest.mock('react-native-reanimated', () => {
-//   const Reanimated = require('react-native-reanimated/mock');
-//   Reanimated.default.call = () => {};
-//   return Reanimated;
-// });
+// Mock do @s2mangas/core
+jest.mock('@s2mangas/core', () => ({
+  theme: {
+    color: {
+      background: '#000000',
+      primary: '#ED274A',
+      secundary: '#FF620A',
+      destructive: '#e74c3c',
+      ghost: '#303030',
+      link: '#3498db',
+      blue: '#0092FF',
+      red: '#EB5757',
+      green: '#27AE60',
+      yellow: '#ebd557',
+      orange: '#FF620A',
+      alert: '#FF620A',
+      warning: '#ebd557',
+      title: '#f1f1f1',
+      label: '#B2B2B2',
+      textPrimary: '#ED274A',
+      textSecondary: '#FF620A',
+      textGhost: '#ffffff',
+      textLink: '#303030',
+      borderPrimary: '#ED274A',
+      borderSecondary: '#FF620A',
+      borderDestructive: '#e74c3c',
+      borderGhost: '#303030',
+      true: '#ED274A',
+      false: '#505050',
+      muted: '#d1d1d1',
+      activeText: '#f1f1f1',
+      text: '#d1d1d1'
+    },
+    size: {
+      headtitle: 32,
+      title: 24,
+      label: 18,
+      sublabel: 16,
+      small: 12
+    },
+    font: {
+      black: "Font_Black",
+      bold: "Font_Bold",
+      medium: "Font_Medium",
+      book: "Font_Book"
+    }
+  },
+}));
 
 // Configurações globais do Jest
 global.console = {
   ...console,
-  // Uncomment to ignore a specific log level
-  // log: jest.fn(),
-  // debug: jest.fn(),
-  // info: jest.fn(),
-  // warn: jest.fn(),
   error: jest.fn(),
 };
-
-// Mock do AsyncStorage (comentado - não necessário para testes de UI)
-// jest.mock('@react-native-async-storage/async-storage', () =>
-//   require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-// );
-
-// Mock do react-native/Libraries/EventEmitter/NativeEventEmitter
-jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
-
-// Mock do react-native/Libraries/Animated/NativeAnimatedHelper (comentado para evitar problemas)
-// jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper', () => ({
-//   addListener: jest.fn(),
-//   removeListeners: jest.fn(),
-// }));
-
-// Mock do @react-native/js-polyfills para evitar problemas de sintaxe
-jest.mock('@react-native/js-polyfills', () => ({
-  errorGuard: jest.fn(),
-}));

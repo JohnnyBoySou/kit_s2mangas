@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   source: "src",
   output: "lib",
   targets: ["commonjs", "module", "typescript"],

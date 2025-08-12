@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface DividerProps {
   orientation?: "horizontal" | "vertical";
@@ -10,13 +10,13 @@ interface DividerProps {
   "data-testid"?: string;
 }
 
-const Divider: React.FC<DividerProps> = ({ 
-  orientation = "horizontal", 
+const Divider: React.FC<DividerProps> = ({
+  orientation = "horizontal",
   color,
   thickness = 1,
   style,
   className,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => {
   const defaultStyles: React.CSSProperties = {
     backgroundColor: color || theme.color.borderPrimary,

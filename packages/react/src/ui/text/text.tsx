@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface TextProps {
   children: React.ReactNode;
@@ -23,7 +23,11 @@ export const Title: React.FC<TextProps> = ({ children, style, className }) => (
   </h1>
 );
 
-export const HeadTitle: React.FC<TextProps> = ({ children, style, className }) => (
+export const HeadTitle: React.FC<TextProps> = ({
+  children,
+  style,
+  className,
+}) => (
   <h2
     style={{
       fontFamily: theme.font.bold,
@@ -55,7 +59,11 @@ export const Label: React.FC<TextProps> = ({ children, style, className }) => (
   </span>
 );
 
-export const SubLabel: React.FC<TextProps> = ({ children, style, className }) => (
+export const SubLabel: React.FC<TextProps> = ({
+  children,
+  style,
+  className,
+}) => (
   <span
     style={{
       fontFamily: theme.font.medium,
@@ -71,7 +79,11 @@ export const SubLabel: React.FC<TextProps> = ({ children, style, className }) =>
   </span>
 );
 
-export const Description: React.FC<TextProps> = ({ children, style, className }) => (
+export const Description: React.FC<TextProps> = ({
+  children,
+  style,
+  className,
+}) => (
   <p
     style={{
       fontFamily: theme.font.book,

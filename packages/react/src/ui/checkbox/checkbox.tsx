@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface CheckboxProps {
   checked?: boolean;
@@ -10,13 +10,13 @@ interface CheckboxProps {
   className?: string;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ 
-  checked = false, 
-  onChange, 
+const Checkbox: React.FC<CheckboxProps> = ({
+  checked = false,
+  onChange,
   disabled = false,
   label,
   style,
-  className
+  className,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange && !disabled) {

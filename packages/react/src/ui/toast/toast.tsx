@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 // Componentes de ícone customizados
-const CheckIcon = ({ size = 24, color = "#fff" }: { size?: number; color?: string }) => (
-  <div style={{ 
-    fontSize: size, 
-    color, 
-    fontWeight: 'bold',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }}>
+const CheckIcon = ({
+  size = 24,
+  color = "#fff",
+}: {
+  size?: number;
+  color?: string;
+}) => (
+  <div
+    style={{
+      fontSize: size,
+      color,
+      fontWeight: "bold",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
     ✓
   </div>
 );
 
-const XIcon = ({ size = 24, color = "#fff" }: { size?: number; color?: string }) => (
-  <div style={{ 
-    fontSize: size, 
-    color, 
-    fontWeight: 'bold',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }}>
+const XIcon = ({
+  size = 24,
+  color = "#fff",
+}: {
+  size?: number;
+  color?: string;
+}) => (
+  <div
+    style={{
+      fontSize: size,
+      color,
+      fontWeight: "bold",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
     ✕
   </div>
 );
@@ -38,14 +54,14 @@ interface ToastProps {
   style?: React.CSSProperties;
 }
 
-const Toast: React.FC<ToastProps> = ({ 
-  success = "", 
-  error = "", 
+const Toast: React.FC<ToastProps> = ({
+  success = "",
+  error = "",
   onClose,
   duration = 5000,
   testID,
   className,
-  style
+  style,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -56,7 +72,7 @@ const Toast: React.FC<ToastProps> = ({
     if (success || error) {
       setIsVisible(true);
       setIsAnimating(true);
-      
+
       // Auto-hide after duration
       if (duration > 0) {
         const timer = setTimeout(() => {
@@ -95,7 +111,7 @@ const Toast: React.FC<ToastProps> = ({
     padding: "0 4px",
     margin: "0",
     opacity: isAnimating ? 1 : 0,
-    transform: `translateX(${isAnimating ? 0 : '-100%'})`,
+    transform: `translateX(${isAnimating ? 0 : "-100%"})`,
     transition: "all 0.3s ease-in-out",
     cursor: "pointer",
     ...style,
@@ -135,9 +151,7 @@ const Toast: React.FC<ToastProps> = ({
         {success && <CheckIcon size={24} color="#fff" />}
         {error && <XIcon size={24} color="#fff" />}
       </div>
-      <div style={textStyles}>
-        {success || error}
-      </div>
+      <div style={textStyles}>{success || error}</div>
     </div>
   );
 };

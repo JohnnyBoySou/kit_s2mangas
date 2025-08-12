@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface CardProps {
   children: React.ReactNode;
@@ -14,9 +14,9 @@ interface CardProps {
   "data-testid"?: string;
 }
 
-const Card: React.FC<CardProps> = ({ 
-  children, 
-  style, 
+const Card: React.FC<CardProps> = ({
+  children,
+  style,
   className,
   padding = 16,
   margin = 0,
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({
   backgroundColor = theme.color.background,
   shadow = true,
   onClick,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => (
   <div
     style={{

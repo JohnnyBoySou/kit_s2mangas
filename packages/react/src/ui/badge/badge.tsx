@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface BadgeProps {
   children: React.ReactNode;
@@ -10,13 +10,13 @@ interface BadgeProps {
   "data-testid"?: string;
 }
 
-const Badge: React.FC<BadgeProps> = ({ 
-  children, 
-  variant = "default", 
+const Badge: React.FC<BadgeProps> = ({
+  children,
+  variant = "default",
   size = "md",
   style,
   className,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => {
   const getVariantStyles = (): React.CSSProperties => {
     switch (variant) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface TabsProps {
   value?: string;
@@ -16,9 +16,9 @@ const Tabs: React.FC<TabsProps> = ({
   values,
   testID,
   className,
-  style
+  style,
 }) => {
-  const [selectedTab, setSelectedTab] = useState(value || values[0] || '');
+  const [selectedTab, setSelectedTab] = useState(value || values[0] || "");
 
   useEffect(() => {
     if (value !== undefined) {
@@ -68,14 +68,10 @@ const Tabs: React.FC<TabsProps> = ({
   };
 
   return (
-    <div 
-      data-testid={testID}
-      className={className}
-      style={containerStyles}
-    >
+    <div data-testid={testID} className={className} style={containerStyles}>
       {values.map((tab: string) => {
         const isSelected = selectedTab === tab;
-        
+
         return (
           <button
             key={tab}

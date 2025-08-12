@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,30 +10,45 @@ interface LayoutProps {
 interface ColumnProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
-  justifyContent?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around";
+  justifyContent?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around";
 }
 
 interface RowProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
-  justifyContent?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around";
+  justifyContent?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around";
 }
 
 interface ScrollProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
-  justifyContent?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around";
+  justifyContent?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around";
   height?: string | number;
   maxHeight?: string | number;
 }
 
-export const Column: React.FC<ColumnProps> = ({ 
-  children, 
-  style, 
+export const Column: React.FC<ColumnProps> = ({
+  children,
+  style,
   className,
   gap = 0,
   alignItems = "flex-start",
-  justifyContent = "flex-start"
+  justifyContent = "flex-start",
 }) => (
   <div
     style={{
@@ -50,13 +65,13 @@ export const Column: React.FC<ColumnProps> = ({
   </div>
 );
 
-export const Row: React.FC<RowProps> = ({ 
-  children, 
-  style, 
+export const Row: React.FC<RowProps> = ({
+  children,
+  style,
   className,
   gap = 0,
   alignItems = "center",
-  justifyContent = "flex-start"
+  justifyContent = "flex-start",
 }) => (
   <div
     style={{
@@ -86,13 +101,13 @@ export const Main: React.FC<LayoutProps> = ({ children, style, className }) => (
   </main>
 );
 
-export const ScrollHorizontal: React.FC<ScrollProps> = ({ 
-  children, 
-  style, 
+export const ScrollHorizontal: React.FC<ScrollProps> = ({
+  children,
+  style,
   className,
   gap = 0,
   alignItems = "center",
-  justifyContent = "flex-start"
+  justifyContent = "flex-start",
 }) => (
   <div
     style={{
@@ -113,15 +128,15 @@ export const ScrollHorizontal: React.FC<ScrollProps> = ({
   </div>
 );
 
-export const ScrollVertical: React.FC<ScrollProps> = ({ 
-  children, 
-  style, 
+export const ScrollVertical: React.FC<ScrollProps> = ({
+  children,
+  style,
   className,
   gap = 0,
   alignItems = "flex-start",
   justifyContent = "flex-start",
   height,
-  maxHeight
+  maxHeight,
 }) => (
   <div
     style={{

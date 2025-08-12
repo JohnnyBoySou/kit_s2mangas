@@ -1,5 +1,5 @@
 import * as React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface SwitchProps {
   checked?: boolean;
@@ -9,12 +9,12 @@ interface SwitchProps {
   className?: string;
 }
 
-const Switch: React.FC<SwitchProps> = ({ 
-  checked = false, 
-  onChange, 
+const Switch: React.FC<SwitchProps> = ({
+  checked = false,
+  onChange,
   disabled = false,
   style,
-  className
+  className,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange && !disabled) {

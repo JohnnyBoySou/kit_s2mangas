@@ -1,8 +1,9 @@
 import React, { useState, forwardRef } from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 // Interface para os props do Input
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   value?: string;
   onChange?: (text: string) => void;
   label?: string;
@@ -46,7 +47,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       testID,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isFocused, setIsFocused] = useState<boolean>(focused);
     const [isSecure, setIsSecure] = useState<boolean>(isPassword);
@@ -67,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!onChange) return;
-      
+
       const { maskFunction, maxLength } = getMaskFunction(mask);
       let maskedText = maskFunction(e.target.value);
 
@@ -117,7 +118,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        
+
         <div style={{ position: "relative" }}>
           <input
             ref={ref}
@@ -137,7 +138,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               borderStyle: "solid",
               borderColor: getBorderColor(),
               borderRadius: "12px",
-              backgroundColor: disabled ? theme.color.muted : theme.color.background,
+              backgroundColor: disabled
+                ? theme.color.muted
+                : theme.color.background,
               color: getTextColor(),
               fontFamily: theme.font.book,
               fontSize: theme.size.label,
@@ -148,7 +151,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={props.placeholder}
             {...props}
           />
-          
+
           {isPassword && (
             <button
               type="button"
@@ -199,7 +202,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";
@@ -231,9 +234,7 @@ function applyCpfMask(value: string): string {
 }
 
 function applyCepMask(value: string): string {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(\d{5})(\d)/, "$1-$2");
+  return value.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2");
 }
 
 function applyPhoneMask(value: string): string {

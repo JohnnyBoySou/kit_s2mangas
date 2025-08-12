@@ -15,8 +15,8 @@ interface IconProps {
   testID?: string;
   className?: string;
   title?: string;
-  'aria-label'?: string;
-  'aria-describedby'?: string;
+  "aria-label"?: string;
+  "aria-describedby"?: string;
   role?: "button" | "img" | "presentation";
 }
 
@@ -31,8 +31,8 @@ const Icon: React.FC<IconProps> = ({
   testID,
   className,
   title,
-  'aria-label': ariaLabel,
-  'aria-describedby': ariaDescribedBy,
+  "aria-label": ariaLabel,
+  "aria-describedby": ariaDescribedBy,
   role = onClick ? "button" : "img",
 }) => {
   // Obter o componente do ícone dinamicamente
@@ -60,9 +60,9 @@ const Icon: React.FC<IconProps> = ({
   };
 
   const iconElement = (
-    <IconComponent 
-      size={size} 
-      color={color} 
+    <IconComponent
+      size={size}
+      color={color}
       strokeWidth={strokeWidth}
       className={className}
     />

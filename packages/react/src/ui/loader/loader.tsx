@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from '@s2mangas/core';
+import { theme } from "@s2mangas/core";
 
 interface LoaderProps {
   size?: "sm" | "md" | "lg";
@@ -9,12 +9,12 @@ interface LoaderProps {
   "data-testid"?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ 
-  size = "md", 
+const Loader: React.FC<LoaderProps> = ({
+  size = "md",
   color = theme.color.primary,
   style,
   className,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => {
   const getSize = (): number => {
     switch (size) {

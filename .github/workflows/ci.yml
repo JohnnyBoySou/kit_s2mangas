@@ -142,7 +142,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: [setup, install]
+    needs: [setup, install, build]
     strategy:
       matrix:
         node-version: [18, 20]
@@ -160,6 +160,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts-node-${{ matrix.node-version }}
+          path: .
 
       - name: Run tests on all packages (core, react, native)
         run: pnpm test

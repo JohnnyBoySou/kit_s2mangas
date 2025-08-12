@@ -22,7 +22,8 @@ describe('Text Components', () => {
       render(<Title {...defaultProps} style={customStyle} />);
       
       const title = screen.getByRole('heading', { level: 1 });
-      expect(title).toHaveStyle(customStyle);
+      expect(title.style.color).toBe('red');
+      expect(title.style.fontSize).toBe('24px');
     });
 
     it('should render with className', () => {
@@ -59,7 +60,8 @@ describe('Text Components', () => {
       render(<HeadTitle {...defaultProps} style={customStyle} />);
       
       const headTitle = screen.getByRole('heading', { level: 2 });
-      expect(headTitle).toHaveStyle(customStyle);
+      expect(headTitle.style.color).toBe('blue');
+      expect(headTitle.style.fontSize).toBe('20px');
     });
 
     it('should render with className', () => {
@@ -84,7 +86,8 @@ describe('Text Components', () => {
       render(<Label {...defaultProps} style={customStyle} />);
       
       const label = screen.getByText('Test Text');
-      expect(label).toHaveStyle(customStyle);
+      expect(label.style.color).toBe('green');
+      expect(label.style.fontWeight).toBe('bold');
     });
 
     it('should render with className', () => {
@@ -109,7 +112,8 @@ describe('Text Components', () => {
       render(<SubLabel {...defaultProps} style={customStyle} />);
       
       const subLabel = screen.getByText('Test Text');
-      expect(subLabel).toHaveStyle(customStyle);
+      expect(subLabel.style.color).toBe('purple');
+      expect(subLabel.style.fontStyle).toBe('italic');
     });
 
     it('should render with className', () => {
@@ -134,7 +138,8 @@ describe('Text Components', () => {
       render(<Description {...defaultProps} style={customStyle} />);
       
       const description = screen.getByText('Test Text');
-      expect(description).toHaveStyle(customStyle);
+      expect(description.style.color).toBe('orange');
+      expect(description.style.lineHeight).toBe('2');
     });
 
     it('should render with className', () => {
@@ -167,7 +172,8 @@ describe('Text Components', () => {
       render(<U {...defaultProps} style={customStyle} />);
       
       const underline = screen.getByText('Test Text');
-      expect(underline).toHaveStyle(customStyle);
+      expect(underline.style.color).toBe('red');
+      expect(underline.style.textDecorationColor).toBe('blue');
     });
 
     it('should render with className', () => {

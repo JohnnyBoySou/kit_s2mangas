@@ -65,7 +65,7 @@ describe('Tabs Component', () => {
     render(<Tabs setValue={mockSetValue} values={testValues} style={customStyle} />);
     
     const tabsContainer = screen.getByText('Tab 1').parentElement;
-    expect(tabsContainer).toHaveStyle(customStyle);
+    expect(tabsContainer?.style.backgroundColor).toBe('red');
   });
 
   it('renders with empty values array', () => {

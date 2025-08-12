@@ -121,13 +121,18 @@ describe('Divider Component', () => {
   });
 
   it('should handle different color formats', () => {
-    const colors = ['red', '#ff0000', 'rgb(255, 0, 0)', 'rgba(255, 0, 0, 0.5)'];
+    const testCases = [
+      { input: 'red', expected: 'red' },
+      { input: '#ff0000', expected: 'rgb(255, 0, 0)' },
+      { input: 'rgb(255, 0, 0)', expected: 'rgb(255, 0, 0)' },
+      { input: 'rgba(255, 0, 0, 0.5)', expected: 'rgba(255, 0, 0, 0.5)' }
+    ];
     
-    colors.forEach(color => {
-      const { unmount } = render(<Divider color={color} data-testid="divider" />);
+    testCases.forEach(({ input, expected }) => {
+      const { unmount } = render(<Divider color={input} data-testid="divider" />);
       
       const divider = screen.getByTestId('divider');
-      expect(divider).toHaveStyle({ backgroundColor: color });
+      expect(divider.style.backgroundColor).toBe(expected);
       
       unmount();
     });
@@ -145,15 +150,18 @@ describe('Divider Component', () => {
   });
 
   it('should handle style override', () => {
-    const customStyle = { 
-      width: '50px', 
+    const customStyle = {
+      backgroundColor: 'blue',
       height: '20px',
-      backgroundColor: 'blue'
+      width: '50px'
     };
+    
     render(<Divider style={customStyle} data-testid="divider" />);
     
     const divider = screen.getByTestId('divider');
-    expect(divider).toHaveStyle(customStyle);
+    expect(divider.style.backgroundColor).toBe('blue');
+    expect(divider.style.height).toBe('20px');
+    expect(divider.style.width).toBe('50px');
   });
 
   it('should render multiple dividers', () => {

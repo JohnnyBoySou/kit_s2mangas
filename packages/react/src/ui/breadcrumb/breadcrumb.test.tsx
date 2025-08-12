@@ -216,7 +216,7 @@ describe('Breadcrumb', () => {
 		render(<Breadcrumb {...defaultProps} style={customStyle} />);
 		
 		const breadcrumb = screen.getByRole('navigation');
-		expect(breadcrumb).toHaveStyle({ backgroundColor: 'red' });
+		expect(breadcrumb.style.backgroundColor).toBe('red');
 	});
 
 	it('should apply small size styles', () => {

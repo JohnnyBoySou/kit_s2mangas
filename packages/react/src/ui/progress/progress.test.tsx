@@ -147,10 +147,11 @@ describe('Progress', () => {
 	});
 
 	it('applies style', () => {
-		render(<Progress value={50} style={{ backgroundColor: 'red' }} testID="progress" />);
+		const customStyle = { backgroundColor: 'red' };
+		render(<Progress value={50} style={customStyle} testID="progress" />);
 		
 		const progress = screen.getByTestId('progress');
-		expect(progress).toHaveStyle({ backgroundColor: 'red' });
+		expect(progress.style.backgroundColor).toBe('red');
 	});
 
 	it('has correct accessibility attributes', () => {

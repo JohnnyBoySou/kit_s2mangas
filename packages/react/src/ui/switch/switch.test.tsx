@@ -83,7 +83,7 @@ describe('Switch Component', () => {
     render(<Switch {...defaultProps} style={customStyle} />);
     
     const label = screen.getByRole('checkbox').closest('label');
-    expect(label).toHaveStyle(customStyle);
+    expect(label?.style.backgroundColor).toBe('red');
   });
 
   it('should render with className', () => {

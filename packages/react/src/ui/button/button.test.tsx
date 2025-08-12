@@ -99,7 +99,7 @@ describe('Button Component', () => {
     render(<Button {...defaultProps} style={customStyle} />);
     
     const button = screen.getByRole('button');
-    expect(button).toHaveStyle({ backgroundColor: 'red' });
+    expect(button.style.backgroundColor).toBe('red');
   });
 
   it('should apply custom text styles', () => {

@@ -140,10 +140,9 @@ describe('Icon Component', () => {
     render(<Icon name="Home" style={customStyle} testID="icon" />);
     
     const icon = screen.getByTestId('icon');
-    expect(icon).toHaveStyle({ 
-      backgroundColor: 'red',
-      margin: '10px'
-    });
+    expect(icon.tagName).toBe('SPAN');
+    expect(icon.style.backgroundColor).toBe('red');
+    expect(icon.style.margin).toBe('10px');
   });
 
   it('should render with custom className', () => {

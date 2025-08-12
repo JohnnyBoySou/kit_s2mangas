@@ -172,7 +172,7 @@ describe('Accordion', () => {
 		render(<Accordion {...defaultProps} style={customStyle} testID="test-accordion" />);
 		
 		const accordion = screen.getByTestId('test-accordion');
-		expect(accordion).toHaveStyle({ backgroundColor: 'red' });
+		expect(accordion.style.backgroundColor).toBe('red');
 	});
 
 	it('should apply bordered variant styles', () => {

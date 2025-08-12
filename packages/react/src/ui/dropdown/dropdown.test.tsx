@@ -174,7 +174,7 @@ describe('Dropdown', () => {
 		render(<Dropdown {...defaultProps} style={customStyle} testID="test-dropdown" />);
 		
 		const dropdown = screen.getByTestId('test-dropdown');
-		expect(dropdown).toHaveStyle({ backgroundColor: 'red' });
+		expect(dropdown.style.backgroundColor).toBe('red');
 	});
 
 	it('should position dropdown correctly based on position prop', () => {

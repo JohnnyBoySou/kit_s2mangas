@@ -12,28 +12,34 @@ interface DividerProps {
 
 const Divider: React.FC<DividerProps> = ({ 
   orientation = "horizontal", 
-  color = theme.color.borderPrimary,
+  color,
   thickness = 1,
   style,
   className,
   "data-testid": dataTestId
-}) => (
-  <div
-    style={{
-      backgroundColor: color,
-      ...(orientation === "horizontal" && {
-        width: "100%",
-        height: `${thickness}px`,
-      }),
-      ...(orientation === "vertical" && {
-        width: `${thickness}px`,
-        height: "100%",
-      }),
-      ...style,
-    }}
-    className={className}
-    data-testid={dataTestId}
-  />
-);
+}) => {
+  const defaultStyles: React.CSSProperties = {
+    backgroundColor: color || theme.color.borderPrimary,
+    ...(orientation === "horizontal" && {
+      width: "100%",
+      height: `${thickness}px`,
+    }),
+    ...(orientation === "vertical" && {
+      width: `${thickness}px`,
+      height: "100%",
+    }),
+  };
+
+  return (
+    <div
+      style={{
+        ...defaultStyles,
+        ...style,
+      }}
+      className={className}
+      data-testid={dataTestId}
+    />
+  );
+};
 
 export default Divider;

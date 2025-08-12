@@ -126,7 +126,7 @@ describe('Modal', () => {
 		render(<Modal {...defaultProps} style={customStyle} testID="test-modal" />);
 		
 		const modal = screen.getByTestId('test-modal');
-		expect(modal).toHaveStyle({ backgroundColor: 'red' });
+		expect(modal.style.backgroundColor).toBe('red');
 	});
 
 	it('should apply different sizes correctly', () => {

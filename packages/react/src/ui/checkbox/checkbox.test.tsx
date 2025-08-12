@@ -95,7 +95,8 @@ describe('Checkbox Component', () => {
     render(<Checkbox {...defaultProps} disabled />);
     
     const label = screen.getByRole('checkbox').closest('label');
-    expect(label).toHaveStyle({ cursor: 'not-allowed', opacity: 0.5 });
+    expect(label?.style.cursor).toBe('not-allowed');
+    expect(label?.style.opacity).toBe('0.5');
   });
 
   it('should have enabled styles when not disabled', () => {
@@ -110,7 +111,7 @@ describe('Checkbox Component', () => {
     render(<Checkbox {...defaultProps} style={customStyle} />);
     
     const label = screen.getByRole('checkbox').closest('label');
-    expect(label).toHaveStyle(customStyle);
+    expect(label?.style.backgroundColor).toBe('red');
   });
 
   it('should render with className', () => {

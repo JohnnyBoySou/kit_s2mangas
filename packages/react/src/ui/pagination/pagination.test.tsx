@@ -181,7 +181,7 @@ describe('Pagination', () => {
 		render(<Pagination {...defaultProps} style={customStyle} testID="test-pagination" />);
 		
 		const pagination = screen.getByTestId('test-pagination');
-		expect(pagination).toHaveStyle({ backgroundColor: 'red' });
+            expect(pagination.style.backgroundColor).toBe('red');
 	});
 
 	it('should handle single page correctly', () => {

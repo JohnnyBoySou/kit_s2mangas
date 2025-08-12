@@ -49,7 +49,8 @@ describe('Badge Component', () => {
     render(<Badge {...defaultProps} style={customStyle} data-testid="badge" />);
     
     const badge = screen.getByTestId('badge');
-    expect(badge).toHaveStyle({ backgroundColor: 'red', color: 'white' });
+    expect(badge.style.backgroundColor).toBe('red');
+    expect(badge.style.color).toBe('white');
   });
 
   it('should render with className', () => {
@@ -144,7 +145,9 @@ describe('Badge Component', () => {
     render(<Badge {...defaultProps} style={customStyle} data-testid="badge" />);
     
     const badge = screen.getByTestId('badge');
-    expect(badge).toHaveStyle(customStyle);
+    expect(badge.style.backgroundColor).toBe('purple');
+    expect(badge.style.color).toBe('yellow');
+    expect(badge.style.fontSize).toBe('24px');
   });
 
   it('should render empty badge', () => {

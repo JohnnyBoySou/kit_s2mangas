@@ -54,7 +54,8 @@ describe('Layout Components', () => {
       render(<Column {...defaultProps} style={customStyle} />);
       
       const column = screen.getByText('Layout Content').closest('div');
-      expect(column).toHaveStyle(customStyle);
+      expect(column).not.toBeNull();
+      expect(column!.style.backgroundColor).toBe('red');
     });
 
     it('should render with className', () => {
@@ -113,7 +114,8 @@ describe('Layout Components', () => {
       render(<Row {...defaultProps} style={customStyle} />);
       
       const row = screen.getByText('Layout Content').closest('div');
-      expect(row).toHaveStyle(customStyle);
+      expect(row).not.toBeNull();
+      expect(row!.style.backgroundColor).toBe('blue');
     });
 
     it('should render with className', () => {
@@ -145,10 +147,10 @@ describe('Layout Components', () => {
 
     it('should render with custom style', () => {
       const customStyle = { backgroundColor: 'green' };
-      render(<Main {...defaultProps} style={customStyle} />);
+      render(<Main style={customStyle}>Layout Content</Main>);
       
       const main = screen.getByText('Layout Content');
-      expect(main).toHaveStyle(customStyle);
+      expect(main.style.backgroundColor).toBe('green');
     });
 
     it('should render with className', () => {
@@ -209,7 +211,8 @@ describe('Layout Components', () => {
       render(<ScrollHorizontal {...defaultProps} style={customStyle} />);
       
       const scroll = screen.getByText('Layout Content').closest('div');
-      expect(scroll).toHaveStyle(customStyle);
+      expect(scroll).not.toBeNull();
+      expect(scroll!.style.backgroundColor).toBe('yellow');
     });
 
     it('should render with className', () => {
@@ -284,7 +287,8 @@ describe('Layout Components', () => {
       render(<ScrollVertical {...defaultProps} style={customStyle} />);
       
       const scroll = screen.getByText('Layout Content').closest('div');
-      expect(scroll).toHaveStyle(customStyle);
+      expect(scroll).not.toBeNull();
+      expect(scroll!.style.backgroundColor).toBe('purple');
     });
 
     it('should render with className', () => {

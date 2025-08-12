@@ -32,7 +32,8 @@ describe('Card Component', () => {
     render(<Card {...defaultProps} style={customStyle} data-testid="card" />);
     
     const card = screen.getByTestId('card');
-    expect(card).toHaveStyle(customStyle);
+    expect(card.style.backgroundColor).toBe('red');
+    expect(card.style.color).toBe('white');
   });
 
   it('should render with className', () => {

@@ -169,7 +169,7 @@ describe('Input Component', () => {
     render(<Input {...defaultProps} inputStyle={customStyle} testID="input" />);
     
     const input = screen.getByTestId('input');
-    expect(input).toHaveStyle(customStyle);
+    expect(input.style.backgroundColor).toBe('red');
   });
 
   it('should render with testID', () => {

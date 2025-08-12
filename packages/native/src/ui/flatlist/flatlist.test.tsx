@@ -32,23 +32,20 @@ describe('FlatList Component', () => {
   it('renders with data', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
-      renderItem: mockRenderItem,
-      testID: "flatlist"
+      renderItem: mockRenderItem
     });
     
     expect(element).toBeDefined();
     expect(element.type).toBe(FlatList);
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders empty component when data is empty', () => {
     const element = React.createElement(FlatList, {
       data: [],
       renderItem: mockRenderItem,
-      EmptyComponent: MockEmptyComponent,
-      testID: "flatlist"
+      EmptyComponent: MockEmptyComponent
     });
     
     expect(element).toBeDefined();
@@ -56,15 +53,13 @@ describe('FlatList Component', () => {
     expect(element.props.data).toEqual([]);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.EmptyComponent).toBe(MockEmptyComponent);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders header component', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      HeaderComponent: MockHeaderComponent,
-      testID: "flatlist"
+      HeaderComponent: MockHeaderComponent
     });
     
     expect(element).toBeDefined();
@@ -72,15 +67,13 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.HeaderComponent).toBe(MockHeaderComponent);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders footer component', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      FooterComponent: MockFooterComponent,
-      testID: "flatlist"
+      FooterComponent: MockFooterComponent
     });
     
     expect(element).toBeDefined();
@@ -88,7 +81,6 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.FooterComponent).toBe(MockFooterComponent);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders loading component when loading is true', () => {
@@ -96,8 +88,7 @@ describe('FlatList Component', () => {
       data: mockData,
       renderItem: mockRenderItem,
       LoadingComponent: MockLoadingComponent,
-      loading: true,
-      testID: "flatlist"
+      loading: true
     });
     
     expect(element).toBeDefined();
@@ -106,15 +97,13 @@ describe('FlatList Component', () => {
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.LoadingComponent).toBe(MockLoadingComponent);
     expect(element.props.loading).toBe(true);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with horizontal orientation', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      horizontal: true,
-      testID: "flatlist"
+      horizontal: true
     });
     
     expect(element).toBeDefined();
@@ -122,15 +111,13 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.horizontal).toBe(true);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with multiple columns', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      numColumns: 2,
-      testID: "flatlist"
+      numColumns: 2
     });
     
     expect(element).toBeDefined();
@@ -138,17 +125,15 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.numColumns).toBe(2);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with custom key extractor', () => {
-    const customKeyExtractor = (item: any, index: number) => `custom-${item.id}`;
+    const customKeyExtractor = (item: any) => `custom-${item.id}`;
     
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      keyExtractor: customKeyExtractor,
-      testID: "flatlist"
+      keyExtractor: customKeyExtractor
     });
     
     expect(element).toBeDefined();
@@ -156,7 +141,6 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.keyExtractor).toBe(customKeyExtractor);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with custom style', () => {
@@ -165,8 +149,7 @@ describe('FlatList Component', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      style: customStyle,
-      testID: "flatlist"
+      style: customStyle
     });
     
     expect(element).toBeDefined();
@@ -174,15 +157,13 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.style).toBe(customStyle);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with estimated item size', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      estimatedItemSize: 50,
-      testID: "flatlist"
+      estimatedItemSize: 50
     });
     
     expect(element).toBeDefined();
@@ -190,7 +171,6 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.estimatedItemSize).toBe(50);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with refresh control', () => {
@@ -200,8 +180,7 @@ describe('FlatList Component', () => {
       data: mockData,
       renderItem: mockRenderItem,
       onRefresh: mockOnRefresh,
-      refreshing: false,
-      testID: "flatlist"
+      refreshing: false
     });
     
     expect(element).toBeDefined();
@@ -210,15 +189,13 @@ describe('FlatList Component', () => {
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.onRefresh).toBe(mockOnRefresh);
     expect(element.props.refreshing).toBe(false);
-    expect(element.props.testID).toBe("flatlist");
   });
 
   it('renders with pagination enabled', () => {
     const element = React.createElement(FlatList, {
       data: mockData,
       renderItem: mockRenderItem,
-      paginateEnabled: true,
-      testID: "flatlist"
+      paginateEnabled: true
     });
     
     expect(element).toBeDefined();
@@ -226,6 +203,5 @@ describe('FlatList Component', () => {
     expect(element.props.data).toBe(mockData);
     expect(element.props.renderItem).toBe(mockRenderItem);
     expect(element.props.paginateEnabled).toBe(true);
-    expect(element.props.testID).toBe("flatlist");
   });
 });

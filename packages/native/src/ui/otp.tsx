@@ -4,7 +4,7 @@ import { Column } from "./layout/layout";
 
 interface InputOTPProps extends TextInputProps {
   value: string;
-  setValue: (value: string) => void;
+  setValue: (value: string) => typeof value;
   disabled?: boolean;
   onSubmitEditing?: () => void;
 }

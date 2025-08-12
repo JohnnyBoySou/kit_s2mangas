@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageProps, View, ActivityIndicator } from 'react-native';
+import { Image, ImageProps, View, ActivityIndicator, Text } from 'react-native';
 
 interface CachedImageProps extends Omit<ImageProps, 'source'> {
   uri: string;
@@ -36,8 +36,12 @@ export const CachedImage: React.FC<CachedImageProps> = ({
     setError('Failed to load image');
   };
 
-  if (error) {
-    console.error('Erro ao carregar imagem:', error);
+  if(error){
+    return (
+      <View style={[{ position: 'relative' }, style]}>
+        <Text>{error}</Text>
+      </View>
+    )
   }
 
   return (
@@ -64,6 +68,7 @@ export const CachedImage: React.FC<CachedImageProps> = ({
         resizeMode="cover"
         onLoadStart={handleLoadStart}
         onLoadEnd={handleLoadEnd}
+        key={cacheKey}
         onError={handleError}
         {...props}
       />

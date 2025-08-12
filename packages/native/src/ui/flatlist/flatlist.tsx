@@ -1,5 +1,9 @@
-import React from "react";
-import { ViewStyle, FlatList as RNFlatList, ListRenderItem } from "react-native";
+import React from 'react';
+import {
+  ViewStyle,
+  FlatList as RNFlatList,
+  ListRenderItem,
+} from 'react-native';
 
 interface CustomFlatListProps<T> {
   data: T[];
@@ -43,11 +47,16 @@ export default function FlatList<T>({
   paginateEnabled,
   refreshing = false,
   style,
-  keyExtractor = (item: any, index: number) => item?.id?.toString() || index.toString(),
+  keyExtractor = (item: any, index: number) =>
+    item?.id?.toString() || index.toString(),
   ...props
 }: CustomFlatListProps<T>) {
   if (loading && LoadingComponent) {
-    return React.isValidElement(LoadingComponent) ? LoadingComponent : <LoadingComponent />;
+    return React.isValidElement(LoadingComponent) ? (
+      LoadingComponent
+    ) : (
+      React.createElement(LoadingComponent as React.ComponentType)
+    );
   }
 
   return (
@@ -70,11 +79,15 @@ export default function FlatList<T>({
       showsHorizontalScrollIndicator={false}
       pagingEnabled={paginateEnabled}
       style={style}
-      getItemLayout={estimatedItemSize ? (_, index) => ({
-        length: estimatedItemSize,
-        offset: estimatedItemSize * index,
-        index,
-      }) : undefined}
+      getItemLayout={
+        estimatedItemSize
+          ? (_, index) => ({
+              length: estimatedItemSize,
+              offset: estimatedItemSize * index,
+              index,
+            })
+          : undefined
+      }
       {...props}
     />
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
+import { clearInterval, setTimeout, setInterval } from "timers";
 
 interface MultiStepProps {
   steps: number;

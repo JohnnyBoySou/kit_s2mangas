@@ -11,8 +11,9 @@ describe('Sheet Component', () => {
   it('renders when visible is true', () => {
     const element = React.createElement(Sheet, {
       visible: true,
-      onClose: mockOnClose
-    }, React.createElement('div', {}, 'Sheet Content'));
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.type).toBe(Sheet);
@@ -24,8 +25,9 @@ describe('Sheet Component', () => {
   it('does not render when visible is false', () => {
     const element = React.createElement(Sheet, {
       visible: false,
-      onClose: mockOnClose
-    }, React.createElement('div', {}, 'Sheet Content'));
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(false);
@@ -37,8 +39,9 @@ describe('Sheet Component', () => {
     const element = React.createElement(Sheet, {
       visible: true,
       onClose: mockOnClose,
-      testID: "custom-sheet"
-    }, React.createElement('div', {}, 'Sheet Content'));
+      testID: "custom-sheet",
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -51,8 +54,9 @@ describe('Sheet Component', () => {
     const element = React.createElement(Sheet, {
       visible: true,
       onClose: mockOnClose,
-      snapPoints: [0.2, 400]
-    }, React.createElement('div', {}, 'Sheet Content'));
+      snapPoints: [0.2, 400],
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -63,8 +67,9 @@ describe('Sheet Component', () => {
 
   it('renders without onClose prop', () => {
     const element = React.createElement(Sheet, {
-      visible: true
-    }, React.createElement('div', {}, 'Sheet Content'));
+      visible: true,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -75,12 +80,13 @@ describe('Sheet Component', () => {
   it('renders with complex children', () => {
     const element = React.createElement(Sheet, {
       visible: true,
-      onClose: mockOnClose
-    }, [
-      React.createElement('div', { key: 'title' }, 'Title'),
-      React.createElement('div', { key: 'description' }, 'Description'),
-      React.createElement('div', { key: 'footer' }, 'Footer')
-    ]);
+      onClose: mockOnClose,
+      children: [
+        React.createElement('div', { key: 'title' }, 'Title'),
+        React.createElement('div', { key: 'description' }, 'Description'),
+        React.createElement('div', { key: 'footer' }, 'Footer')
+      ]
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -93,8 +99,9 @@ describe('Sheet Component', () => {
   it('renders with default snap points when not provided', () => {
     const element = React.createElement(Sheet, {
       visible: true,
-      onClose: mockOnClose
-    }, React.createElement('div', {}, 'Sheet Content'));
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -106,8 +113,9 @@ describe('Sheet Component', () => {
   it('renders handle indicator', () => {
     const element = React.createElement(Sheet, {
       visible: true,
-      onClose: mockOnClose
-    }, React.createElement('div', {}, 'Sheet Content'));
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);
@@ -122,8 +130,9 @@ describe('Sheet Component', () => {
     
     const element = React.createElement(Sheet, {
       visible: true,
-      onClose: mockOnClose
-    }, longContent);
+      onClose: mockOnClose,
+      children: longContent
+    });
     
     expect(element).toBeDefined();
     expect(element.props.visible).toBe(true);

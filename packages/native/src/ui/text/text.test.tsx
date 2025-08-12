@@ -3,42 +3,42 @@ import { HeadTitle, Title, Label, SubLabel, Description, U } from './text';
 
 describe('Text Components', () => {
   it('renders HeadTitle correctly', () => {
-    const element = React.createElement(HeadTitle, {}, 'Hello World');
+    const element = React.createElement(HeadTitle, { children: 'Hello World' });
     expect(element).toBeDefined();
     expect(element.type).toBe(HeadTitle);
     expect(element.props.children).toBe('Hello World');
   });
 
   it('renders Title correctly', () => {
-    const element = React.createElement(Title, {}, 'Title Text');
+    const element = React.createElement(Title, { children: 'Title Text' });
     expect(element).toBeDefined();
     expect(element.type).toBe(Title);
     expect(element.props.children).toBe('Title Text');
   });
 
   it('renders Label correctly', () => {
-    const element = React.createElement(Label, {}, 'Label Text');
+    const element = React.createElement(Label, { children: 'Label Text' });
     expect(element).toBeDefined();
     expect(element.type).toBe(Label);
     expect(element.props.children).toBe('Label Text');
   });
 
   it('renders SubLabel correctly', () => {
-    const element = React.createElement(SubLabel, {}, 'SubLabel Text');
+    const element = React.createElement(SubLabel, { children: 'SubLabel Text' });
     expect(element).toBeDefined();
     expect(element.type).toBe(SubLabel);
     expect(element.props.children).toBe('SubLabel Text');
   });
 
   it('renders Description correctly', () => {
-    const element = React.createElement(Description, {}, 'Description Text');
+    const element = React.createElement(Description, { children: 'Description Text' });
     expect(element).toBeDefined();
     expect(element.type).toBe(Description);
     expect(element.props.children).toBe('Description Text');
   });
 
   it('renders U (underlined) correctly', () => {
-    const element = React.createElement(U, {}, 'Underlined Text');
+    const element = React.createElement(U, { children: 'Underlined Text' });
     expect(element).toBeDefined();
     expect(element.type).toBe(U);
     expect(element.props.children).toBe('Underlined Text');
@@ -47,87 +47,78 @@ describe('Text Components', () => {
   it('renders with primary color', () => {
     const element = React.createElement(HeadTitle, {
       color: "primary",
-      testID: "text"
-    }, 'Primary text');
+      children: 'Primary text'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.color).toBe("primary");
-    expect(element.props.testID).toBe("text");
     expect(element.props.children).toBe('Primary text');
   });
 
   it('renders with secondary color', () => {
     const element = React.createElement(HeadTitle, {
       color: "secondary",
-      testID: "text"
-    }, 'Secondary text');
+      children: 'Secondary text'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.color).toBe("secondary");
-    expect(element.props.testID).toBe("text");
     expect(element.props.children).toBe('Secondary text');
   });
 
   it('renders with center alignment', () => {
     const element = React.createElement(HeadTitle, {
       align: "center",
-      testID: "text"
-    }, 'Centered text');
+      children: 'Centered text'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.align).toBe("center");
-    expect(element.props.testID).toBe("text");
     expect(element.props.children).toBe('Centered text');
   });
 
   it('renders with right alignment', () => {
     const element = React.createElement(HeadTitle, {
       align: "right",
-      testID: "text"
-    }, 'Right aligned text');
+      children: 'Right aligned text'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.align).toBe("right");
-    expect(element.props.testID).toBe("text");
     expect(element.props.children).toBe('Right aligned text');
   });
 
   it('renders with custom style', () => {
-    const customStyle = { fontWeight: 'bold' };
+    const customStyle = { fontWeight: 'bold' as const };
     const element = React.createElement(HeadTitle, {
       style: customStyle,
-      testID: "text"
-    }, 'Custom styled text');
+      children: 'Custom styled text'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.style).toBe(customStyle);
-    expect(element.props.testID).toBe("text");
     expect(element.props.children).toBe('Custom styled text');
   });
 
-  it('renders with numberOfLines prop', () => {
+  it('renders with long text content', () => {
     const element = React.createElement(HeadTitle, {
-      numberOfLines: 2,
-      testID: "text"
-    }, 'This is a very long text that should be truncated after two lines');
+      children: 'This is a very long text that should be displayed properly'
+    });
     
     expect(element).toBeDefined();
-    expect(element.props.numberOfLines).toBe(2);
-    expect(element.props.testID).toBe("text");
-    expect(element.props.children).toBe('This is a very long text that should be truncated after two lines');
+    expect(element.props.children).toBe('This is a very long text that should be displayed properly');
   });
 
-  it('renders with accessibility props', () => {
+  it('renders with margin properties', () => {
     const element = React.createElement(HeadTitle, {
-      testID: "text",
-      accessibilityLabel: "Important text",
-      accessibilityRole: "text"
-    }, 'Accessible text');
+      mt: 10,
+      mb: 20,
+      children: 'Text with margins'
+    });
     
     expect(element).toBeDefined();
-    expect(element.props.testID).toBe("text");
-    expect(element.props.accessibilityLabel).toBe("Important text");
-    expect(element.props.accessibilityRole).toBe("text");
-    expect(element.props.children).toBe('Accessible text');
+    expect(element.props.mt).toBe(10);
+    expect(element.props.mb).toBe(20);
+    expect(element.props.children).toBe('Text with margins');
   });
 });

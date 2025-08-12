@@ -11,7 +11,7 @@ interface Option {
 interface SelectProps {
   options: Option[]; // Lista de opções
   value: Option;      // Valor selecionado atualmente
-  onChange: (value: any) => void; // Função chamada ao selecionar uma opção
+  onChange: (value: any) => typeof value; // Função chamada ao selecionar uma opção
   placeholder?: string; // Texto exibido quando nada está selecionado
   style?: ViewStyle;    // Estilo adicional para o contêiner principal
   textStyle?: TextStyle; // Estilo adicional para o texto do campo principal

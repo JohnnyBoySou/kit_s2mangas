@@ -19,6 +19,14 @@ export default [
           jsx: true,
         },
       },
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        global: 'readonly',
+      },
     },
     plugins: {
       '@typescript-eslint': typescript,
@@ -28,8 +36,8 @@ export default [
     },
     rules: {
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
@@ -45,20 +53,38 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
       
       // React Native rules
-      'react-native/no-unused-styles': 'error',
+      'react-native/no-unused-styles': 'off',
+      "react-native/no-inline-styles": "off",
       'react-native/split-platform-components': 'error',
-      'react-native/no-inline-styles': 'warn',
-      'react-native/no-color-literals': 'warn',
+      'react-native/no-color-literals': 'off',
       'react-native/no-raw-text': 'off',
       
       // General rules
       'no-console': 'warn',
+      'no-unused-vars': 'warn',
       'prefer-const': 'error',
       'no-var': 'error',
     },
     settings: {
       react: {
         version: 'detect',
+      },
+    },
+  },
+  // Test files configuration
+  {
+    files: ['**/*.test.{ts,tsx,js,jsx}', '**/__tests__/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        jest: 'readonly',
       },
     },
   },

@@ -2,7 +2,7 @@ module.exports = {
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './babel.config.test.js' }]
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './babel.config.test.cjs' }]
   },
   transformIgnorePatterns: [
     'node_modules/(?!(react-native|@react-native|@testing-library|lucide-react-native|react-native-svg|react-native-reanimated|@react-native/js-polyfills)/)',

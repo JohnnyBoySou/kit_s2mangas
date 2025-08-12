@@ -3,7 +3,7 @@ import Badge from './badge';
 
 describe('Badge Component', () => {
   it('renders with text', () => {
-    const element = React.createElement(Badge, {}, 'Test Badge');
+    const element = React.createElement(Badge, { children: 'Test Badge' });
     expect(element).toBeDefined();
     expect(element.type).toBe(Badge);
     expect(element.props.children).toBe('Test Badge');
@@ -12,8 +12,9 @@ describe('Badge Component', () => {
   it('renders with default variant', () => {
     const element = React.createElement(Badge, {
       variant: "default",
-      testID: "badge"
-    }, 'Default Badge');
+      testID: "badge",
+      children: 'Default Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("default");
@@ -24,8 +25,9 @@ describe('Badge Component', () => {
   it('renders with secondary variant', () => {
     const element = React.createElement(Badge, {
       variant: "secondary",
-      testID: "badge"
-    }, 'Secondary Badge');
+      testID: "badge",
+      children: 'Secondary Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("secondary");
@@ -35,8 +37,9 @@ describe('Badge Component', () => {
   it('renders with outline variant', () => {
     const element = React.createElement(Badge, {
       variant: "outline",
-      testID: "badge"
-    }, 'Outline Badge');
+      testID: "badge",
+      children: 'Outline Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("outline");
@@ -46,8 +49,9 @@ describe('Badge Component', () => {
   it('renders with destructive variant', () => {
     const element = React.createElement(Badge, {
       variant: "destructive",
-      testID: "badge"
-    }, 'Destructive Badge');
+      testID: "badge",
+      children: 'Destructive Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("destructive");
@@ -58,8 +62,9 @@ describe('Badge Component', () => {
     const mockOnPress = jest.fn();
     const element = React.createElement(Badge, {
       onPress: mockOnPress,
-      testID: "badge"
-    }, 'Clickable Badge');
+      testID: "badge",
+      children: 'Clickable Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.onPress).toBe(mockOnPress);
@@ -70,8 +75,9 @@ describe('Badge Component', () => {
     const mockOnRemove = jest.fn();
     const element = React.createElement(Badge, {
       onRemove: mockOnRemove,
-      testID: "badge"
-    }, 'Removable Badge');
+      testID: "badge",
+      children: 'Removable Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.onRemove).toBe(mockOnRemove);
@@ -82,8 +88,9 @@ describe('Badge Component', () => {
   it('renders with small size', () => {
     const element = React.createElement(Badge, {
       size: "sm",
-      testID: "badge"
-    }, 'Small Badge');
+      testID: "badge",
+      children: 'Small Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.size).toBe("sm");
@@ -93,8 +100,9 @@ describe('Badge Component', () => {
   it('renders with large size', () => {
     const element = React.createElement(Badge, {
       size: "lg",
-      testID: "badge"
-    }, 'Large Badge');
+      testID: "badge",
+      children: 'Large Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.size).toBe("lg");
@@ -104,8 +112,9 @@ describe('Badge Component', () => {
   it('renders with default size', () => {
     const element = React.createElement(Badge, {
       size: "default",
-      testID: "badge"
-    }, 'Default Size Badge');
+      testID: "badge",
+      children: 'Default Size Badge'
+    });
     
     expect(element).toBeDefined();
     expect(element.props.size).toBe("default");

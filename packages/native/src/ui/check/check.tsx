@@ -5,7 +5,7 @@ import { theme } from '@s2mangas/core';
 // Interface para os props do componente Check
 interface CheckProps {
   status: boolean;
-  setStatus: (value: boolean) => void;
+  setStatus: (value: boolean) => typeof value;
   testID?: string;
   accessibilityLabel?: string;
   accessibilityRole?: "checkbox" | "switch";

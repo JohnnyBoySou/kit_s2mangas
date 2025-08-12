@@ -4,10 +4,10 @@ import { Title, HeadTitle, Label, SubLabel, U, Description } from "./text/text";
 import Button from "./button/button";
 import Avatar from "./avatar/avatar";
 import { Skeleton } from "./skeleton/skeleton";
-import Input from "./input";
+import Input from "./input/input";
 import InputOTP from "./otp";
 import { theme } from '@s2mangas/core';
-import Message from "./message";
+import Toast from "./toast/toast";
 import Sheet from './sheet';
 import Select from './select/select';
 import Loader from './loader/loader';
@@ -21,7 +21,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 import Image from "./image/image";
 import FlatList from "./flatlist/flatlist";
-import Line from "./line";
 import Switch from "./switch/switch";
 import Icon from "./icon/icon";
 import Card from "./card/card";
@@ -36,13 +35,12 @@ export {
     Skeleton,
     Tabs, 
     SCREEN_WIDTH, SCREEN_HEIGHT,
-    Input, Message,
+    Input, Toast,
     Sheet, Select, Loader,
     Image, Check, Toggle, InputOTP,
     Badge,
     Pressable,
     CheckBox,
-    Line,
     Switch,
     Icon,
     FlatList,

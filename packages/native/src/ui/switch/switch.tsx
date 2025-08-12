@@ -5,7 +5,7 @@ import { theme } from "@s2mangas/core";
 // Interface para os props do componente Switch
 interface SwitchProps {
   value: boolean;
-  setValue: (value: boolean) => void;
+  setValue: (value: boolean) => typeof value;
   testID?: string;
   accessibilityLabel?: string;
   accessibilityRole?: "checkbox" | "switch";

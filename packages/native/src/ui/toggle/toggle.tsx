@@ -2,10 +2,15 @@ import React, { useEffect, useRef } from "react";
 import { Check } from "lucide-react-native";
 import { Animated, Pressable, ActivityIndicator, ViewStyle, View } from "react-native";
 
+// Wrapper temporário para contornar incompatibilidade de tipos com React 19
+const CheckIcon: React.FC<{ size: number; color: string; style?: any }> = (props) => {
+  return React.createElement(Check as any, props);
+};
+
 // Interface para os props do Toggle
 interface ToggleProps {
   value: boolean;
-  setValue: (newValue: boolean) => void;
+  setValue: (value: boolean) => typeof value;
   isLoading?: boolean;
   testID?: string;
   disabled?: boolean;
@@ -117,7 +122,7 @@ const Shape: React.FC = () => {
         },
       ]}
     >
-      <Check size={24} color="#000" style={{ alignSelf: "center" }} />
+      <CheckIcon size={24} color="#000" style={{ alignSelf: "center" }} />
     </Animated.View>
   );
 };

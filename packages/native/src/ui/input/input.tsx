@@ -1,13 +1,22 @@
-import { useState, forwardRef } from "react";
+import React, { useState, forwardRef } from "react";
 import { Column } from "../layout/layout"; 
 import { Pressable, TextInput, TextInputProps, KeyboardTypeOptions, View, Text, ViewStyle, TextStyle } from "react-native";
 import { Eye, EyeOff } from "lucide-react-native";
 import { theme } from '@s2mangas/core';
 
+// Wrappers temporários para contornar incompatibilidade de tipos com React 19
+const EyeIcon: React.FC<{ size: number; color: string }> = (props) => {
+  return React.createElement(Eye as any, props);
+};
+
+const EyeOffIcon: React.FC<{ size: number; color: string }> = (props) => {
+  return React.createElement(EyeOff as any, props);
+};
+
 // Interface para os props do Input
 interface InputProps extends Omit<TextInputProps, 'onChangeText'> {
   value?: string;
-  onChangeText?: (text: string) => void;
+  onChangeText?: (text: string) => typeof text;
   label?: string;
   error?: string;
   helperText?: string;
@@ -26,7 +35,7 @@ interface InputProps extends Omit<TextInputProps, 'onChangeText'> {
 }
 
 interface MaskConfig {
-  maskFunction: (text: string) => string;
+  maskFunction: (text: string) => typeof text;
   maxLength?: number;
 }
 
@@ -186,9 +195,9 @@ const Input = forwardRef<TextInput, InputProps>(
               }}
             >
               {isSecure ? (
-                <Eye size={20} color={theme.color.text} />
+                <EyeIcon size={20} color={theme.color.text} />
               ) : (
-                <EyeOff size={20} color={theme.color.text} />
+                <EyeOffIcon size={20} color={theme.color.text} />
               )}
             </Pressable>
           )}

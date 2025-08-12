@@ -3,10 +3,15 @@ import { Animated, Pressable, ViewStyle } from "react-native";
 import { theme } from '@s2mangas/core';
 import { Check } from "lucide-react-native";
 
+// Wrapper temporário para contornar incompatibilidade de tipos com React 19
+const CheckIcon: React.FC<{ color: string; size: number }> = (props) => {
+  return React.createElement(Check as any, props);
+};
+
 // Interface para os props do componente Check
 interface CheckProps {
   status: boolean;
-  setStatus: (value: boolean) => void;
+  setStatus: (value: boolean) => typeof value;
   label?: string;
   testID?: string;
   accessibilityLabel?: string;
@@ -105,7 +110,7 @@ const CheckBox: React.FC<CheckProps> = ({
             opacity: iconScaleAnim,
           }}
         >
-          <Check color="#fff" size={20} />
+          <CheckIcon color="#fff" size={20} />
         </Animated.View>
       </Animated.View>
       {label && (

@@ -42,7 +42,6 @@ const Icon: React.FC<IconProps> = ({
 
   // Se o ícone não existir, retornar null
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found in lucide-react-native`);
     return null;
   }
 

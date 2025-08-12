@@ -6,7 +6,7 @@ import { Label } from "../text/text";
 interface InputProps extends TextInputProps {
   focused?: boolean;
   value: string;
-  setValue: (value: string) => void;
+  setValue: (value: string) => typeof value;
   disabled?: boolean;
   placeholder?: string;
   label?: string;
@@ -16,7 +16,7 @@ interface InputProps extends TextInputProps {
 }
 
 interface MaskConfig {
-  maskFunction: (text: string) => string;
+  maskFunction: (text: string) => typeof text;
   maxLength?: number;
 }
 

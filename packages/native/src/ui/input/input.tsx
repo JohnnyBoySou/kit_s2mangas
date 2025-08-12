@@ -1,5 +1,5 @@
 import { useState, forwardRef } from "react";
-import { Column } from "./layout"; 
+import { Column } from "../layout/layout"; 
 import { Pressable, TextInput, TextInputProps, KeyboardTypeOptions, View, Text, ViewStyle, TextStyle } from "react-native";
 import { Eye, EyeOff } from "lucide-react-native";
 import { theme } from '@s2mangas/core';

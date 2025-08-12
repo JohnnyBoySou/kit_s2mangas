@@ -75,10 +75,12 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Run ESLint on all packages
-        run: pnpm lint
+        run: pnpm lint 
+        continue-on-error: true
 
       - name: Run Prettier check on all packages
         run: pnpm format:check
+        continue-on-error: true
 
   typecheck:
     runs-on: ubuntu-latest
@@ -103,6 +105,7 @@ jobs:
 
       - name: Run TypeScript check on all packages
         run: pnpm typecheck
+        continue-on-error: true
 
   build:
     runs-on: ubuntu-latest

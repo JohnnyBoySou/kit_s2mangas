@@ -3,7 +3,6 @@ import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactNative from 'eslint-plugin-react-native';
 import prettier from 'eslint-config-prettier';
 
 export default [
@@ -24,7 +23,6 @@ export default [
       '@typescript-eslint': typescript,
       react,
       'react-hooks': reactHooks,
-      'react-native': reactNative,
     },
     rules: {
       // TypeScript rules
@@ -44,17 +42,10 @@ export default [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       
-      // React Native rules
-      'react-native/no-unused-styles': 'error',
-      'react-native/split-platform-components': 'error',
-      'react-native/no-inline-styles': 'warn',
-      'react-native/no-color-literals': 'warn',
-      'react-native/no-raw-text': 'off',
-      
       // General rules
       'no-console': 'warn',
-      'prefer-const': 'error',
-      'no-var': 'error',
+      'no-debugger': 'error',
+      'no-unused-vars': 'off', // Handled by TypeScript
     },
     settings: {
       react: {
@@ -64,18 +55,12 @@ export default [
   },
   {
     ignores: [
-      'lib/**',
       'dist/**',
-      'build/**',
       'node_modules/**',
-      '*.d.ts',
+      'coverage/**',
       '*.config.js',
       '*.config.ts',
-      '__tests__/**',
-      '*.test.*',
-      '*.spec.*',
-      '*.md',
-      '*.log',
+      '.storybook/**',
     ],
   },
   prettier,

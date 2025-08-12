@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Pressable, ViewStyle, TextStyle, ActivityIndicator, View } from "react-native";
 import { theme } from '@s2mangas/core';
 
-interface ButtonProps {
+export interface ButtonProps {
 	label?: string;
 	onPress?: () => void;
 	variant?: "default" | "secondary" | "destructive" | "ghost" | "link" | "outline" | "primary" | "blur";

@@ -5,32 +5,78 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { 
-    ".": { 
-      "types": "./dist/index.d.ts", 
-      "import": "./dist/index.js", 
-      "require": "./dist/index.cjs" 
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
-  "peerDependencies": { "react": ">=18", "react-dom": ">=18" },
-  "dependencies": { "@s2mangas/core": "workspace:*" },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@s2mangas/core": "workspace:*",
+    "lucide-react": "^0.539.0"
+  },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.1.4",
+    "@storybook/addon-docs": "^9.1.1",
+    "@storybook/addon-links": "^9.1.1",
+    "@storybook/react": "^9.1.1",
+    "@storybook/react-vite": "^9.1.1",
+    "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^29.5.8",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.1.1"
+    "bundlewatch": "^0.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0",
+    "prettier": "^3.2.5",
+    "size-limit": "^11.1.4",
+    "storybook": "^9.1.1",
+    "ts-jest": "^29.1.1",
+    "vite": "^5.4.19"
   },
-  "scripts": { 
+  "scripts": {
     "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm lint && pnpm typecheck",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "size": "size-limit",
+    "bundle": "bundlewatch --config .bundlewatch.json"
   },
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" }
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/styles.css",
+      "limit": "5 KB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

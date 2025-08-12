@@ -5,7 +5,7 @@ import { Animated, Pressable, ActivityIndicator, ViewStyle, View } from "react-n
 // Interface para os props do Toggle
 interface ToggleProps {
   value: boolean;
-  setValue: (value: boolean) => void;
+  setValue: (newValue: boolean) => void;
   isLoading?: boolean;
   testID?: string;
   disabled?: boolean;

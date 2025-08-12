@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+  checks: write
+  repository-projects: write
 
 jobs:
   release:
@@ -63,6 +63,7 @@ jobs:
           publish: pnpm release
           title: "Release: Version Packages"
           commit: "chore: release packages"
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

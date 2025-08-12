@@ -1,0 +1,64 @@
+
+✘ node v20.19.4 is not yet supported in the Community edition of Console Ninja.
+We are working hard on it for you https://tinyurl.com/3h9mtwra.
+
+Estimated release dates:
+  - Community users: around 14th September, 2025 (subject to team availability)
+  - PRO users:       priority access is available now
+
+watchman warning:  Recrawled this watch 3 times, most recently because:
+MustScanSubDirs UserDroppedTo resolve, please review the information on
+https://facebook.github.io/watchman/docs/troubleshooting.html#recrawl
+To clear this warning, run:
+`watchman watch-del '/Users/joaovictordesousa/Projetos/s2mangas/kit_s2mangas' ; watchman watch-project '/Users/joaovictordesousa/Projetos/s2mangas/kit_s2mangas'`
+
+FAIL src/ui/button.test.tsx
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    /Users/joaovictordesousa/Projetos/s2mangas/kit_s2mangas/node_modules/.pnpm/react-native@0.80.2_@babel+core@7.28.0_@types+react@18.3.23_react@18.3.1/node_modules/react-native/index.js:28
+    import typeof * as ReactNativePublicAPI from './index.js.flow';
+    ^^^^^^
+
+    SyntaxError: Cannot use import statement outside a module
+
+      1 | import React from 'react';
+    > 2 | import { render, fireEvent } from '@testing-library/react-native';
+        | ^
+      3 | import Button from './button';
+      4 |
+      5 | describe('Button Component', () => {
+
+      at Runtime.createScriptFromCode (../../node_modules/.pnpm/jest-runtime@29.7.0/node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.require (../../node_modules/.pnpm/@testing-library+react-native@12.9.0_jest@29.7.0_@types+node@20.19.10__react-native@0.80.2_@b_rdqttf2onzw4mqon4awwmfrtmu/node_modules/@testing-library/react-native/src/helpers/host-component-names.tsx:3:1)
+      at Object.require (../../node_modules/.pnpm/@testing-library+react-native@12.9.0_jest@29.7.0_@types+node@20.19.10__react-native@0.80.2_@b_rdqttf2onzw4mqon4awwmfrtmu/node_modules/@testing-library/react-native/src/fire-event.ts:11:1)
+      at Object.require (../../node_modules/.pnpm/@testing-library+react-native@12.9.0_jest@29.7.0_@types+node@20.19.10__react-native@0.80.2_@b_rdqttf2onzw4mqon4awwmfrtmu/node_modules/@testing-library/react-native/src/pure.ts:3:1)
+      at Object.require (../../node_modules/.pnpm/@testing-library+react-native@12.9.0_jest@29.7.0_@types+node@20.19.10__react-native@0.80.2_@b_rdqttf2onzw4mqon4awwmfrtmu/node_modules/@testing-library/react-native/src/index.ts:1:1)
+      at Object.require (src/ui/button.test.tsx:2:1)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        0.613 s
+Ran all test suites matching /src\/ui\/button.test.tsx/i.

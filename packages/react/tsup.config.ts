@@ -6,5 +6,6 @@ export default defineConfig({
   clean: true,
   treeshake: true,
   sourcemap: true,
-  splitting: false
+  splitting: false,
+  copy: ["src/styles.css"]
 });

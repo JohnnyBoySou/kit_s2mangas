@@ -5,9 +5,9 @@ export * from './ui';
 export { default as Button } from './ui/button/button';
 export { default as Avatar } from './ui/avatar/avatar';
 export { default as Input } from './ui/input/input';
-export { default as InputOTP } from './ui/otp';
+export { default as InputOTP } from './ui/otp/otp';
 export { default as Toast } from './ui/toast/toast';
-export { default as Sheet } from './ui/sheet';
+export { default as Sheet } from './ui/sheet/sheet';
 export { default as Select } from './ui/select/select';
 export { default as Loader } from './ui/loader/loader';
 export { default as Check } from './ui/check/check';
@@ -32,10 +32,36 @@ export { Title, HeadTitle, Label, SubLabel, U, Description } from './ui/text/tex
 
 // Export utility components
 export { Skeleton } from './ui/skeleton/skeleton';
-export { default as MultiStepProgress } from './ui/progress';
+export { default as MultiStepProgress } from './ui/progress/progress';
 
 // Export theme and utilities from core
 export { theme, BREAKPOINTS, Z_INDEX, ANIMATION, BORDER_RADIUS, SHADOWS } from '@s2mangas/core';
+
+// Export providers
+export {
+  S2MangasProvider,
+  ThemeProvider,
+  ColorProvider,
+  useS2Mangas,
+  useTheme,
+  useThemeColors,
+  useThemeSizes,
+  useThemeFonts,
+  useColors,
+  useColorPalette,
+  lightTheme as lightTheme,
+  darkTheme as darkTheme,
+  defaultColorPalette as defaultColorPalette,
+  darkColorPalette as darkColorPalette
+} from './providers';
+
+export type {
+  Theme,
+  ThemeColors,
+  ThemeSizes,
+  ThemeFonts,
+  ColorPalette
+} from './providers';
 
 // Export constants
 export { SCREEN_WIDTH, SCREEN_HEIGHT } from './ui';

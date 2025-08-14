@@ -1,5 +1,13 @@
 # @s2mangas/native
 
+## 0.0.5
+
+### Patch Changes
+
+- f27e5a3: fix: corrigir dependência workspace:\* para versão específica
+
+  Corrige a dependência @s2mangas/core de workspace:\* para ^1.0.1 para que o pacote funcione corretamente quando instalado via npm.
+
 ## 0.0.4
 
 ### Patch Changes

@@ -64,6 +64,10 @@ fi
 # Executar o processo de release
 echo -e "${BLUE}🚀 Iniciando processo de release...${NC}"
 
+# Preparar dependências para publicação
+echo -e "${BLUE}🔧 Preparando dependências para publicação...${NC}"
+node scripts/prepare-publish.js prepare
+
 # Build dos pacotes
 echo -e "${BLUE}📦 Fazendo build dos pacotes...${NC}"
 pnpm build
@@ -75,6 +79,10 @@ pnpm test
 # Fazer o release
 echo -e "${BLUE}📤 Publicando pacotes...${NC}"
 pnpm release
+
+# Restaurar dependências workspace
+echo -e "${BLUE}🔄 Restaurando dependências workspace...${NC}"
+node scripts/prepare-publish.js restore
 
 echo -e "${GREEN}✅ Release concluído com sucesso!${NC}"
 echo ""

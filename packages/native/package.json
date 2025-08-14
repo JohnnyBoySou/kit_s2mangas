@@ -30,7 +30,7 @@
     "react-native": ">=0.73"
   },
   "dependencies": {
-    "@s2mangas/core": "workspace:*",
+    "@s2mangas/core": "^1.0.1",
     "lucide-react-native": "^0.539.0"
   },
   "devDependencies": {

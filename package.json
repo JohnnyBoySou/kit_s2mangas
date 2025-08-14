@@ -12,6 +12,8 @@
     "version-packages": "changeset version && pnpm i",
     "release": "pnpm build && changeset publish",
     "release:check": "./scripts/release.sh",
+    "prepare:publish": "node scripts/prepare-publish.js prepare",
+    "restore:workspace": "node scripts/prepare-publish.js restore",
     "release-npm": "pnpm changeset && pnpm version-packages && pnpm i && pnpm build && pnpm release",
     "release-beta": "pnpm changeset pre enter beta && pnpm version-packages && pnpm i && pnpm build && pnpm release --tag beta && pnpm changeset pre exit",
     "lint": "pnpm -r run lint",

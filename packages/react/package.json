@@ -22,7 +22,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@s2mangas/core": "workspace:*",
+    "@s2mangas/core": "^1.0.1",
     "lucide-react": "^0.539.0"
   },
   "devDependencies": {

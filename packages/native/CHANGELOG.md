@@ -1,5 +1,13 @@
 # @s2mangas/native
 
+## 0.0.3
+
+### Patch Changes
+
+- 08407b0: feat: bump version for @s2mangas/native
+
+  Nova versão do pacote native com melhorias e correções.
+
 ## 0.0.2
 
 ### Patch Changes

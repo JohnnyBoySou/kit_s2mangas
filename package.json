@@ -7,8 +7,11 @@
   "scripts": {
     "build": "pnpm -r run build",
     "changeset": "changeset",
+    "changeset:add": "changeset add",
+    "changeset:status": "changeset status",
     "version-packages": "changeset version && pnpm i",
     "release": "pnpm build && changeset publish",
+    "release:check": "./scripts/release.sh",
     "release-npm": "pnpm changeset && pnpm version-packages && pnpm i && pnpm build && pnpm release",
     "release-beta": "pnpm changeset pre enter beta && pnpm version-packages && pnpm i && pnpm build && pnpm release --tag beta && pnpm changeset pre exit",
     "lint": "pnpm -r run lint",

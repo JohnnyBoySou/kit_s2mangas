@@ -1,6 +1,6 @@
 {
   "name": "@s2mangas/native",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "description": "React Native UI components library for S2Mangas",
   "main": "lib/commonjs/index.js",

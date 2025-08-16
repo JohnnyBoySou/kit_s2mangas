@@ -1,5 +1,20 @@
 # @s2mangas/native
 
+## 0.0.8
+
+### Patch Changes
+
+- 81299e1: fix: corrigir erros de build e testes
+  - fix: corrigir caminho de tipos no package.json para react-native-builder-bob
+  - fix: corrigir testes do componente Card (borderRadius -> r, backgroundColor -> bgColor)
+  - fix: corrigir testes do componente CheckBox (status -> value, setStatus -> setValue)
+  - feat: integração com expo-image para caching de imagens
+  - refactor: mover funções de máscara para @s2mangas/core
+  - feat: adicionar animações aos componentes Input
+
+- Updated dependencies [81299e1]
+  - @s2mangas/core@1.0.3
+
 ## 0.0.7
 
 ### Patch Changes

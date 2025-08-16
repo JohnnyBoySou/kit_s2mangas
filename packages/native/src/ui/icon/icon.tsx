@@ -4,7 +4,7 @@ import * as Icons from "lucide-react-native";
 import { theme } from "@s2mangas/core";
 
 // Tipo para os nomes dos ícones do lucide-react-native
-type IconName = keyof typeof Icons;
+export type IconName = keyof typeof Icons;
 
 interface IconProps {
   name: IconName;

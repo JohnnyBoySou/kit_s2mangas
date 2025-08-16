@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { Phone } from 'lucide-react-native';
+import { useState, useRef } from 'react';
+import { TextInput } from 'react-native';
 
 import {
   Input,
@@ -10,6 +12,8 @@ import {
   Main,
   Card,
   ScrollVertical,
+  InputBig,
+  Button,
 } from 's2mangas-native';
 
 export default function InputsScreen() {
@@ -17,21 +21,30 @@ export default function InputsScreen() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [cpfValue, setCpfValue] = useState('');
+  const [phoneValue, setPhoneValue] = useState('');
+  const [cepValue, setCepValue] = useState('');
+  const [birthdateValue, setBirthdateValue] = useState('');
+  const [currencyValue, setCurrencyValue] = useState('');
+  
+  // Ref para demonstrar o foco
+  const inputBigRef = useRef<TextInput>(null);
+
+  const handleFocusInput = () => {
+    console.log('Tentando focar no input...');
+    console.log('inputBigRef:', inputBigRef);
+    console.log('inputBigRef.current:', inputBigRef.current);
+    inputBigRef.current?.focus();
+  };
 
   return (
     <Main>
       <ScrollVertical>
-        <Column
-          gv={16}
-          ph={24}
-          pv={44}
-          justify="center"
-          align="center"
-          style={{ flexGrow: 1, flex: 1 }}
-        >
+        <Column gv={16} ph={24} pv={44}>
           <Title>Inputs - Documentação</Title>
           <Description>
-            Componente Input do @s2mangas/native com todas as suas variantes e propriedades.
+            Componente Input do @s2mangas/native com todas as suas variantes e
+            propriedades.
           </Description>
 
           <Divider />
@@ -46,21 +59,22 @@ export default function InputsScreen() {
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="Digite seu nome..." 
+                <InputBig
+                  placeholder="Digite seu nome..."
                   value={textValue}
-                  onChange={setTextValue}
+                  onChangeText={setTextValue}
+                  label="Nome"
                 />
-                <Input 
-                  placeholder="Digite seu email..." 
+                <Input
+                  placeholder="Digite seu email..."
                   value={emailValue}
-                  onChange={setEmailValue}
+                  onChangeText={setEmailValue}
                   keyboardType="email-address"
                 />
-                <Input 
-                  placeholder="Digite sua senha..." 
+                <Input
+                  placeholder="Digite sua senha..."
                   value={passwordValue}
-                  onChange={setPasswordValue}
+                  onChangeText={setPasswordValue}
                   isPassword
                 />
               </Column>
@@ -77,21 +91,21 @@ export default function InputsScreen() {
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="Pesquisar..." 
+                <Input
+                  placeholder="Pesquisar..."
                   value={searchValue}
-                  onChange={setSearchValue}
+                  onChangeText={setSearchValue}
                 />
-                <Input 
-                  placeholder="Digite seu email..." 
+                <Input
+                  placeholder="Digite seu email..."
                   value={emailValue}
-                  onChange={setEmailValue}
+                  onChangeText={setEmailValue}
                   keyboardType="email-address"
                 />
-                <Input 
-                  placeholder="Digite sua senha..." 
+                <Input
+                  placeholder="Digite sua senha..."
                   value={passwordValue}
-                  onChange={setPasswordValue}
+                  onChangeText={setPasswordValue}
                   isPassword
                 />
               </Column>
@@ -108,20 +122,20 @@ export default function InputsScreen() {
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="Input normal" 
+                <Input
+                  placeholder="Input normal"
                   value={textValue}
-                  onChange={setTextValue}
+                  onChangeText={setTextValue}
                 />
-                <Input 
-                  placeholder="Input desabilitado" 
+                <Input
+                  placeholder="Input desabilitado"
                   value="Valor fixo"
                   disabled
                 />
-                <Input 
-                  placeholder="Input com erro" 
+                <Input
+                  placeholder="Input com erro"
                   value={textValue}
-                  onChange={setTextValue}
+                  onChangeText={setTextValue}
                   error="Este campo é obrigatório"
                 />
               </Column>
@@ -138,22 +152,13 @@ export default function InputsScreen() {
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="Número de telefone" 
+                <Input
+                  placeholder="Número de telefone"
                   keyboardType="phone-pad"
                 />
-                <Input 
-                  placeholder="Número" 
-                  keyboardType="numeric"
-                />
-                <Input 
-                  placeholder="URL" 
-                  keyboardType="url"
-                />
-                <Input 
-                  placeholder="Decimal" 
-                  keyboardType="decimal-pad"
-                />
+                <Input placeholder="Número" keyboardType="numeric" />
+                <Input placeholder="URL" keyboardType="url" />
+                <Input placeholder="Decimal" keyboardType="decimal-pad" />
               </Column>
             </Card>
           </Column>
@@ -168,19 +173,27 @@ export default function InputsScreen() {
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="Email obrigatório" 
+                <Input
+                  placeholder="Email obrigatório"
                   value={emailValue}
-                  onChange={setEmailValue}
+                  onChangeText={setEmailValue}
                   keyboardType="email-address"
-                  error={emailValue && !emailValue.includes('@') ? 'Email inválido' : undefined}
+                  error={
+                    emailValue && !emailValue.includes('@')
+                      ? 'Email inválido'
+                      : undefined
+                  }
                 />
-                <Input 
-                  placeholder="Senha (mínimo 6 caracteres)" 
+                <Input
+                  placeholder="Senha (mínimo 6 caracteres)"
                   value={passwordValue}
-                  onChange={setPasswordValue}
+                  onChangeText={setPasswordValue}
                   isPassword
-                  error={passwordValue && passwordValue.length < 6 ? 'Senha muito curta' : undefined}
+                  error={
+                    passwordValue && passwordValue.length < 6
+                      ? 'Senha muito curta'
+                      : undefined
+                  }
                 />
               </Column>
             </Card>
@@ -191,26 +204,105 @@ export default function InputsScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Inputs com Máscara</Title>
               <Description>
-                Inputs que formatam automaticamente a entrada do usuário.
+                Inputs que formatam automaticamente a entrada do usuário usando
+                as máscaras do core.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
-                <Input 
-                  placeholder="CPF (000.000.000-00)" 
+                <Input
+                  placeholder="CPF (000.000.000-00)"
+                  value={cpfValue}
+                  onChangeText={setCpfValue}
+                  mask="CPF"
                   keyboardType="numeric"
-                  maxLength={14}
                 />
-                <Input 
-                  placeholder="Telefone ((00) 00000-0000)" 
+                <Input
+                  placeholder="Telefone ((00) 00000-0000)"
+                  value={phoneValue}
+                  onChangeText={setPhoneValue}
+                  mask="PHONE"
                   keyboardType="phone-pad"
-                  maxLength={15}
                 />
-                <Input 
-                  placeholder="CEP (00000-000)" 
+                <Input
+                  placeholder="CEP (00000-000)"
+                  value={cepValue}
+                  onChangeText={setCepValue}
+                  mask="CEP"
                   keyboardType="numeric"
-                  maxLength={9}
                 />
+                <Input
+                  placeholder="Data de Nascimento (DD/MM/AAAA)"
+                  value={birthdateValue}
+                  onChangeText={setBirthdateValue}
+                  mask="NASCIMENTO"
+                  keyboardType="numeric"
+                />
+                <Input
+                  placeholder="Valor (R$ 0,00)"
+                  value={currencyValue}
+                  onChangeText={setCurrencyValue}
+                  mask="CURRENCY"
+                  keyboardType="numeric"
+                />
+              </Column>
+            </Card>
+          </Column>
+
+          {/* InputBig com Máscaras */}
+          <Column gv={12}>
+            <Column gv={6} mv={12}>
+              <Title level={2}>InputBig com Máscaras</Title>
+              <Description>
+                Componente InputBig também suporta as máscaras do core.
+              </Description>
+            </Column>
+            <Card pv={16} ph={16}>
+              <Column gv={12}>
+                <InputBig
+                  placeholder="Digite seu CPF..."
+                  value={cpfValue}
+                  onChangeText={setCpfValue}
+                  mask="CPF"
+                  label="CPF"
+                />
+                <InputBig
+                  placeholder="Digite seu telefone..."
+                  value={phoneValue}
+                  onChangeText={setPhoneValue}
+                  mask="PHONE"
+                  label="Telefone"
+                  iconLeft="Phone"
+                  required
+                />
+                <InputBig
+                  placeholder="Digite seu CEP..."
+                  value={cepValue}
+                  onChangeText={setCepValue}
+                  mask="CEP"
+                  label="CEP"
+                  keyboardType="numeric"
+                />
+                <InputBig
+                  placeholder="Digite sua data de nascimento..."
+                  value={birthdateValue}
+                  onChangeText={setBirthdateValue}
+                  mask="NASCIMENTO"
+                  label="Data de Nascimento"
+                  iconRight="Calendar"
+                  required
+                  keyboardType="numeric"
+                />
+                
+                {/* Exemplo com ref */}
+                <Column gv={8}>
+                  <InputBig
+                    placeholder="Clique no botão para focar..."
+                    value={textValue}
+                    onChangeText={setTextValue}
+                    label="Input com Ref"
+                  />
+                </Column>
               </Column>
             </Card>
           </Column>
@@ -224,10 +316,10 @@ export default function InputsScreen() {
               </Description>
             </Column>
             <Card pv={16} ph={16}>
-              <Input 
-                placeholder="Input com tema adaptativo" 
+              <Input
+                placeholder="Input com tema adaptativo"
                 value={textValue}
-                onChange={setTextValue}
+                onChangeText={setTextValue}
               />
             </Card>
           </Column>
@@ -237,7 +329,8 @@ export default function InputsScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Propriedades Disponíveis</Title>
               <Description>
-                Lista completa das propriedades que podem ser usadas no componente Input.
+                Lista completa das propriedades que podem ser usadas no
+                componente Input.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
@@ -255,7 +348,9 @@ export default function InputsScreen() {
                 <Description>Nome do ícone a ser exibido</Description>
 
                 <Label>keyboardType: KeyboardTypeOptions</Label>
-                <Description>Tipo de teclado (email, numeric, phone-pad, etc.)</Description>
+                <Description>
+                  Tipo de teclado (email, numeric, phone-pad, etc.)
+                </Description>
 
                 <Label>secureTextEntry: boolean</Label>
                 <Description>Oculta o texto digitado (para senhas)</Description>
@@ -267,13 +362,21 @@ export default function InputsScreen() {
                 <Description>Mensagem de erro a ser exibida</Description>
 
                 <Label>maxLength: number</Label>
-                <Description>Número máximo de caracteres permitidos</Description>
+                <Description>
+                  Número máximo de caracteres permitidos
+                </Description>
 
-                <Label>autoCapitalize: 'none' | 'sentences' | 'words' | 'characters'</Label>
-                <Description>Configuração de capitalização automática</Description>
+                <Label>
+                  autoCapitalize: 'none' | 'sentences' | 'words' | 'characters'
+                </Label>
+                <Description>
+                  Configuração de capitalização automática
+                </Description>
 
                 <Label>autoCorrect: boolean</Label>
-                <Description>Habilita ou desabilita correção automática</Description>
+                <Description>
+                  Habilita ou desabilita correção automática
+                </Description>
               </Column>
             </Card>
           </Column>

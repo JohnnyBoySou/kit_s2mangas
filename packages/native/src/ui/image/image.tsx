@@ -5,11 +5,11 @@ import {
   View,
   ViewStyle,
   Pressable,
-  Image as RNImage,
-  ImageProps as RNImageProps,
+  ImageSourcePropType,
 } from "react-native";
+import { Image as ExpoImage } from "expo-image";
 
-interface CustomImageProps extends RNImageProps {
+interface CustomImageProps {
   src?: string;
   w?: number | string;
   h?: number | string;
@@ -33,6 +33,9 @@ interface CustomImageProps extends RNImageProps {
     | "header"
     | "search"
     | "imagebutton";
+  cachePolicy?: "memory" | "disk" | "memory-disk" | "none";
+  priority?: "low" | "normal" | "high";
+  source?: ImageSourcePropType;
 }
 
 const Image: React.FC<CustomImageProps> = ({
@@ -44,44 +47,55 @@ const Image: React.FC<CustomImageProps> = ({
   bg,
   style,
   fallback,
-  contentFit,
+  contentFit = "cover",
   onPress,
+  onLoad,
+  onError,
   testID,
   accessibilityLabel,
   accessibilityHint,
   accessibilityRole,
   source,
+  cachePolicy = "memory-disk",
+  priority = "normal",
   ...rest
 }) => {
   const imageSource = source || (src ? { uri: src } : undefined);
   
+  const imageStyle = {
+    borderRadius: r,
+    width: w,
+    height: h,
+    alignSelf: align,
+    backgroundColor: bg,
+  } as ImageStyle;
+
+  const expoImageProps = {
+    source: imageSource,
+    testID,
+    accessibilityLabel,
+    accessibilityHint,
+    accessibilityRole,
+    style: [imageStyle, style],
+    contentFit,
+    cachePolicy,
+    priority,
+    onLoad,
+    onError,
+    ...rest,
+  };
+
+  const renderExpoImage = () => {
+    return React.createElement(ExpoImage as any, expoImageProps);
+  };
+
   if (fallback) {
     return (
       <Pressable onPress={onPress}>
         <View
-          style={{ position: "relative", width: w, height: h } as ViewStyle}
+          style={{ position: "relative", width: w, height: h, backgroundColor: bg || "#202020", borderRadius: r, overflow: "hidden" } as ViewStyle}
         >
-          <RNImage
-            source={imageSource}
-            testID={testID}
-            accessibilityLabel={accessibilityLabel}
-            accessibilityHint={accessibilityHint}
-            accessibilityRole={accessibilityRole}
-            style={[
-              {
-                borderRadius: r,
-                width: w,
-                height: h,
-                alignSelf: align,
-                backgroundColor: bg,
-                resizeMode: contentFit === "cover" ? "cover" : 
-                           contentFit === "contain" ? "contain" : 
-                           contentFit === "fill" ? "stretch" : "center",
-              } as ImageStyle,
-              style,
-            ]}
-            {...rest}
-          />
+          {renderExpoImage()}
           {fallback && !imageSource && (
             <View
               style={{
@@ -105,54 +119,12 @@ const Image: React.FC<CustomImageProps> = ({
   if (onPress) {
     return (
       <Pressable onPress={onPress}>
-        <RNImage
-          source={imageSource}
-          testID={testID}
-          accessibilityLabel={accessibilityLabel}
-          accessibilityHint={accessibilityHint}
-          accessibilityRole={accessibilityRole}
-          style={[
-            {
-              borderRadius: r,
-              width: w,
-              height: h,
-              alignSelf: align,
-              backgroundColor: bg,
-              resizeMode: contentFit === "cover" ? "cover" : 
-                         contentFit === "contain" ? "contain" : 
-                         contentFit === "fill" ? "stretch" : "center",
-            } as ImageStyle,
-            style,
-          ]}
-          {...rest}
-        />
+        {renderExpoImage()}
       </Pressable>
     );
   }
 
-  return (
-    <RNImage
-      source={imageSource}
-      testID={testID}
-      accessibilityLabel={accessibilityLabel}
-      accessibilityHint={accessibilityHint}
-      accessibilityRole={accessibilityRole}
-      style={[
-        {
-          borderRadius: r,
-          width: w,
-          height: h,
-          alignSelf: align,
-          backgroundColor: bg,
-          resizeMode: contentFit === "cover" ? "cover" : 
-                     contentFit === "contain" ? "contain" : 
-                     contentFit === "fill" ? "stretch" : "center",
-        } as ImageStyle,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+  return renderExpoImage();
 };
 
 export default Image;

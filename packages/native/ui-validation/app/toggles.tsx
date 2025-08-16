@@ -48,17 +48,11 @@ export default function TogglesScreen() {
   return (
     <Main>
       <ScrollVertical>
-        <Column
-          gv={16}
-          ph={24}
-          pv={44}
-          justify="center"
-          align="center"
-          style={{ flexGrow: 1, flex: 1 }}
-        >
+        <Column gv={16} ph={24} pv={44}>
           <Title>Controles Interativos - Documentação</Title>
           <Description>
-            Componentes de toggle, switch e checkbox do @s2mangas/native com todas as suas variantes e propriedades.
+            Componentes de toggle, switch e checkbox do @s2mangas/native com
+            todas as suas variantes e propriedades.
           </Description>
 
           <Divider />
@@ -148,8 +142,13 @@ export default function TogglesScreen() {
             <Card pv={16} ph={16}>
               <Column gv={12}>
                 <Row gh={16}>
-                  <CheckBox value={checkboxValue} setValue={handleCheckBoxChange} />
-                  <Label>CheckBox: {checkboxValue ? 'Marcado' : 'Desmarcado'}</Label>
+                  <CheckBox
+                    value={checkboxValue}
+                    setValue={handleCheckBoxChange}
+                  />
+                  <Label>
+                    CheckBox: {checkboxValue ? 'Marcado' : 'Desmarcado'}
+                  </Label>
                 </Row>
                 <Row gh={16}>
                   <CheckBox value={true} setValue={() => {}} />
@@ -175,7 +174,9 @@ export default function TogglesScreen() {
               <Column gv={12}>
                 <Row gh={16} align="center">
                   <Switch value={switchValue} setValue={handleSwitchChange} />
-                  <Label>Switch Interativo: {switchValue ? 'Ligado' : 'Desligado'}</Label>
+                  <Label>
+                    Switch Interativo: {switchValue ? 'Ligado' : 'Desligado'}
+                  </Label>
                 </Row>
                 <Row gh={16} align="center">
                   <Switch value={true} setValue={() => {}} />
@@ -222,28 +223,36 @@ export default function TogglesScreen() {
             <Card pv={16} ph={16}>
               <Column gv={12}>
                 <Row gh={16} align="center">
-                  <CheckBox 
-                    value={multipleCheckBoxes.option1} 
-                    setValue={(value) => handleMultipleCheckBoxChange('option1', value)} 
+                  <CheckBox
+                    value={multipleCheckBoxes.option1}
+                    setValue={value =>
+                      handleMultipleCheckBoxChange('option1', value)
+                    }
                   />
                   <Label>Opção 1</Label>
                 </Row>
                 <Row gh={16} align="center">
-                  <CheckBox 
-                    value={multipleCheckBoxes.option2} 
-                    setValue={(value) => handleMultipleCheckBoxChange('option2', value)} 
+                  <CheckBox
+                    value={multipleCheckBoxes.option2}
+                    setValue={value =>
+                      handleMultipleCheckBoxChange('option2', value)
+                    }
                   />
                   <Label>Opção 2</Label>
                 </Row>
                 <Row gh={16} align="center">
-                  <CheckBox 
-                    value={multipleCheckBoxes.option3} 
-                    setValue={(value) => handleMultipleCheckBoxChange('option3', value)} 
+                  <CheckBox
+                    value={multipleCheckBoxes.option3}
+                    setValue={value =>
+                      handleMultipleCheckBoxChange('option3', value)
+                    }
                   />
                   <Label>Opção 3</Label>
                 </Row>
                 <Description>
-                  Selecionados: {Object.values(multipleCheckBoxes).filter(Boolean).length} de 3
+                  Selecionados:{' '}
+                  {Object.values(multipleCheckBoxes).filter(Boolean).length} de
+                  3
                 </Description>
               </Column>
             </Card>
@@ -299,7 +308,10 @@ export default function TogglesScreen() {
                   <Label>Notificações por Email</Label>
                 </Row>
                 <Row gh={16} align="center">
-                  <CheckBox value={checkboxValue} setValue={handleCheckBoxChange} />
+                  <CheckBox
+                    value={checkboxValue}
+                    setValue={handleCheckBoxChange}
+                  />
                   <Label>Receber promoções</Label>
                 </Row>
                 <Row gh={16} align="center">
@@ -315,19 +327,24 @@ export default function TogglesScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Propriedades Disponíveis</Title>
               <Description>
-                Lista completa das propriedades que podem ser usadas nos componentes de controle.
+                Lista completa das propriedades que podem ser usadas nos
+                componentes de controle.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={8}>
                 <Label>value: boolean</Label>
-                <Description>Estado atual do componente (ligado/desligado)</Description>
+                <Description>
+                  Estado atual do componente (ligado/desligado)
+                </Description>
 
                 <Label>setValue: (value: boolean) = void</Label>
                 <Description>Função chamada quando o valor muda</Description>
 
                 <Label>disabled: boolean</Label>
-                <Description>Desabilita a interação com o componente</Description>
+                <Description>
+                  Desabilita a interação com o componente
+                </Description>
 
                 <Label>style: ViewStyle</Label>
                 <Description>Estilos adicionais do React Native</Description>
@@ -348,23 +365,27 @@ export default function TogglesScreen() {
           <Column gv={12}>
             <Column gv={6} mv={12}>
               <Title level={2}>Casos de Uso Recomendados</Title>
-              <Description>
-                Quando usar cada tipo de componente.
-              </Description>
+              <Description>Quando usar cada tipo de componente.</Description>
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={8}>
                 <Label>Toggle</Label>
-                <Description>Para configurações simples (ligar/desligar)</Description>
+                <Description>
+                  Para configurações simples (ligar/desligar)
+                </Description>
 
                 <Label>Switch</Label>
-                <Description>Para configurações nativas e preferências</Description>
+                <Description>
+                  Para configurações nativas e preferências
+                </Description>
 
                 <Label>CheckBox</Label>
                 <Description>Para seleções múltiplas e listas</Description>
 
                 <Label>Switch</Label>
-                <Description>Para confirmações e aceitação de termos</Description>
+                <Description>
+                  Para confirmações e aceitação de termos
+                </Description>
               </Column>
             </Card>
           </Column>

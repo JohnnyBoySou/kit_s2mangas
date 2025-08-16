@@ -5,7 +5,13 @@ import {
   SIZES, 
   SPACING,
   type Size,
-  type Spacing
+  type Spacing,
+  applyCpfMask,
+  applyCepMask,
+  applyPhoneMask,
+  applyBirthdateMask,
+  applyCurrencyMask,
+  getMaskFunction
 } from './utils';
 
 describe('Utils', () => {
@@ -187,6 +193,130 @@ describe('Utils', () => {
     it('should export Spacing type', () => {
       const testSpacing: Spacing = 'lg';
       expect(testSpacing).toBe('lg');
+    });
+  });
+});
+
+// Testes para funções de máscara
+describe('Mask Functions', () => {
+  describe('applyCpfMask', () => {
+    it('should format CPF correctly', () => {
+      expect(applyCpfMask('12345678901')).toBe('123.456.789-01');
+      expect(applyCpfMask('1234567890')).toBe('123.456.789-0');
+      expect(applyCpfMask('123456789')).toBe('123.456.789');
+    });
+
+    it('should remove non-digits', () => {
+      expect(applyCpfMask('123.456.789-01')).toBe('123.456.789-01');
+      expect(applyCpfMask('abc123def456ghi789jkl01')).toBe('123.456.789-01');
+    });
+
+    it('should limit to 11 digits', () => {
+      expect(applyCpfMask('123456789012345')).toBe('123.456.789-01');
+    });
+  });
+
+  describe('applyCepMask', () => {
+    it('should format CEP correctly', () => {
+      expect(applyCepMask('12345678')).toBe('12345-678');
+      expect(applyCepMask('1234567')).toBe('12345-67');
+    });
+
+    it('should remove non-digits', () => {
+      expect(applyCepMask('12345-678')).toBe('12345-678');
+      expect(applyCepMask('abc123def45ghi678')).toBe('12345-678');
+    });
+
+    it('should limit to 8 digits', () => {
+      expect(applyCepMask('123456789012345')).toBe('12345-678');
+    });
+  });
+
+  describe('applyPhoneMask', () => {
+    it('should format phone correctly', () => {
+      expect(applyPhoneMask('11987654321')).toBe('(11) 98765-4321');
+      expect(applyPhoneMask('1198765432')).toBe('(11) 98765-432');
+    });
+
+    it('should remove non-digits', () => {
+      expect(applyPhoneMask('(11) 98765-4321')).toBe('(11) 98765-4321');
+      expect(applyPhoneMask('abc11def987ghi65jkl432mn1')).toBe('(11) 98765-4321');
+    });
+
+    it('should limit to 11 digits', () => {
+      expect(applyPhoneMask('11987654321012345')).toBe('(11) 98765-4321');
+    });
+  });
+
+  describe('applyBirthdateMask', () => {
+    it('should format birthdate correctly', () => {
+      expect(applyBirthdateMask('01012000')).toBe('01/01/2000');
+      expect(applyBirthdateMask('0101200')).toBe('01/01/200');
+    });
+
+    it('should remove non-digits', () => {
+      expect(applyBirthdateMask('01/01/2000')).toBe('01/01/2000');
+      expect(applyBirthdateMask('abc01def01ghi2000')).toBe('01/01/2000');
+    });
+
+    it('should limit to 8 digits', () => {
+      expect(applyBirthdateMask('0101200012345678')).toBe('01/01/2000');
+    });
+  });
+
+  describe('applyCurrencyMask', () => {
+    it('should format currency correctly', () => {
+      expect(applyCurrencyMask('1234567')).toBe('R$ 1.234.567');
+      expect(applyCurrencyMask('1000')).toBe('R$ 1.000');
+      expect(applyCurrencyMask('123')).toBe('R$ 123');
+    });
+
+    it('should remove non-digits', () => {
+      expect(applyCurrencyMask('R$ 1.234.567')).toBe('R$ 1.234.567');
+      expect(applyCurrencyMask('abc1def234ghi567')).toBe('R$ 1.234.567');
+    });
+
+    it('should remove leading zeros', () => {
+      expect(applyCurrencyMask('001234')).toBe('R$ 1.234');
+      expect(applyCurrencyMask('000123')).toBe('R$ 123');
+    });
+  });
+
+  describe('getMaskFunction', () => {
+    it('should return correct mask function for CPF', () => {
+      const config = getMaskFunction('CPF');
+      expect(config.maxLength).toBe(14);
+      expect(config.maskFunction('12345678901')).toBe('123.456.789-01');
+    });
+
+    it('should return correct mask function for PHONE', () => {
+      const config = getMaskFunction('PHONE');
+      expect(config.maxLength).toBe(16);
+      expect(config.maskFunction('11987654321')).toBe('(11) 98765-4321');
+    });
+
+    it('should return correct mask function for CEP', () => {
+      const config = getMaskFunction('CEP');
+      expect(config.maxLength).toBe(9);
+      expect(config.maskFunction('12345678')).toBe('12345-678');
+    });
+
+    it('should return correct mask function for NASCIMENTO', () => {
+      const config = getMaskFunction('NASCIMENTO');
+      expect(config.maxLength).toBe(10);
+      expect(config.maskFunction('01012000')).toBe('01/01/2000');
+    });
+
+    it('should return correct mask function for CURRENCY', () => {
+      const config = getMaskFunction('CURRENCY');
+      expect(config.maxLength).toBe(20);
+      expect(config.maskFunction('1234567')).toBe('R$ 1.234.567');
+    });
+
+    it('should return default function for unknown mask', () => {
+      const config = getMaskFunction();
+      expect(config.maxLength).toBe(0);
+      expect(config.maskFunction('test')).toBe('test');
     });
   });
 });

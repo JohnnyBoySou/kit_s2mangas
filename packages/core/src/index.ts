@@ -7,6 +7,9 @@ export * from './constants';
 // Tipos e interfaces
 export * from './types';
 
+// Utilitários
+export * from './utils';
+
 // Constantes
 export const tokens = { 
   colors: { 

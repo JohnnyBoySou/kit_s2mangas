@@ -13,32 +13,29 @@ export default function HomeScreen() {
           style={{ flexGrow: 1, flex: 1 }}
         >
           <Title>Componentes @s2mangas/native</Title>
-          <Button variant="primary" onPress={() => router.push('/animations')}>
-            Animations
-          </Button>
-          <Button variant="primary" onPress={() => router.push('/typographys')}>
-            Typographys
-          </Button>
-          <Button variant="primary" onPress={() => router.push('/inputs')}>
-            Inputs
-          </Button>
-          <Button variant="primary" onPress={() => router.push('/buttons')}>
+          <Button variant="ghost" onPress={() => router.push('/buttons')}>
             Buttons
           </Button>
-          <Button variant="primary" onPress={() => router.push('/toggles')}>
+          <Button variant="ghost" onPress={() => router.push('/toggles')}>
             Toggles
           </Button>
-          <Button variant="primary" onPress={() => router.push('/cards')}>
+          <Button variant="ghost" onPress={() => router.push('/cards')}>
             Cards
           </Button>
-          <Button variant="primary" onPress={() => router.push('/image')}>
+          <Button variant="ghost" onPress={() => router.push('/image')}>
             Image
           </Button>
-          <Button variant="primary" onPress={() => router.push('/tabs')}>
+          <Button variant="ghost" onPress={() => router.push('/tabs')}>
             Tabs
           </Button>
-          <Button variant="primary" onPress={() => router.push('/badges')}>
+          <Button variant="ghost" onPress={() => router.push('/badges')}>
             Badges
+          </Button>
+          <Button variant="ghost" onPress={() => router.push('/typographys')}>
+            Typographys
+          </Button>
+          <Button variant="ghost" onPress={() => router.push('/inputs')}>
+            Inputs
           </Button>
         </Column>
       </ScrollVertical>

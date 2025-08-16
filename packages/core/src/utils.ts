@@ -45,3 +45,70 @@ export const SPACING = {
 // Tipos para as constantes
 export type Size = keyof typeof SIZES;
 export type Spacing = keyof typeof SPACING;
+
+// Tipos para máscaras
+export type MaskType = "CPF" | "PHONE" | "CEP" | "NASCIMENTO" | "CURRENCY";
+
+export interface MaskConfig {
+  maskFunction: (text: string) => string;
+  maxLength?: number;
+}
+
+// Função para obter a configuração de máscara
+export const getMaskFunction = (mask?: MaskType): MaskConfig => {
+  switch (mask) {
+    case "CPF":
+      return { maskFunction: applyCpfMask, maxLength: 14 };
+    case "PHONE":
+      return { maskFunction: applyPhoneMask, maxLength: 16 };
+    case "CEP":
+      return { maskFunction: applyCepMask, maxLength: 9 };
+    case "NASCIMENTO":
+      return { maskFunction: applyBirthdateMask, maxLength: 10 };
+    case "CURRENCY":
+      return { maskFunction: applyCurrencyMask, maxLength: 20 };
+    default:
+      return { maskFunction: (text: string) => text, maxLength: 0 };
+  }
+};
+
+// Funções de máscara
+export function applyCpfMask(value: string): string {
+  return value
+    .replace(/\D/g, "") // Remove tudo o que não é dígito
+    .slice(0, 11) // Limita a 11 dígitos
+    .replace(/(\d{3})(\d)/, "$1.$2") // Coloca um ponto entre o terceiro e o quarto dígito
+    .replace(/(\d{3})(\d)/, "$1.$2") // Coloca um ponto entre o sexto e o sétimo dígito
+    .replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o nono e o décimo dígito
+}
+
+export function applyCepMask(value: string): string {
+  return value
+    .replace(/\D/g, "") // Remove tudo o que não é dígito
+    .slice(0, 8) // Limita a 8 dígitos
+    .replace(/(\d{5})(\d)/, "$1-$2"); // Coloca um hífen entre o quinto e o sexto dígito
+}
+
+export function applyPhoneMask(value: string): string {
+  return value
+    .replace(/\D/g, "") // Remove tudo o que não é dígito
+    .slice(0, 11) // Limita a 11 dígitos
+    .replace(/(\d{2})(\d)/, "($1) $2") // Coloca parênteses em volta dos dois primeiros dígitos
+    .replace(/(\d{5})(\d)/, "$1-$2"); // Coloca um hífen entre o quinto e o sexto dígito
+}
+
+export function applyBirthdateMask(value: string): string {
+  return value
+    .replace(/\D/g, "") // Remove tudo o que não é dígito
+    .slice(0, 8) // Limita a 8 dígitos (DDMMYYYY)
+    .replace(/(\d{2})(\d)/, "$1/$2") // Coloca uma barra entre o dia e o mês
+    .replace(/(\d{2})(\d)/, "$1/$2"); // Coloca uma barra entre o mês e o ano
+}
+
+export function applyCurrencyMask(value: string): string {
+  return value
+    .replace(/\D/g, "") // Remove tudo o que não é dígito
+    .replace(/^0+/, "") // Remove zeros à esquerda
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") // Adiciona pontos para milhares
+    .replace(/^/, "R$ "); // Adiciona prefixo R$
+}

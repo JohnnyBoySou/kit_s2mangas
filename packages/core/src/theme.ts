@@ -13,6 +13,14 @@ export const theme = {
     green: "#27AE60",
     yellow: "#ebd557",
     orange: "#FF620A",
+    
+    white: "#FFFFFF",
+    black: "#000000",
+    off10: "#101010",
+    off20: "#202020",
+    off30: "#303030",
+    off40: "#404040",
+    off50: "#505050",
   
     alert: "#FF620A",
     warning: "#ebd557",

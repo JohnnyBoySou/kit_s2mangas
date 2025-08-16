@@ -1,5 +1,5 @@
 import React, { useState, forwardRef } from "react";
-import { theme } from "@s2mangas/core";
+import { theme, getMaskFunction, MaskType } from "../../../../core/src/utils";
 
 // Interface para os props do Input
 interface InputProps
@@ -9,7 +9,7 @@ interface InputProps
   label?: string;
   error?: string;
   helperText?: string;
-  mask?: "CPF" | "PHONE" | "CEP" | "NASCIMENTO" | "CURRENCY";
+  mask?: MaskType;
   isPassword?: boolean;
   disabled?: boolean;
   focused?: boolean;
@@ -19,11 +19,6 @@ interface InputProps
   errorStyle?: React.CSSProperties;
   helperStyle?: React.CSSProperties;
   testID?: string;
-}
-
-interface MaskConfig {
-  maskFunction: (text: string) => string;
-  maxLength?: number;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -100,18 +95,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       return theme.color.textGhost;
     };
 
-    const inputType = isPassword ? (isSecure ? "password" : "text") : type;
-
     return (
-      <div style={{ width: "100%", ...containerStyle }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          ...containerStyle,
+        }}
+      >
         {label && (
           <label
             style={{
               fontFamily: theme.font.medium,
-              fontSize: theme.size.label,
-              color: theme.color.text,
+              fontSize: theme.size.sublabel,
+              color: error ? theme.color.destructive : theme.color.label,
               marginBottom: "8px",
-              display: "block",
               ...labelStyle,
             }}
           >
@@ -121,35 +120,31 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div style={{ position: "relative" }}>
           <input
+            {...props}
             ref={ref}
             data-testid={testID}
-            type={inputType}
-            value={value}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            disabled={disabled}
+            type={isSecure ? "password" : type}
             style={{
               width: "100%",
-              height: "48px",
-              paddingLeft: "16px",
-              paddingRight: isPassword ? "48px" : "16px",
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: getBorderColor(),
-              borderRadius: "12px",
-              backgroundColor: disabled
-                ? theme.color.muted
-                : theme.color.background,
-              color: getTextColor(),
-              fontFamily: theme.font.book,
               fontSize: theme.size.label,
+              fontFamily: theme.font.book,
+              color: getTextColor(),
+              padding: "12px 16px",
+              borderRadius: "8px",
+              border: `1px solid ${getBorderColor()}`,
+              backgroundColor: disabled ? theme.color.ghost : theme.color.background,
               outline: "none",
-              transition: "all 0.2s ease",
+              transition: "border-color 0.2s ease",
               ...inputStyle,
             }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            autoFocus={focused}
+            disabled={disabled}
+            onChange={handleChange}
+            value={value}
             placeholder={props.placeholder}
-            {...props}
+            placeholder-color={getPlaceholderColor()}
           />
 
           {isPassword && (
@@ -206,58 +201,5 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = "Input";
-
-// Funções de máscara
-const getMaskFunction = (mask?: string): MaskConfig => {
-  switch (mask) {
-    case "CPF":
-      return { maskFunction: applyCpfMask, maxLength: 14 };
-    case "CEP":
-      return { maskFunction: applyCepMask, maxLength: 9 };
-    case "PHONE":
-      return { maskFunction: applyPhoneMask, maxLength: 15 };
-    case "NASCIMENTO":
-      return { maskFunction: applyBirthdateMask, maxLength: 10 };
-    case "CURRENCY":
-      return { maskFunction: applyCurrencyMask };
-    default:
-      return { maskFunction: (text: string) => text };
-  }
-};
-
-function applyCpfMask(value: string): string {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-}
-
-function applyCepMask(value: string): string {
-  return value.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2");
-}
-
-function applyPhoneMask(value: string): string {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(\d{2})(\d)/, "($1) $2")
-    .replace(/(\d{5})(\d)/, "$1-$2");
-}
-
-function applyBirthdateMask(value: string): string {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(\d{2})(\d)/, "$1/$2")
-    .replace(/(\d{2})(\d)/, "$1/$2");
-}
-
-function applyCurrencyMask(value: string): string {
-  const numericValue = value.replace(/\D/g, "");
-  const floatValue = parseFloat(numericValue) / 100;
-  return floatValue.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
 
 export default Input;

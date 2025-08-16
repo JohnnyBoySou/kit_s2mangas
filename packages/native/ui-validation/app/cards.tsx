@@ -25,9 +25,6 @@ export default function CardsScreen() {
           gv={16}
           ph={24}
           pv={44}
-          justify="center"
-          align="center"
-          style={{ flexGrow: 1, flex: 1 }}
         >
           <Title>Componentes Card - Documentação</Title>
           <Description>
@@ -44,7 +41,7 @@ export default function CardsScreen() {
                 Card simples com conteúdo básico.
               </Description>
             </Column>
-            <Card pv={16} ph={16}>
+            <Card pv={16} ph={16} bgColor="#202020">
               <Column gv={8}>
                 <Title level={3}>Título do Card</Title>
                 <Description>
@@ -55,14 +52,14 @@ export default function CardsScreen() {
           </Column>
 
           {/* Card com Imagem */}
-          <Column gv={12}>
+          <Column gv={12} >
             <Column gv={6} mv={12}>
               <Title level={2}>Card com Imagem</Title>
               <Description>
                 Card que inclui uma imagem para melhor apresentação visual.
               </Description>
             </Column>
-            <Card pv={16} ph={16}>
+            <Card pv={16} ph={16} borderColor="#fff" borderWidth={1}>
               <Column gv={12}>
                 <Image 
                   src="https://picsum.photos/300/200" 
@@ -93,9 +90,9 @@ export default function CardsScreen() {
               <Column gv={12}>
                 <Row gh={12}>
                   <Avatar 
-                    url="https://picsum.photos/50/50" 
-                    width={50} 
-                    height={50} 
+                    src="https://picsum.photos/50/50" 
+                    w={50} 
+                    h={50} 
                   />
                   <Column gv={4}>
                     <Title level={3}>João Silva</Title>
@@ -177,9 +174,9 @@ export default function CardsScreen() {
               <Column gv={12}>
                 <Row gh={12}>
                   <Avatar 
-                    url="https://picsum.photos/60/60" 
-                    width={60} 
-                    height={60} 
+                    src="https://picsum.photos/60/60" 
+                    w={60} 
+                    h={60} 
                   />
                   <Column gv={4}>
                     <Title level={3}>Artigo Destacado</Title>
@@ -335,9 +332,9 @@ export default function CardsScreen() {
                 <Column gv={12}>
                   <Row gh={12}>
                     <Avatar 
-                      url="https://picsum.photos/40/40" 
-                      width={40} 
-                      height={40} 
+                      src="https://picsum.photos/40/40" 
+                      w={40} 
+                      h={40} 
                     />
                     <Column gv={4}>
                       <Title level={4}>Tech News</Title>
@@ -372,7 +369,7 @@ export default function CardsScreen() {
                 Lista completa das propriedades que podem ser usadas no componente Card.
               </Description>
             </Column>
-            <Card pv={16} ph={16}>
+            <Card pv={16} ph={16} bgColor="#202020">
               <Column gv={8}>
                 <Label>pv: number</Label>
                 <Description>Padding vertical do card</Description>

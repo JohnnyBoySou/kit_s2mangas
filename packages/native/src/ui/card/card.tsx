@@ -5,8 +5,6 @@ import { theme } from '../../../../core/src/theme';
 interface CardProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  
-  // Padding props
   padding?: number;
   pv?: number; // paddingVertical
   ph?: number; // paddingHorizontal
@@ -14,8 +12,6 @@ interface CardProps {
   pb?: number; // paddingBottom
   pl?: number; // paddingLeft
   pr?: number; // paddingRight
-  
-  // Margin props
   margin?: number;
   mv?: number; // marginVertical
   mh?: number; // marginHorizontal
@@ -23,18 +19,17 @@ interface CardProps {
   mb?: number; // marginBottom
   ml?: number; // marginLeft
   mr?: number; // marginRight
-  
-  // Layout props
   align?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
   justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
-  
-  // Style props
   elevation?: number;
-  borderRadius?: number;
   bgColor?: string;
   borderColor?: string;
   borderWidth?: number;
   
+  w?: number,
+  h?: number,
+  r?: number,
+
   testID?: string;
 }
 
@@ -60,22 +55,23 @@ const Card: React.FC<CardProps> = ({
   ml,
   mr,
   
+  w,
+  h,
+  r = 8,
   // Layout
   align,
   justify,
   
   // Style
   elevation = 2,
-  borderRadius = 8,
   bgColor,
   borderColor,
   borderWidth,
   
   testID,
 }) => {
-  // Determina se deve usar borda (quando não há background definido)
   const shouldUseBorder = !bgColor;
-  const defaultBorderColor = theme.color.muted; // Cor branca clarinha do core
+  const defaultBorderColor = theme.color.muted; 
   
   return (
     <View
@@ -107,8 +103,10 @@ const Card: React.FC<CardProps> = ({
           alignItems: align,
           justifyContent: justify,
           
+          width: w,
+          height: h,
           // Border
-          borderRadius,
+          borderRadius: r,
           borderWidth: shouldUseBorder ? (borderWidth || 1) : (borderWidth || 0),
           borderColor: shouldUseBorder ? (borderColor || defaultBorderColor) : borderColor,
           

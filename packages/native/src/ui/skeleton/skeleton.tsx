@@ -11,7 +11,7 @@ interface SkeletonProps extends React.ComponentPropsWithoutRef<typeof View> {
   c?: string;
 }
 
-export const Skeleton: React.FC<SkeletonProps> = ({ style, c = DEFAULT_BACKGROUND_COLOR, ...props }) => {
+const Skeleton: React.FC<SkeletonProps> = ({ style, c = DEFAULT_BACKGROUND_COLOR, ...props }) => {
   const colorAnim = useRef(new Animated.Value(0)).current;
   const { width: windowWidth } = useWindowDimensions();
 
@@ -62,3 +62,4 @@ export const Skeleton: React.FC<SkeletonProps> = ({ style, c = DEFAULT_BACKGROUN
     />
   );
 }
+export default Skeleton;

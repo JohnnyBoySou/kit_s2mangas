@@ -22,9 +22,6 @@ export default function BadgeScreen() {
           gv={16}
           ph={24}
           pv={44}
-          justify="center"
-          align="center"
-          style={{ flexGrow: 1, flex: 1 }}
         >
           <Title>Componente Badge - Documentação</Title>
           <Description>

@@ -12,10 +12,11 @@ import {
 } from "react-native";
 
 interface AvatarProps {
-  width?: number;
-  height?: number;
+  w?: number;
+  h?: number;
+  r?: number;
   backgroundColor?: string;
-  url?: string;
+  src?: string;
   style?: ViewStyle;
   textStyle?: TextStyle;
   imageStyle?: ImageStyle;
@@ -31,10 +32,11 @@ interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({
-  width = 40,
-  height = 40,
+  w = 40,
+  h = 40,
+  r,
   backgroundColor = "#d3d3d3",
-  url,
+  src,
   style,
   textStyle,
   shape,
@@ -51,9 +53,9 @@ const Avatar: React.FC<AvatarProps> = ({
   const [hasError, setHasError] = useState(false);
 
   const containerStyle: ViewStyle = {
-    width,
-    height,
-    borderRadius: shape === "square" ? 12 : Math.min(width, height) / 2,
+    width: w,
+    height: h,
+    borderRadius: r ? r : shape === "square" ? 12 : Math.min(w, h) / 2,
     overflow: "hidden",
     backgroundColor,
     justifyContent: "center",
@@ -62,7 +64,7 @@ const Avatar: React.FC<AvatarProps> = ({
   };
 
   const fallbackTextStyle: TextStyle = {
-    fontSize: width / 2.5,
+    fontSize: w / 2.5,
     color: "#555",
     ...textStyle,
   };
@@ -84,9 +86,9 @@ const Avatar: React.FC<AvatarProps> = ({
         />
       )}
       <View style={[containerStyle, style]} testID={testID} accessibilityLabel={accessibilityLabel} accessibilityRole={accessibilityRole ?? "image"}>
-        {!hasError && url ? (
+        {!hasError && src ? (
           <Image
-            source={{ uri: url }}
+            source={{ uri: src }}
             style={avatarImageStyle}
             onError={() => setHasError(true)}
           />

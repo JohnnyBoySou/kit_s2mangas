@@ -68,10 +68,10 @@ const Toggle: React.FC<ToggleProps> = ({
         style={
           {
             backgroundColor: value ? "#FFF" : "transparent",
-            borderWidth: 3,
+            borderWidth: 2,
             borderColor: value ? "transparent" : "#FFFFFF60",
-            width: 38,
-            height: 38,
+            width: 30,
+            height: 30,
             borderRadius: 100,
             justifyContent: "center",
             alignItems: "center",
@@ -79,7 +79,7 @@ const Toggle: React.FC<ToggleProps> = ({
         }
       >
         {isLoading ? (
-          <ActivityIndicator color="#fff" size={24} />
+          <ActivityIndicator color="#fff" size={20} />
         ) : (
           value && <Shape />
         )}

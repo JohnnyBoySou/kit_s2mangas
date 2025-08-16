@@ -52,16 +52,6 @@ export default function RootLayout() {
             }} 
           />
           <Stack.Screen 
-            name="animations" 
-            options={{ 
-              title: 'Animações',
-              headerShown: true,
-              headerStyle,
-              headerTitleStyle,
-              headerTintColor,
-            }} 
-          />
-          <Stack.Screen 
             name="typographys" 
             options={{ 
               title: 'Tipografia',

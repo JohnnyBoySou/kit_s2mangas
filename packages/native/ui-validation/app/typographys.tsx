@@ -1,13 +1,9 @@
-import { useState } from 'react';
-
 import {
   Column,
-  Row,
   Title,
   Label,
   Description,
   Divider,
-  useS2Mangas,
   Main,
   Card,
   ScrollVertical,
@@ -17,22 +13,14 @@ import {
 } from 's2mangas-native';
 
 export default function TypographyScreen() {
-  const { isDark, toggleAppearance } = useS2Mangas();
-
   return (
     <Main>
       <ScrollVertical>
-        <Column
-          gv={16}
-          ph={24}
-          pv={44}
-          justify="center"
-          align="center"
-          style={{ flexGrow: 1, flex: 1 }}
-        >
+        <Column gv={16} ph={24} pv={44}>
           <Title>Tipografia - Documentação</Title>
           <Description>
-            Componentes de texto do @s2mangas/native com todas as suas variantes e propriedades.
+            Componentes de texto do @s2mangas/native com todas as suas variantes
+            e propriedades.
           </Description>
 
           <Divider />
@@ -58,8 +46,6 @@ export default function TypographyScreen() {
             </Card>
           </Column>
 
-
-
           {/* Componentes de Texto */}
           <Column gv={12}>
             <Column gv={6} mv={12}>
@@ -82,7 +68,8 @@ export default function TypographyScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Alinhamentos de Texto</Title>
               <Description>
-                Diferentes alinhamentos disponíveis para os componentes de texto.
+                Diferentes alinhamentos disponíveis para os componentes de
+                texto.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
@@ -184,13 +171,17 @@ export default function TypographyScreen() {
             <Card pv={16} ph={16}>
               <Column gv={12}>
                 <Description spacing={0.5}>
-                  Texto com espaçamento reduzido entre linhas. Este é um exemplo de texto longo para demonstrar o espaçamento entre linhas.
+                  Texto com espaçamento reduzido entre linhas. Este é um exemplo
+                  de texto longo para demonstrar o espaçamento entre linhas.
                 </Description>
                 <Description spacing={1}>
-                  Texto com espaçamento normal entre linhas. Este é um exemplo de texto longo para demonstrar o espaçamento entre linhas.
+                  Texto com espaçamento normal entre linhas. Este é um exemplo
+                  de texto longo para demonstrar o espaçamento entre linhas.
                 </Description>
                 <Description spacing={2}>
-                  Texto com espaçamento aumentado entre linhas. Este é um exemplo de texto longo para demonstrar o espaçamento entre linhas.
+                  Texto com espaçamento aumentado entre linhas. Este é um
+                  exemplo de texto longo para demonstrar o espaçamento entre
+                  linhas.
                 </Description>
               </Column>
             </Card>
@@ -200,9 +191,7 @@ export default function TypographyScreen() {
           <Column gv={12}>
             <Column gv={6} mv={12}>
               <Title level={2}>Texto Sublinhado</Title>
-              <Description>
-                Componente para texto com sublinhado.
-              </Description>
+              <Description>Componente para texto com sublinhado.</Description>
             </Column>
             <Card pv={16} ph={16}>
               <Column gv={12}>
@@ -228,7 +217,8 @@ export default function TypographyScreen() {
                 <Title level={2}>Nome do Produto</Title>
                 <Label>Marca: S2Mangas</Label>
                 <Description>
-                  Descrição detalhada do produto com todas as suas características e benefícios.
+                  Descrição detalhada do produto com todas as suas
+                  características e benefícios.
                 </Description>
                 <SubLabel>SKU: PROD-001</SubLabel>
               </Column>
@@ -240,7 +230,8 @@ export default function TypographyScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Controle de Tema</Title>
               <Description>
-                Teste como os componentes de texto se comportam em diferentes temas.
+                Teste como os componentes de texto se comportam em diferentes
+                temas.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
@@ -258,7 +249,8 @@ export default function TypographyScreen() {
             <Column gv={6} mv={12}>
               <Title level={2}>Propriedades Disponíveis</Title>
               <Description>
-                Lista completa das propriedades que podem ser usadas nos componentes de texto.
+                Lista completa das propriedades que podem ser usadas nos
+                componentes de texto.
               </Description>
             </Column>
             <Card pv={16} ph={16}>
@@ -282,7 +274,9 @@ export default function TypographyScreen() {
                 <Description>Espaçamento entre linhas</Description>
 
                 <Label>mh, mv, mb, mt, mr, ml: number</Label>
-                <Description>Margens (horizontal, vertical, bottom, top, right, left)</Description>
+                <Description>
+                  Margens (horizontal, vertical, bottom, top, right, left)
+                </Description>
 
                 <Label>style: TextStyle</Label>
                 <Description>Estilos adicionais do React Native</Description>

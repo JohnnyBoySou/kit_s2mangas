@@ -10,7 +10,6 @@ export { default as Toast } from './ui/toast/toast';
 export { default as Sheet } from './ui/sheet/sheet';
 export { default as Select } from './ui/select/select';
 export { default as Loader } from './ui/loader/loader';
-export { default as Check } from './ui/check/check';
 export { default as Toggle } from './ui/toggle/toggle';
 export { default as Badge } from './ui/badge/badge';
 export { default as CheckBox } from './ui/checkbox/checkbox';

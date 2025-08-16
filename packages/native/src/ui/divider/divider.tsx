@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
-import { theme } from '@s2mangas/core';
+import { theme } from '../../../../core/src/theme';
 
 interface DividerProps {
   style?: ViewStyle;
@@ -14,7 +14,7 @@ interface DividerProps {
 const Divider: React.FC<DividerProps> = ({
   style,
   color = theme.color.muted,
-  thickness = 1,
+  thickness = 2,
   marginVertical = 8,
   marginHorizontal = 0,
   testID,
@@ -28,6 +28,7 @@ const Divider: React.FC<DividerProps> = ({
           backgroundColor: color,
           marginVertical,
           marginHorizontal,
+          width: "100%",
         },
         style,
       ]}

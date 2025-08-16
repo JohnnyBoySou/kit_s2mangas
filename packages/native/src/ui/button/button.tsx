@@ -1,11 +1,12 @@
 import React from "react";
 import { Text, Pressable, ViewStyle, TextStyle, ActivityIndicator, View } from "react-native";
-import { theme } from '@s2mangas/core';
+import { theme } from '../../../../core/src/theme';
 
 export interface ButtonProps {
 	label?: string;
 	onPress?: () => void;
 	variant?: "default" | "secondary" | "destructive" | "ghost" | "link" | "outline" | "primary" | "blur";
+	size?: "sm" | "md" | "lg";
 	style?: ViewStyle;
 	textStyle?: TextStyle;
 	loading?: boolean;
@@ -15,10 +16,36 @@ export interface ButtonProps {
 	children?: React.ReactNode;
 }
 
+// Configurações de tamanho para o botão
+const sizeConfig = {
+	sm: {
+		height: 32,
+		paddingHorizontal: 12,
+		fontSize: 12,
+		iconSize: 14,
+		fontFamily: theme.font.medium,
+	},
+	md: {
+		height: 48,
+		paddingHorizontal: 16,
+		fontSize: 14,
+		iconSize: 18,
+		fontFamily: theme.font.bold,
+	},
+	lg: {
+		height: 56,
+		paddingHorizontal: 20,
+		fontSize: 16,
+		iconSize: 20,
+		fontFamily: theme.font.bold,
+	},
+};
+
 const Button: React.FC<ButtonProps> = ({ 
 	label, 
 	onPress, 
 	variant = "default", 
+	size = "md",
 	style, 
 	textStyle, 
 	loading = false, 
@@ -27,10 +54,11 @@ const Button: React.FC<ButtonProps> = ({
 	testID,
 	children 
 }) => {
-	const displayText = label || children;
+	const displayText = label || (typeof children === 'string' ? children : null);
+	const currentSize = sizeConfig[size];
 
 	// Função para converter ReactNode para string de forma segura
-	const getAccessibilityLabel = (text: React.ReactNode): string => {
+	const getAccessibilityLabel = (text: string | React.ReactNode): string => {
 		if (typeof text === 'string') {
 			return text;
 		}
@@ -56,35 +84,35 @@ const Button: React.FC<ButtonProps> = ({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		borderRadius: 18,
-		height: 48,
-		paddingHorizontal: 16,
+		borderRadius: currentSize.height / 2.4,
+		height: currentSize.height,
+		paddingHorizontal: currentSize.paddingHorizontal,
 		...(variant === "default" && { backgroundColor: theme.color.background }),
-		...(variant === "secondary" && { backgroundColor: theme.color.muted }),
+		...(variant === "secondary" && { backgroundColor: theme.color.secondary }),
 		...(variant === "destructive" && { backgroundColor: theme.color.destructive }),
 		...(variant === "ghost" && { backgroundColor: theme.color.ghost, borderColor: theme.color.borderGhost, borderTopLeftColor: theme.color.ghost, borderBottomColor: theme.color.ghost, borderWidth: 1 }),
 		...(variant === "link" && { backgroundColor: "transparent" }),
 		...(variant === "outline" && { backgroundColor: "transparent", borderWidth: 1, borderColor: theme.color.borderPrimary }),
 		...(variant === "primary" && { backgroundColor: theme.color.primary }),
 		...(variant === "blur" && { borderColor: theme.color.textGhost + "20", borderTopLeftColor: theme.color.textGhost + "20", borderBottomColor: theme.color.textGhost + "20", borderWidth: 1 }),
-		...(icon && !displayText && { width: 48, paddingHorizontal: 0, justifyContent: "center", alignItems: "center" }),
+		...(icon && !displayText && { width: currentSize.height, paddingHorizontal: 0 }),
 		...style,
 	};
 
 	// Estilos do texto
 	const textStyles: TextStyle = {
 		textAlign: "center",
-		fontFamily: theme.font.bold,
+		fontFamily: currentSize.fontFamily,
 		color: variant === "blur" ? theme.color.textGhost : 
 		       variant === "default" ? theme.color.text : 
-		       variant === "secondary" ? theme.color.text : 
+		       variant === "secondary" ? theme.color.textGhost : 
 		       variant === "destructive" ? theme.color.textGhost : 
 		       variant === "ghost" ? theme.color.textGhost : 
 		       variant === "link" ? theme.color.link : 
 		       variant === "outline" ? theme.color.textGhost : 
 		       variant === "primary" ? theme.color.textGhost : 
 		       theme.color.text,
-		fontSize: theme.size.label,
+		fontSize: currentSize.fontSize,
 		letterSpacing: -0.2,
 		...textStyle,
 	};
@@ -95,37 +123,35 @@ const Button: React.FC<ButtonProps> = ({
 			testID={testID} 
 			onPress={onPress} 
 			accessible={true} 
-			accessibilityLabel={getAccessibilityLabel(displayText)} 
+			accessibilityLabel={getAccessibilityLabel(displayText || 'Button')} 
 			accessibilityRole="button" 
 			disabled={loading || disabled} 
 			style={[containerStyles, { opacity: disabled ? 0.5 : 1 }]}
 		>
 			{loading ? (
-				<ActivityIndicator color={theme.color.text} size={18} />
+				<ActivityIndicator color={theme.color.text} size={currentSize.iconSize} />
 			) : (
 				<View
 					style={{
 						flexDirection: "row",
 						justifyContent: "center",
 						alignItems: "center",
-						...(icon && !displayText && { width: "100%", height: "100%" }),
 					}}
 				>
-					{icon ? (
+					{icon && (
 						<View
 							style={{
-								marginRight: displayText ? 6 : -2,
-								...(icon && !displayText && { width: "100%", height: "100%", justifyContent: "center", alignItems: "center" }),
+								marginRight: displayText ? 6 : 0,
 							}}
 						>
 							{icon}
 						</View>
-					) : null}
-					{displayText ? (
+					)}
+					{displayText && (
 						<Text style={textStyles}>
 							{displayText}
 						</Text>
-					) : null}
+					)}
 				</View>
 			)}
 		</Pressable>

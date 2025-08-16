@@ -3,7 +3,7 @@ export const theme = {
     background: "#000000",
 
     primary: "#ED274A",
-    secundary: "#FF620A",
+    secondary: "#FF620A",
     destructive: "#e74c3c", // Vermelho destrutivo
     ghost: "#303030", // Azul-escuro ghost
     link: "#3498db", // Cor do link
@@ -31,7 +31,7 @@ export const theme = {
     borderGhost: "#303030", // Cor da borda para a variante outline
     true: "#ED274A",
     false: "#505050",
-    muted: "#d1d1d1",
+    muted: "#303030",
     activeText: "#f1f1f1",
     text: "#d1d1d1"
   },

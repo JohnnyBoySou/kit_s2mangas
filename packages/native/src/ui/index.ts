@@ -11,7 +11,6 @@ import Toast from "./toast/toast";
 import Sheet from './sheet/sheet';
 import Select from './select/select';
 import Loader from './loader/loader';
-import Check from './check/check'
 import Toggle from "./toggle/toggle";
 import Badge from "./badge/badge";
 import MultiStepProgress from "./progress/progress";
@@ -37,7 +36,7 @@ export {
     SCREEN_WIDTH, SCREEN_HEIGHT,
     Input, Toast,
     Sheet, Select, Loader,
-    Image, Check, Toggle, InputOTP,
+    Image, Toggle, InputOTP,
     Badge,
     Pressable,
     CheckBox,

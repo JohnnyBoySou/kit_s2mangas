@@ -10,8 +10,8 @@ const CheckIcon: React.FC<{ color: string; size: number }> = (props) => {
 
 // Interface para os props do componente Check
 interface CheckProps {
-  status: boolean;
-  setStatus: (value: boolean) => typeof value;
+  value: boolean;
+  setValue: (value: boolean) => void;
   label?: string;
   testID?: string;
   accessibilityLabel?: string;
@@ -24,8 +24,8 @@ interface CheckProps {
 }
 
 const CheckBox: React.FC<CheckProps> = ({
-  status,
-  setStatus,
+  value,
+  setValue,
   label,
   testID,
   accessibilityLabel,
@@ -33,21 +33,21 @@ const CheckBox: React.FC<CheckProps> = ({
   disabled
 }) => {
   // Animações nativas
-  const backgroundColorAnim = useRef(new Animated.Value(status ? 1 : 0)).current;
-  const iconScaleAnim = useRef(new Animated.Value(status ? 1 : 0)).current;
-  const textColorAnim = useRef(new Animated.Value(status ? 1 : 0)).current;
+  const backgroundColorAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
+  const iconScaleAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
+  const textColorAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   useEffect(() => {
     // Animar cor de fundo
     Animated.timing(backgroundColorAnim, {
-      toValue: status ? 1 : 0,
+      toValue: value ? 1 : 0,
       duration: 400,
       useNativeDriver: false,
     }).start();
 
     // Animar ícone
     Animated.spring(iconScaleAnim, {
-      toValue: status ? 1 : 0,
+      toValue: value ? 1 : 0,
       useNativeDriver: true,
       tension: 100,
       friction: 8,
@@ -55,11 +55,11 @@ const CheckBox: React.FC<CheckProps> = ({
 
     // Animar texto
     Animated.timing(textColorAnim, {
-      toValue: status ? 1 : 0,
+      toValue: value ? 1 : 0,
       duration: 400,
       useNativeDriver: false,
     }).start();
-  }, [status, backgroundColorAnim, iconScaleAnim, textColorAnim]);
+  }, [value, backgroundColorAnim, iconScaleAnim, textColorAnim]);
 
   const backgroundColor = backgroundColorAnim.interpolate({
     inputRange: [0, 1],
@@ -74,7 +74,7 @@ const CheckBox: React.FC<CheckProps> = ({
   return (
     <Pressable
       onPress={() => {
-        setStatus(!status);
+        setValue(!value);
       }}
       disabled={disabled}
       style={
@@ -88,7 +88,7 @@ const CheckBox: React.FC<CheckProps> = ({
       testID={testID}
       accessibilityLabel={accessibilityLabel}
       accessibilityRole={accessibilityRole}
-      accessibilityState={{ checked: status, disabled }}
+      accessibilityState={{ checked: value, disabled }}
     >
       <Animated.View
         style={[
@@ -117,7 +117,7 @@ const CheckBox: React.FC<CheckProps> = ({
         <Animated.Text
           style={[
             {
-              fontFamily: status ? "Font_Medium" : "Font_Book",
+              fontFamily: value ? "Font_Medium" : "Font_Book",
               fontSize: 16,
             },
             {

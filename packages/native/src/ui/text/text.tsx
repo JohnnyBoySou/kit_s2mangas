@@ -15,6 +15,7 @@ interface StyleProps {
   fontFamily?: string;  // Novo campo para o fontFamily
   spacing?: number;  // Espaçamento entre as linhas
   style?: TextStyle;  // Adicionando estilo adicional
+  level?: 1 | 2 | 3 | 4 | 5 | 6;  // Novo campo para level (h1-h6)
 }
 
 // Interface para os props dos componentes
@@ -22,8 +23,54 @@ interface TextComponentProps extends StyleProps {
   children: React.ReactNode;  // children é obrigatório, mas pode ser null ou undefined
 }
 
+// Configurações de level (h1-h6)
+const levelConfig = {
+  1: { size: 32, fontFamily: 'Font_Bold', color: '#F3FAFF' },
+  2: { size: 28, fontFamily: 'Font_Bold', color: '#FFF' },
+  3: { size: 24, fontFamily: 'Font_Medium', color: '#FFF' },
+  4: { size: 20, fontFamily: 'Font_Medium', color: '#FFF' },
+  5: { size: 18, fontFamily: 'Font_Book', color: '#FFF' },
+  6: { size: 16, fontFamily: 'Font_Book', color: '#FFF' },
+};
+
 // Função utilitária para gerenciar estilos
-const getStyle = ({ size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style }: StyleProps & { style?: TextStyle }): TextStyle => {
+const getStyle = ({ 
+  size, 
+  align, 
+  color, 
+  mh, 
+  mv, 
+  mb, 
+  mt, 
+  mr, 
+  ml, 
+  fontFamily, 
+  spacing, 
+  style,
+  level 
+}: StyleProps & { style?: TextStyle }): TextStyle => {
+  // Se level for especificado, usar as configurações do level
+  if (level && levelConfig[level]) {
+    const levelStyle = levelConfig[level];
+    return {
+      fontSize: levelStyle.size,
+      textAlign: align || 'left',
+      color: color || levelStyle.color,
+      marginHorizontal: mh || 0,
+      marginVertical: mv || 0,
+      marginBottom: mb || 0,
+      marginTop: mt || 0,
+      marginRight: mr || 0,
+      marginLeft: ml || 0,
+      lineHeight: levelStyle.size * 1.2,
+      letterSpacing: spacing || 0,
+      fontFamily: fontFamily || levelStyle.fontFamily,
+      flexWrap: 'wrap',
+      ...style,
+    };
+  }
+
+  // Estilo padrão quando level não é especificado
   return {
     fontSize: size || 16,
     textAlign: align || 'left',
@@ -36,9 +83,9 @@ const getStyle = ({ size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spac
     marginLeft: ml || 0,
     lineHeight: size ? size * 1.04 : 24,
     letterSpacing: spacing || 0,
-    fontFamily: fontFamily || 'Font_Book',  // Adicionando fontFamily com valor padrão
+    fontFamily: fontFamily || 'Font_Book',
     flexWrap: 'wrap',
-    ...style,  // Adicionando estilo adicional
+    ...style,
   };
 };
 
@@ -75,16 +122,17 @@ export const HeadTitle = ({
   mt,
   mr,
   ml,
-  fontFamily = 'Font_Book',  // Recebendo fontFamily
+  fontFamily = 'Font_Book',
   children,
   spacing,
   style,
+  level,
 }: TextComponentProps) => {
-  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style };
+  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style, level };
   return (
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
-      accessible={true}  // Sempre acessível
+      accessible={true}
       accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'header'}
     >
@@ -104,16 +152,17 @@ export const Title = ({
   mt,
   mr,
   ml,
-  fontFamily = 'Font_Bold',  // Recebendo fontFamily
+  fontFamily = 'Font_Bold',
   children,
   spacing,
   style,
+  level,
 }: TextComponentProps) => {
-  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing,style };
+  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style, level };
   return (
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
-      accessible={true}  // Sempre acessível
+      accessible={true}
       accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'header'}
     >
@@ -133,17 +182,17 @@ export const Label = ({
   mt,
   mr,
   ml,
-  fontFamily = 'Font_Book',  // Recebendo fontFamily
+  fontFamily = 'Font_Book',
   children,
   spacing,
   style,
+  level,
 }: TextComponentProps) => {
-  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, 
-    style, };
+  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style, level };
   return (
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
-      accessible={true}  // Sempre acessível
+      accessible={true}
       accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'text'}
     >
@@ -163,17 +212,17 @@ export const SubLabel = ({
   mt,
   mr,
   ml,
-  fontFamily = 'Font_Book',  // Recebendo fontFamily
+  fontFamily = 'Font_Book',
   children,
   spacing,
-  style
+  style,
+  level,
 }: TextComponentProps) => {
-  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing , 
-    style, };
+  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style, level };
   return (
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
-      accessible={true}  // Sempre acessível
+      accessible={true}
       accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'text'}
     >
@@ -193,18 +242,48 @@ export const Description = ({
   mt,
   mr,
   ml,
-  fontFamily = 'Font_Book',  // Recebendo fontFamily
+  fontFamily = 'Font_Book',
+  children,
+  spacing,
+  style,
+  level,
+}: TextComponentProps) => {
+  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style, level };
+  return (
+    <Text
+      style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
+      accessible={true}
+      accessibilityLabel={getAccessibilityLabel(children)}
+      accessibilityRole={'text'}
+    >
+      {children}
+    </Text>
+  );
+};
+
+// Componente Heading genérico que usa level
+export const Heading = ({
+  level = 1,
+  align,
+  color,
+  mh,
+  mv,
+  mb,
+  mt,
+  mr,
+  ml,
+  fontFamily,
   children,
   spacing,
   style,
 }: TextComponentProps) => {
-  const styleProps = { size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style };
+  const styleProps = { level, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spacing, style };
   return (
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
-      accessible={true}  // Sempre acessível
+      accessible={true}
       accessibilityLabel={getAccessibilityLabel(children)}
-      accessibilityRole={'text'}
+      accessibilityRole={'header'}
     >
       {children}
     </Text>

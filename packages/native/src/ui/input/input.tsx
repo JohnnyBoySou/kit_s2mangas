@@ -1,16 +1,25 @@
-import React, { useState, forwardRef, useRef, useEffect } from "react";
-import { Column } from "../layout/layout"; 
-import { Pressable, TextInput, TextInputProps, KeyboardTypeOptions, View, Text, ViewStyle, TextStyle, Animated } from "react-native";
-import { Eye, EyeOff } from "lucide-react-native";
-import { theme } from '../../../../core/src/theme';
-import { getMaskFunction, MaskType } from '../../../../core/src';
+import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
+import { Column, Row } from '../layout/layout';
+import {
+  TextInput,
+  KeyboardTypeOptions,
+  Platform,
+  TextInputProps,
+  ViewStyle,
+  TextStyle,
+  Pressable,
+  Animated,
+  Easing,
+} from 'react-native';
+import { Label } from '../text/text';
+import { getMaskFunction, MaskType, theme } from '../../../../core/src';
+import Icon, { IconName } from '../icon/icon';
 
-const EyeIcon: React.FC<{ size: number; color: string }> = (props) => {
-  return React.createElement(Eye as any, props);
-};
-
-const EyeOffIcon: React.FC<{ size: number; color: string }> = (props) => {
-  return React.createElement(EyeOff as any, props);
+export type InputBigRef = {
+  focus: () => void;
+  blur: () => void;
+  clear: () => void;
+  getNode: () => TextInput | null; 
 };
 
 interface InputProps extends TextInputProps {
@@ -22,7 +31,7 @@ interface InputProps extends TextInputProps {
   mask?: MaskType;
   keyboardType?: KeyboardTypeOptions;
   onSubmitEditing?: () => void;
-  isPassword?: boolean;
+  secure?: boolean;
   disabled?: boolean;
   focused?: boolean;
   required?: boolean;
@@ -32,249 +41,210 @@ interface InputProps extends TextInputProps {
   errorStyle?: TextStyle;
   helperStyle?: TextStyle;
   testID?: string;
+  iconLeft?: string;
+  iconRight?: string;
 }
 
-const Input = forwardRef<TextInput, InputProps>(
-  (
-    {
-      value = "",
-      onChangeText,
-      label,
-      error,
-      helperText,
-      required = false,
-      mask,
-      keyboardType = "default",
-      onSubmitEditing,
-      isPassword = false,
-      disabled = false,
-      focused = false,
-      containerStyle,
-      inputStyle,
-      labelStyle,
-      errorStyle,
-      helperStyle,
-      testID,
-      ...props
-    },
-    ref
-  ) => {
-    const [isFocused, setIsFocused] = useState<boolean>(focused);
-    const [isSecure, setIsSecure] = useState<boolean>(isPassword);
-    const borderColorAnim = useRef(new Animated.Value(0)).current;
+const DUR = 140; // animação rápida
+const EASE = Easing.out(Easing.quad);
 
-    const handleFocus = (e: any) => {
-      setIsFocused(true);
-      if (props.onFocus) {
-        props.onFocus(e);
-      }
-    };
+const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
+  const {
+    value = '',
+    onChangeText,
+    label,
+    error,
+    helperText,
+    mask,
+    keyboardType = 'default',
+    onSubmitEditing,
+    secure = false,
+    disabled = false,
+    focused = false,
+    required = false,
+    containerStyle,
+    inputStyle,
+    labelStyle,
+    errorStyle,
+    helperStyle,
+    testID,
+    iconLeft,
+    iconRight,
+    ...restProps
+  } = props;
 
-    const handleBlur = (e: any) => {
-      setIsFocused(false);
-      if (props.onBlur) {
-        props.onBlur(e);
-      }
-    };
+  const [focus, setFocus] = useState<boolean>(!!focused);
+  const inputRef = useRef<TextInput>(null);
 
-    const handleChangeText = (text: string) => {
-      if (!onChangeText) return;
-      
-      const { maskFunction, maxLength } = getMaskFunction(mask);
-      let maskedText = maskFunction(text);
+  useImperativeHandle(ref, () => ({
+    focus: () => inputRef.current?.focus(),
+    blur: () => inputRef.current?.blur(),
+    clear: () => inputRef.current?.clear(),
+    getNode: () => inputRef.current,
+  }), []);
 
-      if (maxLength && maskedText.length > maxLength) {
-        maskedText = maskedText.slice(0, maxLength);
-      }
+  // animação: 0 = blur/idle, 1 = focus/hover
+  const anim = useRef(new Animated.Value(focus && !disabled ? 1 : 0)).current;
 
-      onChangeText(maskedText);
-    };
+  useEffect(() => {
+    const toValue = disabled ? 0 : (focus ? 1 : 0);
+    Animated.timing(anim, {
+      toValue,
+      duration: DUR,
+      easing: EASE,
+      useNativeDriver: false, // cores/tamanho não suportam driver nativo
+    }).start();
+  }, [focus, disabled]);
 
-    const togglePasswordVisibility = () => {
-      setIsSecure(!isSecure);
-    };
+  // estilos animados
+  const bgColor = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["#151515", theme.color.borderGhost],
+  });
 
-    const getBorderColor = () => {
-      if (disabled) return theme.color.muted;
-      if (error) return theme.color.destructive;
-      if (isFocused) return theme.color.title;
-      return theme.color.borderGhost;
-    };
 
-    const getTextColor = () => {
-      if (disabled) return theme.color.muted;
-      return theme.color.text;
-    };
+  const labelColor = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [theme.color.label, theme.color.title],
+  });
 
-    const getPlaceholderColor = () => {
-      if (disabled) return theme.color.muted;
-      return theme.color.text + "60";
-    };
+  const scale = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 1.02],
+  });
 
-    // Animação da borda
-    useEffect(() => {
-      let targetValue: number;
-      
-      if (disabled) {
-        targetValue = 0; // theme.color.muted
-      } else if (error) {
-        targetValue = 1; // theme.color.destructive
-      } else if (isFocused) {
-        targetValue = 2; // theme.color.title
-      } else {
-        targetValue = 3; // theme.color.borderGhost
-      }
-      
-      Animated.timing(borderColorAnim, {
-        toValue: targetValue,
-        duration: 200,
-        useNativeDriver: false,
-      }).start();
-    }, [isFocused, error, disabled, borderColorAnim]);
+  const shadowOpacity = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 0.25],
+  });
 
-    const animatedBorderColor = borderColorAnim.interpolate({
-      inputRange: [0, 1, 2, 3],
-      outputRange: [
-        theme.color.muted,      // disabled
-        theme.color.destructive, // error
-        theme.color.title,       // focused
-        theme.color.borderGhost, // normal
-      ],
-    });
+  const borderColor = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [theme.color.off10, theme.color.off40],
+  });
 
-    return (
-      <Column style={containerStyle}>
-        {/* Label */}
-        {label && (
-          <Text
+  const handlePress = () => {
+    if (!disabled) inputRef.current?.focus();
+  };
+
+  const handleFocus = () => setFocus(true);
+  const handleBlur = () => setFocus(false);
+
+  const handleChangeText = (text: string) => {
+    const { maskFunction, maxLength } = getMaskFunction(mask);
+    let maskedText = maskFunction(text);
+    if (maxLength && maskedText.length > maxLength) maskedText = maskedText.slice(0, maxLength);
+    onChangeText?.(maskedText);
+  };
+
+  const placeholderColor = disabled ? theme.color.muted : theme.color.text;
+
+  return (
+    <Pressable onPress={handlePress} disabled={disabled}>
+      <Animated.View // container animado (substitui Column direto)
+        style={{
+          transform: [{ scale }],
+          backgroundColor: disabled ? '#101010' : bgColor as any,
+          borderRadius: 8,
+          borderTopWidth: .6,
+          borderBottomWidth: .6,
+          borderLeftWidth: .8,
+          borderRightWidth: .8,
+          borderColor: disabled ? '#101010' : borderColor as any,
+          shadowColor: '#000000',
+          shadowOffset: { width: 0, height: 6 },
+          shadowRadius: 12,
+          shadowOpacity: shadowOpacity as any,
+          elevation: focus ? 6 : 0,
+          ...(containerStyle || {}),
+        }}
+      >
+        <Column ph={12} pv={12} justify="center">
+          <Animated.Text 
             style={[
-              {
-                fontSize: theme.size.sublabel,
-                fontFamily: theme.font.medium,
-                color: error ? theme.color.destructive : theme.color.label,
-                marginBottom: 8,
-              },
+              { fontSize: 12, letterSpacing: -0.5, color: disabled ? theme.color.title : theme.color.text, fontFamily: theme.font.book },
               labelStyle,
+
+              !disabled && { color: labelColor as any },
             ]}
           >
             {label}
-          </Text>
-        )}
+            {required && (
+              <Label style={{ color: theme.color.destructive, fontFamily: theme.font.book }}> *</Label>
+            )}
+          </Animated.Text>
 
-        {/* Input Container */}
-        <View
-          style={{
-            position: 'relative',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Animated.View
-            style={{
-              flex: 1,
-              borderBottomWidth: 1,
-              borderColor: animatedBorderColor,
-              backgroundColor: disabled ? theme.color.ghost : theme.color.background,
-            }}
-          >
-            <TextInput
-              {...props}
-              ref={ref}
-              testID={testID}
-              accessible={true}
-              accessibilityLabel={label || 'Input field'}
-              accessibilityRole="text"
-              style={[
-                {
-                  flex: 1,
-                  fontSize: theme.size.label,
-                  fontFamily: theme.font.book,
-                  color: getTextColor(),
-                  height: 48,
-                  paddingHorizontal: 16,
-                  paddingVertical: 12,
-                  backgroundColor: 'transparent',
-                },
-                inputStyle,
-              ]}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              autoFocus={focused}
-              editable={!disabled}
-              onChangeText={handleChangeText}
-              value={value}
-              onSubmitEditing={onSubmitEditing}
-              secureTextEntry={isSecure}
-              keyboardType={keyboardType}
-              placeholder={props.placeholder}
-              placeholderTextColor={getPlaceholderColor()}
-              selectionColor={theme.color.primary}
-            />
-          </Animated.View>
+          <Row gh={6} align="center" justify="space-between">
+            <Row gh={6} align='center' justify='center'>
+              {iconLeft && (
+                <Column style={{ marginTop: 10, }}>
+                  <Animated.View>
+                    <Icon
+                      name={iconLeft as IconName}
+                      size={16}
+                      color={disabled ? theme.color.label : theme.color.title}
+                    />
+                  </Animated.View>
+                </Column>
+              )}
 
-          {/* Password Toggle */}
-          {isPassword && (
-            <Pressable
-              testID="password-toggle-button"
-              accessibilityRole="button"
-              accessibilityLabel={isSecure ? "Show password" : "Hide password"}
-              onPress={togglePasswordVisibility}
+              <TextInput
+                {...restProps}
+                ref={inputRef}
+                style={{
+                  fontSize: 18,
+                  letterSpacing: -1,
+                  marginBottom: Platform.OS === 'android' ? -12 : 0,
+                  marginTop: Platform.OS === 'android' ? -2 : 2,
+                  fontFamily: 'Font_Book',
+                  color: disabled ? '#ffffff90' : '#fff',
+                  ...(inputStyle || {}),
+                }}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                autoFocus={focused}
+                editable={!disabled}
+                onChangeText={handleChangeText}
+                value={value}
+                onSubmitEditing={onSubmitEditing}
+                keyboardType={keyboardType}
+                placeholder={restProps.placeholder}
+                secureTextEntry={secure}
+                placeholderTextColor={placeholderColor}
+              />
+            </Row>
+
+            {iconRight && (
+              <Column style={{ alignSelf: 'flex-end', marginTop: 10, }}>
+                <Animated.View>
+                  <Icon
+                    name={iconRight as IconName}
+                    size={16}
+                    color={disabled ? theme.color.label : theme.color.title}
+                  />
+                </Animated.View>
+              </Column>
+            )}
+          </Row>
+
+          {/* helper / erro (opcional com fade) */}
+          {(helperText || error) && (
+            <Animated.Text
               style={{
-                position: "absolute",
-                right: 12,
-                width: 24,
-                height: 24,
-                justifyContent: "center",
-                alignItems: "center",
+                marginTop: 8,
+                fontSize: 12,
+                color: error ? theme.color.destructive : theme.color.muted,
+                opacity: anim.interpolate({ inputRange: [0, 1], outputRange: [0.8, 1] }) as any,
               }}
             >
-              {isSecure ? (
-                <EyeIcon size={20} color={theme.color.text} />
-              ) : (
-                <EyeOffIcon size={20} color={theme.color.text} />
-              )}
-            </Pressable>
+              {error ?? helperText}
+            </Animated.Text>
           )}
-        </View>
-
-        {/* Error Message */}
-        {error && (
-          <Text
-            style={[
-              {
-                fontSize: theme.size.small,
-                fontFamily: theme.font.book,
-                color: theme.color.destructive,
-                marginTop: 4,
-              },
-              errorStyle,
-            ]}
-          >
-            {error}
-          </Text>
-        )}
-
-        {/* Helper Text */}
-        {helperText && !error && (
-          <Text
-            style={[
-              {
-                fontSize: theme.size.small,
-                fontFamily: theme.font.book,
-                color: theme.color.label,
-                marginTop: 4,
-              },
-              helperStyle,
-            ]}
-          >
-            {helperText}
-          </Text>
-        )}
-      </Column>
-    );
-  }
-);
+        </Column>
+      </Animated.View>
+    </Pressable>
+  );
+});
 
 Input.displayName = 'Input';
-
 export default Input;

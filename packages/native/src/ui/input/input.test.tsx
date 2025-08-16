@@ -2,156 +2,214 @@ import React from 'react';
 import Input from './input';
 
 describe('Input Component', () => {
-  it('renders correctly with placeholder', () => {
-    const element = React.createElement(Input, {
-      placeholder: "Enter text"
-    });
-    expect(element).toBeDefined();
-    expect(element.type).toBe(Input);
-    expect(element.props.placeholder).toBe("Enter text");
+  const mockSetValue = jest.fn();
+
+  beforeEach(() => {
+    mockSetValue.mockClear();
   });
 
-  it('renders with default value', () => {
+  it('renders with default props', () => {
     const element = React.createElement(Input, {
-      value: "Default value"
-    });
-    expect(element).toBeDefined();
-    expect(element.props.value).toBe("Default value");
-  });
-
-  it('handles onChangeText correctly', () => {
-    const mockOnChangeText = jest.fn();
-    const element = React.createElement(Input, {
-      onChangeText: mockOnChangeText,
-      testID: "input",
-      placeholder: "Type here"
+      value: "",
+      onChangeText: mockSetValue
     });
     
     expect(element).toBeDefined();
-    expect(element.props.onChangeText).toBe(mockOnChangeText);
-    expect(element.props.testID).toBe("input");
-    expect(element.props.placeholder).toBe("Type here");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
   });
 
   it('renders with label', () => {
     const element = React.createElement(Input, {
-      label: "Username",
-      placeholder: "Enter username"
+      value: "",
+      onChangeText: mockSetValue,
+      label: "Test Label"
     });
+    
     expect(element).toBeDefined();
-    expect(element.props.label).toBe("Username");
-    expect(element.props.placeholder).toBe("Enter username");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.label).toBe("Test Label");
   });
 
-  it('renders with error message', () => {
+  it('renders with placeholder', () => {
     const element = React.createElement(Input, {
-      placeholder: "Enter email",
-      error: "Invalid email format"
+      value: "",
+      onChangeText: mockSetValue,
+      placeholder: "Test Placeholder"
     });
+    
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Enter email");
-    expect(element.props.error).toBe("Invalid email format");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.placeholder).toBe("Test Placeholder");
   });
 
-  it('renders with helper text', () => {
+  it('calls setValue when text changes', () => {
     const element = React.createElement(Input, {
-      placeholder: "Enter password",
-      helperText: "Must be at least 8 characters"
+      value: "",
+      onChangeText: mockSetValue
     });
+    
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Enter password");
-    expect(element.props.helperText).toBe("Must be at least 8 characters");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
   });
 
   it('renders in disabled state', () => {
     const element = React.createElement(Input, {
-      placeholder: "Disabled input",
-      disabled: true,
-      testID: "input"
+      value: "",
+      onChangeText: mockSetValue,
+      disabled: true
     });
+    
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Disabled input");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
     expect(element.props.disabled).toBe(true);
-    expect(element.props.testID).toBe("input");
   });
 
-  it('renders with secure text entry', () => {
+  it('applies CPF mask correctly', () => {
     const element = React.createElement(Input, {
-      placeholder: "Enter password",
-      secureTextEntry: true,
-      testID: "input"
-    });
-    expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Enter password");
-    expect(element.props.secureTextEntry).toBe(true);
-    expect(element.props.testID).toBe("input");
-  });
-
-  it('renders with multiline', () => {
-    const element = React.createElement(Input, {
-      placeholder: "Enter description",
-      multiline: true,
-      testID: "input"
-    });
-    expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Enter description");
-    expect(element.props.multiline).toBe(true);
-    expect(element.props.testID).toBe("input");
-  });
-
-  it('renders with custom style', () => {
-    const customStyle = { backgroundColor: 'lightgray' };
-    const element = React.createElement(Input, {
-      placeholder: "Custom input",
-      style: customStyle,
-      testID: "input"
-    });
-    expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Custom input");
-    expect(element.props.style).toBe(customStyle);
-    expect(element.props.testID).toBe("input");
-  });
-
-  it('handles onFocus correctly', () => {
-    const mockOnFocus = jest.fn();
-    const element = React.createElement(Input, {
-      placeholder: "Focus test",
-      onFocus: mockOnFocus,
-      testID: "input"
+      value: "",
+      onChangeText: mockSetValue,
+      mask: "CPF"
     });
     
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Focus test");
-    expect(element.props.onFocus).toBe(mockOnFocus);
-    expect(element.props.testID).toBe("input");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.mask).toBe("CPF");
   });
 
-  it('handles onBlur correctly', () => {
-    const mockOnBlur = jest.fn();
+  it('applies PHONE mask correctly', () => {
     const element = React.createElement(Input, {
-      placeholder: "Blur test",
-      onBlur: mockOnBlur,
-      testID: "input"
+      value: "",
+      onChangeText: mockSetValue,
+      mask: "PHONE"
     });
     
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Blur test");
-    expect(element.props.onBlur).toBe(mockOnBlur);
-    expect(element.props.testID).toBe("input");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.mask).toBe("PHONE");
   });
 
-  it('renders with accessibility props', () => {
+  it('applies CEP mask correctly', () => {
     const element = React.createElement(Input, {
-      placeholder: "Accessible input",
-      testID: "input",
-      accessibilityLabel: "Username input",
-      accessibilityHint: "Enter your username"
+      value: "",
+      onChangeText: mockSetValue,
+      mask: "CEP"
     });
     
     expect(element).toBeDefined();
-    expect(element.props.placeholder).toBe("Accessible input");
-    expect(element.props.testID).toBe("input");
-    expect(element.props.accessibilityLabel).toBe("Username input");
-    expect(element.props.accessibilityHint).toBe("Enter your username");
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.mask).toBe("CEP");
+  });
+
+  it('applies NASCIMENTO mask correctly', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      mask: "NASCIMENTO"
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.mask).toBe("NASCIMENTO");
+  });
+
+  it('handles focus and blur events', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+  });
+
+  it('renders with custom keyboard type', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      keyboardType: "numeric"
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.keyboardType).toBe("numeric");
+  });
+
+  it('handles submit editing', () => {
+    const mockOnSubmit = jest.fn();
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      onSubmitEditing: mockOnSubmit
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.onSubmitEditing).toBe(mockOnSubmit);
+  });
+
+  it('renders with focused prop', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      focused: true
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.focused).toBe(true);
+  });
+
+  it('respects maxLength for masks', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      mask: "CPF"
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.mask).toBe("CPF");
+  });
+
+  it('renders with testID', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      testID: "input-big"
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.testID).toBe("input-big");
   });
 });

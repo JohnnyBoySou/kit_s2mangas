@@ -5,7 +5,6 @@ export * from './ui';
 export { default as Button } from './ui/button/button';
 export { default as Avatar } from './ui/avatar/avatar';
 export { default as Input } from './ui/input/input';
-export { default as InputBig } from './ui/input/input_big';
 export { default as InputOTP } from './ui/otp/otp';
 export { default as Toast } from './ui/toast/toast';
 export { default as Sheet } from './ui/sheet/sheet';

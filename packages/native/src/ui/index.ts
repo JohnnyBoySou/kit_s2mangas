@@ -10,7 +10,7 @@ import { Title, HeadTitle, Label, SubLabel, U, Description } from "./text/text";
 import Button from "./button/button";
 import Avatar from "./avatar/avatar";
 import Skeleton from "./skeleton/skeleton";
-import InputBig from "./input/input_big";
+import Input from "./input/input";
 import InputOTP from "./otp/otp";
 import Toast from "./toast/toast";
 import Sheet from './sheet/sheet';
@@ -37,7 +37,7 @@ export {
     Skeleton,
     Tabs, 
     SCREEN_WIDTH, SCREEN_HEIGHT,
-    InputBig as Input, Toast,
+    Input, Toast,
     Sheet, Select, Loader,
     Image, Toggle, InputOTP,
     Badge,

@@ -6,7 +6,7 @@ describe('Theme', () => {
       expect(theme.color).toBeDefined();
       expect(theme.color.background).toBeDefined();
       expect(theme.color.primary).toBeDefined();
-      expect(theme.color.secundary).toBeDefined();
+      expect(theme.color.secondary).toBeDefined();
       expect(theme.color.destructive).toBeDefined();
       expect(theme.color.ghost).toBeDefined();
       expect(theme.color.link).toBeDefined();
@@ -17,7 +17,7 @@ describe('Theme', () => {
       
       expect(theme.color.background).toMatch(hexColorRegex);
       expect(theme.color.primary).toMatch(hexColorRegex);
-      expect(theme.color.secundary).toMatch(hexColorRegex);
+      expect(theme.color.secondary).toMatch(hexColorRegex);
       expect(theme.color.destructive).toMatch(hexColorRegex);
       expect(theme.color.ghost).toMatch(hexColorRegex);
       expect(theme.color.link).toMatch(hexColorRegex);
@@ -26,7 +26,7 @@ describe('Theme', () => {
     it('should have semantic color values', () => {
       expect(theme.color.background).toBe('#000000');
       expect(theme.color.primary).toBe('#ED274A');
-      expect(theme.color.secundary).toBe('#FF620A');
+      expect(theme.color.secondary).toBe('#FF620A');
       expect(theme.color.destructive).toBe('#e74c3c');
       expect(theme.color.ghost).toBe('#303030');
       expect(theme.color.link).toBe('#3498db');

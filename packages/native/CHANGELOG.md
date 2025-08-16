@@ -1,5 +1,11 @@
 # @s2mangas/native
 
+## 1.0.0
+
+### Major Changes
+
+- 3ed9edb: fix inputbig
+
 ## 0.0.8
 
 ### Patch Changes

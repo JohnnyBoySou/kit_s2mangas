@@ -87,7 +87,7 @@ const Button: React.FC<ButtonProps> = ({
 		borderRadius: currentSize.height / 2.4,
 		height: currentSize.height,
 		paddingHorizontal: currentSize.paddingHorizontal,
-		...(variant === "default" && { backgroundColor: theme.color.background }),
+		...(variant === "default" && { backgroundColor: theme.color.white }),
 		...(variant === "secondary" && { backgroundColor: theme.color.secondary }),
 		...(variant === "destructive" && { backgroundColor: theme.color.destructive }),
 		...(variant === "ghost" && { backgroundColor: theme.color.ghost, borderColor: theme.color.borderGhost, borderTopLeftColor: theme.color.ghost, borderBottomColor: theme.color.ghost, borderWidth: 1 }),
@@ -104,7 +104,7 @@ const Button: React.FC<ButtonProps> = ({
 		textAlign: "center",
 		fontFamily: currentSize.fontFamily,
 		color: variant === "blur" ? theme.color.textGhost : 
-		       variant === "default" ? theme.color.text : 
+		       variant === "default" ? theme.color.textGhost : 
 		       variant === "secondary" ? theme.color.textGhost : 
 		       variant === "destructive" ? theme.color.textGhost : 
 		       variant === "ghost" ? theme.color.textGhost : 

@@ -10,7 +10,7 @@ import {
 import { Image as ExpoImage } from "expo-image";
 
 interface CustomImageProps {
-  src?: string;
+  src?: string | number;
   w?: number | string;
   h?: number | string;
   r?: number | string;
@@ -39,7 +39,7 @@ interface CustomImageProps {
 }
 
 const Image: React.FC<CustomImageProps> = ({
-  src = "",
+  src,
   w = 0,
   h = 0,
   r = 0,
@@ -60,7 +60,29 @@ const Image: React.FC<CustomImageProps> = ({
   priority = "normal",
   ...rest
 }) => {
-  const imageSource = source || (src ? { uri: src } : undefined);
+  // Determina o source da imagem
+  const getImageSource = (): ImageSourcePropType | undefined => {
+    // Se source foi passado explicitamente, usa ele
+    if (source) {
+      return source;
+    }
+    
+    // Se src foi passado
+    if (src !== undefined) {
+      // Se src é um número (require), usa diretamente
+      if (typeof src === 'number') {
+        return src;
+      }
+      // Se src é uma string (URL), cria objeto com uri
+      if (typeof src === 'string' && src.trim() !== '') {
+        return { uri: src };
+      }
+    }
+    
+    return undefined;
+  };
+
+  const imageSource = getImageSource();
   
   const imageStyle = {
     borderRadius: r,

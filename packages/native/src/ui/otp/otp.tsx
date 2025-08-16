@@ -4,13 +4,13 @@ import { Column } from "../layout/layout";
 
 interface InputOTPProps extends TextInputProps {
   value: string;
-  setValue: (value: string) => typeof value;
+  onChangeText: (value: string) => void;
   disabled?: boolean;
   onSubmitEditing?: () => void;
 }
 
 const InputOTP = forwardRef<TextInput, InputOTPProps>(
-  ({ value, setValue, disabled = false, onSubmitEditing = () => {}, ...props }) => {
+  ({ value, onChangeText, disabled = false, onSubmitEditing = () => {}, ...props }) => {
     const inputRefs = useRef<(TextInput | null)[]>([]);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const InputOTP = forwardRef<TextInput, InputOTPProps>(
       }
 
       const newOtp = otpArray.join("").slice(0, 4);
-      setValue(newOtp);
+      onChangeText(newOtp);
 
       // Avança para o próximo campo se possível
       const nextIndex = index + chars.length;
@@ -53,7 +53,7 @@ const InputOTP = forwardRef<TextInput, InputOTPProps>(
         if (newIndex >= 0) {
           const otpArray = value.split("");
           otpArray[newIndex] = "";
-          setValue(otpArray.join(""));
+          onChangeText(otpArray.join(""));
           inputRefs.current[newIndex]?.focus();
         }
       }

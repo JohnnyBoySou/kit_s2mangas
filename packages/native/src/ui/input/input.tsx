@@ -14,9 +14,9 @@ const EyeOffIcon: React.FC<{ size: number; color: string }> = (props) => {
 };
 
 // Interface para os props do Input
-interface InputProps extends Omit<TextInputProps, 'onChangeText'> {
+interface InputProps extends Omit<TextInputProps, 'onChange'> {
   value?: string;
-  onChangeText?: (text: string) => typeof text;
+  onChange?: (text: string) => void;
   label?: string;
   error?: string;
   helperText?: string;
@@ -35,7 +35,7 @@ interface InputProps extends Omit<TextInputProps, 'onChangeText'> {
 }
 
 interface MaskConfig {
-  maskFunction: (text: string) => typeof text;
+  maskFunction: (text: string) => string;
   maxLength?: number;
 }
 
@@ -43,7 +43,7 @@ const Input = forwardRef<TextInput, InputProps>(
   (
     {
       value = "",
-      onChangeText,
+      onChange,
       label,
       error,
       helperText,
@@ -81,7 +81,7 @@ const Input = forwardRef<TextInput, InputProps>(
     };
 
     const handleChangeText = (text: string) => {
-      if (!onChangeText) return;
+      if (!onChange) return;
       
       const { maskFunction, maxLength } = getMaskFunction(mask);
       let maskedText = maskFunction(text);
@@ -90,7 +90,7 @@ const Input = forwardRef<TextInput, InputProps>(
         maskedText = maskedText.slice(0, maxLength);
       }
 
-      onChangeText(maskedText);
+      onChange(maskedText);
     };
 
     const togglePasswordVisibility = () => {

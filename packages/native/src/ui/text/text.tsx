@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Text, TextStyle } from 'react-native';
+import React from "react";
+import { Text, TextStyle } from "react-native";
 
 // Definição de tipo para as propriedades de estilo
 interface StyleProps {
@@ -19,7 +19,7 @@ interface StyleProps {
 
 // Interface para os props dos componentes
 interface TextComponentProps extends StyleProps {
-  children: ReactNode;  // children é obrigatório, mas pode ser null ou undefined
+  children: React.ReactNode;  // children é obrigatório, mas pode ser null ou undefined
 }
 
 // Função utilitária para gerenciar estilos
@@ -40,6 +40,28 @@ const getStyle = ({ size, align, color, mh, mv, mb, mt, mr, ml, fontFamily, spac
     flexWrap: 'wrap',
     ...style,  // Adicionando estilo adicional
   };
+};
+
+// Função helper para converter ReactNode para string de forma segura
+const getAccessibilityLabel = (children: React.ReactNode): string => {
+  if (typeof children === 'string') {
+    return children;
+  }
+  if (typeof children === 'number') {
+    return children.toString();
+  }
+  if (React.isValidElement(children)) {
+    // Se for um elemento React, tenta extrair o texto dos children
+    const childChildren = children.props?.children;
+    if (typeof childChildren === 'string') {
+      return childChildren;
+    }
+    if (typeof childChildren === 'number') {
+      return childChildren.toString();
+    }
+  }
+  // Fallback para casos complexos
+  return '';
 };
 
 // Componente HeadTitle com fontFamily inline
@@ -63,7 +85,7 @@ export const HeadTitle = ({
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
       accessible={true}  // Sempre acessível
-      accessibilityLabel={children ? children.toString() : ''}
+      accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'header'}
     >
       {children}
@@ -92,7 +114,7 @@ export const Title = ({
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
       accessible={true}  // Sempre acessível
-      accessibilityLabel={children ? children.toString() : ''}
+      accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'header'}
     >
       {children}
@@ -122,7 +144,7 @@ export const Label = ({
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
       accessible={true}  // Sempre acessível
-      accessibilityLabel={children ? children.toString() : ''}
+      accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'text'}
     >
       {children}
@@ -152,7 +174,7 @@ export const SubLabel = ({
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
       accessible={true}  // Sempre acessível
-      accessibilityLabel={children ? children.toString() : ''}
+      accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'text'}
     >
       {children}
@@ -181,7 +203,7 @@ export const Description = ({
     <Text
       style={getStyle(styleProps as StyleProps & { style?: TextStyle })}
       accessible={true}  // Sempre acessível
-      accessibilityLabel={children ? children.toString() : ''}
+      accessibilityLabel={getAccessibilityLabel(children)}
       accessibilityRole={'text'}
     >
       {children}

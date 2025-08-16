@@ -10,7 +10,7 @@ const CheckIcon: React.FC<{ size: number; color: string; style?: any }> = (props
 // Interface para os props do Toggle
 interface ToggleProps {
   value: boolean;
-  setValue: (value: boolean) => typeof value;
+  setValue: (value: boolean) => void;
   isLoading?: boolean;
   testID?: string;
   disabled?: boolean;
@@ -88,26 +88,30 @@ const Toggle: React.FC<ToggleProps> = ({
   );
 };
 
-// Componente Shape tipado com animação nativa
+// Componente Shape tipado com animação simplificada
 const Shape: React.FC = () => {
-  const scaleAnim = useRef(new Animated.Value(0)).current;
-  const opacityAnim = useRef(new Animated.Value(0)).current;
+  // Usar apenas um valor de animação para evitar conflitos
+  const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.parallel([
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        useNativeDriver: true,
-        tension: 100,
-        friction: 8,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: false,
-      }),
-    ]).start();
-  }, [scaleAnim, opacityAnim]);
+    Animated.spring(animatedValue, {
+      toValue: 1,
+      useNativeDriver: false, // Usar apenas driver JavaScript para evitar conflitos
+      tension: 100,
+      friction: 8,
+    }).start();
+  }, [animatedValue]);
+
+  // Interpolações para scale e opacity
+  const scale = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
 
   return (
     <Animated.View
@@ -117,8 +121,8 @@ const Shape: React.FC = () => {
           alignItems: "center",
         } as ViewStyle,
         {
-          transform: [{ scale: scaleAnim }],
-          opacity: opacityAnim,
+          transform: [{ scale }],
+          opacity,
         },
       ]}
     >

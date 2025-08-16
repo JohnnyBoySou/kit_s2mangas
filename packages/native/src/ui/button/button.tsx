@@ -29,6 +29,28 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
 	const displayText = label || children;
 
+	// Função para converter ReactNode para string de forma segura
+	const getAccessibilityLabel = (text: React.ReactNode): string => {
+		if (typeof text === 'string') {
+			return text;
+		}
+		if (typeof text === 'number') {
+			return text.toString();
+		}
+		if (React.isValidElement(text)) {
+			// Se for um elemento React, tenta extrair o texto dos children
+			const children = text.props?.children;
+			if (typeof children === 'string') {
+				return children;
+			}
+			if (typeof children === 'number') {
+				return children.toString();
+			}
+		}
+		// Fallback para casos complexos
+		return 'Button';
+	};
+
 	// Estilos do contêiner
 	const containerStyles: ViewStyle = {
 		flexDirection: "row",
@@ -73,7 +95,7 @@ const Button: React.FC<ButtonProps> = ({
 			testID={testID} 
 			onPress={onPress} 
 			accessible={true} 
-			accessibilityLabel={displayText as string} 
+			accessibilityLabel={getAccessibilityLabel(displayText)} 
 			accessibilityRole="button" 
 			disabled={loading || disabled} 
 			style={[containerStyles, { opacity: disabled ? 0.5 : 1 }]}

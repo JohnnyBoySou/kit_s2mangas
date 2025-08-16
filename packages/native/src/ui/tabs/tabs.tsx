@@ -5,7 +5,7 @@ import { Pressable, ViewStyle, Animated } from "react-native";
 
 interface TabsProps {
   value?: string;
-  setValue: (value: string) => typeof value;
+  onChange: (value: string) => void;
   values: string[];
   testID?: string;
   accessibilityRole?: "button" | "text";
@@ -16,7 +16,7 @@ interface TabsProps {
 interface TabItemProps {
   tab: string;
   isSelected: boolean;
-  setValue: (value: string) => typeof value;
+  onChange: (value: string) => void;
   testID?: string;
   accessibilityRole?: "button" | "text";
   accessibilityLabel?: string;
@@ -26,7 +26,7 @@ interface TabItemProps {
 const TabItem: React.FC<TabItemProps> = ({
   tab,
   isSelected,
-  setValue,
+  onChange,
   testID,
   accessibilityRole,
   accessibilityLabel,
@@ -55,7 +55,7 @@ const TabItem: React.FC<TabItemProps> = ({
         accessibilityLabel={accessibilityLabel}
         accessibilityHint={accessibilityHint}
         onPress={() => {
-          setValue(isSelected ? "" : tab);
+          onChange(isSelected ? "" : tab);
         }}
         style={
           {
@@ -81,7 +81,7 @@ const TabItem: React.FC<TabItemProps> = ({
 
 const Tabs: React.FC<TabsProps> = ({
   value,
-  setValue,
+  onChange,
   values,
   testID,
   accessibilityHint,
@@ -110,7 +110,7 @@ const Tabs: React.FC<TabsProps> = ({
             key={String(tab)}
             tab={tab}
             isSelected={isSelected}
-            setValue={setValue}
+            onChange={onChange}
             testID={testID}
             accessibilityRole={accessibilityRole}
             accessibilityLabel={accessibilityLabel}

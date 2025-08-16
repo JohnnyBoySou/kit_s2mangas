@@ -1,5 +1,4 @@
 import { View, StyleSheet } from 'react-native';
-import { action } from '@storybook/addon-actions';
 import Button from './button';
 
 export default {
@@ -35,7 +34,7 @@ export const Default = {
   args: {
     label: 'Botão Padrão',
     variant: 'default',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -44,7 +43,7 @@ export const Primary = {
   args: {
     label: 'Botão Primário',
     variant: 'primary',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -53,7 +52,7 @@ export const Secondary = {
   args: {
     label: 'Botão Secundário',
     variant: 'secondary',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -62,7 +61,7 @@ export const Destructive = {
   args: {
     label: 'Botão Destrutivo',
     variant: 'destructive',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -71,7 +70,7 @@ export const Outline = {
   args: {
     label: 'Botão Outline',
     variant: 'outline',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -80,7 +79,7 @@ export const Ghost = {
   args: {
     label: 'Botão Ghost',
     variant: 'ghost',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -89,7 +88,7 @@ export const Link = {
   args: {
     label: 'Botão Link',
     variant: 'link',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -98,7 +97,7 @@ export const Blur = {
   args: {
     label: 'Botão Blur',
     variant: 'blur',
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -108,7 +107,7 @@ export const Loading = {
     label: 'Carregando...',
     variant: 'primary',
     loading: true,
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -118,7 +117,7 @@ export const Disabled = {
     label: 'Botão Desabilitado',
     variant: 'primary',
     disabled: true,
-    onPress: action('button-pressed'),
+    onPress: () => console.log('button-pressed'),
   },
 };
 
@@ -127,20 +126,20 @@ export const AllVariants = {
   render: () => (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Button label="Default" variant="default" onPress={action('default-pressed')} />
-        <Button label="Primary" variant="primary" onPress={action('primary-pressed')} />
+        <Button label="Default" variant="default" onPress={() => console.log('default-pressed')} />
+        <Button label="Primary" variant="primary" onPress={() => console.log('primary-pressed')} />
       </View>
       <View style={styles.row}>
-        <Button label="Secondary" variant="secondary" onPress={action('secondary-pressed')} />
-        <Button label="Destructive" variant="destructive" onPress={action('destructive-pressed')} />
+        <Button label="Secondary" variant="secondary" onPress={() => console.log('secondary-pressed')} />
+        <Button label="Destructive" variant="destructive" onPress={() => console.log('destructive-pressed')} />
       </View>
       <View style={styles.row}>
-        <Button label="Outline" variant="outline" onPress={action('outline-pressed')} />
-        <Button label="Ghost" variant="ghost" onPress={action('ghost-pressed')} />
+        <Button label="Outline" variant="outline" onPress={() => console.log('outline-pressed')} />
+        <Button label="Ghost" variant="ghost" onPress={() => console.log('ghost-pressed')} />
       </View>
       <View style={styles.row}>
-        <Button label="Link" variant="link" onPress={action('link-pressed')} />
-        <Button label="Blur" variant="blur" onPress={action('blur-pressed')} />
+        <Button label="Link" variant="link" onPress={() => console.log('link-pressed')} />
+        <Button label="Blur" variant="blur" onPress={() => console.log('blur-pressed')} />
       </View>
     </View>
   ),
@@ -151,12 +150,12 @@ export const ButtonStates = {
   render: () => (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Button label="Normal" variant="primary" onPress={action('normal-pressed')} />
-        <Button label="Loading" variant="primary" loading={true} onPress={action('loading-pressed')} />
+        <Button label="Normal" variant="primary" onPress={() => console.log('normal-pressed')} />
+        <Button label="Loading" variant="primary" loading={true} onPress={() => console.log('loading-pressed')} />
       </View>
       <View style={styles.row}>
-        <Button label="Disabled" variant="primary" disabled={true} onPress={action('disabled-pressed')} />
-        <Button label="With Icon" variant="primary" onPress={action('icon-pressed')} />
+        <Button label="Disabled" variant="primary" disabled={true} onPress={() => console.log('disabled-pressed')} />
+        <Button label="With Icon" variant="primary" onPress={() => console.log('icon-pressed')} />
       </View>
     </View>
   ),
@@ -171,12 +170,12 @@ export const WithIcon = {
           label="Com Ícone" 
           variant="primary" 
           icon={<View style={styles.icon} />}
-          onPress={action('icon-pressed')} 
+          onPress={() => console.log('icon-pressed')} 
         />
         <Button 
           variant="primary" 
           icon={<View style={styles.icon} />}
-          onPress={action('icon-only-pressed')} 
+          onPress={() => console.log('icon-only-pressed')} 
         />
       </View>
     </View>
@@ -187,7 +186,7 @@ export const WithIcon = {
 export const WithChildren = {
   render: () => (
     <View style={styles.container}>
-      <Button variant="primary" onPress={action('children-pressed')}>
+      <Button variant="primary" onPress={() => console.log('children-pressed')}>
         <View style={styles.customContent}>
           <View style={styles.icon} />
           <View style={styles.textContainer}>

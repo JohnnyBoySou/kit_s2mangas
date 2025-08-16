@@ -2,16 +2,12 @@ export default {
   stories: [
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links',
-  ],
+  addons: [],
   framework: {
-    name: '@storybook/react-vite',
+    name: '@storybook/react-webpack5',
     options: {},
   },
   docs: {
-    autodocs: true,
+    autodocs: false,
   },
 };

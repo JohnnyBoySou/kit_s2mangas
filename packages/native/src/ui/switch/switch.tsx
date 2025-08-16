@@ -5,7 +5,7 @@ import { theme } from "@s2mangas/core";
 // Interface para os props do componente Switch
 interface SwitchProps {
   value: boolean;
-  setValue: (value: boolean) => typeof value;
+  setValue: (value: boolean) => void;
   testID?: string;
   accessibilityLabel?: string;
   accessibilityRole?: "checkbox" | "switch";
@@ -24,40 +24,32 @@ const Switch: React.FC<SwitchProps> = ({
   accessibilityRole,
   disabled = false,
 }) => {
-  // Animações nativas
-  const backgroundColorAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
-  const translateXAnim = useRef(new Animated.Value(value ? 18 : 0)).current;
-  const thumbColorAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
+  // Usar apenas um valor de animação para evitar conflitos
+  const animatedValue = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   // Efeito para atualizar a animação com base no status
   useEffect(() => {
-    Animated.parallel([
-      Animated.timing(backgroundColorAnim, {
-        toValue: value ? 1 : 0,
-        duration: 300,
-        useNativeDriver: false,
-      }),
-      Animated.timing(translateXAnim, {
-        toValue: value ? 18 : 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.timing(thumbColorAnim, {
-        toValue: value ? 1 : 0,
-        duration: 300,
-        useNativeDriver: false,
-      }),
-    ]).start();
-  }, [value, backgroundColorAnim, translateXAnim, thumbColorAnim]);
+    Animated.timing(animatedValue, {
+      toValue: value ? 1 : 0,
+      duration: 300,
+      useNativeDriver: false, // Usar apenas driver JavaScript para evitar conflitos
+    }).start();
+  }, [value, animatedValue]);
 
-  const backgroundColor = backgroundColorAnim.interpolate({
+  // Interpolações para cores e posição
+  const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["#505050", theme.color.primary],
   });
 
-  const thumbColor = thumbColorAnim.interpolate({
+  const thumbColor = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["#909090", "#ffffff90"],
+  });
+
+  const translateX = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 18],
   });
 
   return (
@@ -65,6 +57,7 @@ const Switch: React.FC<SwitchProps> = ({
       style={[
         {
           width: 46,
+          height: 28,
           borderRadius: 100,
           opacity: disabled ? 0.5 : 1,
           flexDirection: "row",
@@ -100,7 +93,7 @@ const Switch: React.FC<SwitchProps> = ({
             } as ViewStyle,
             {
               backgroundColor: thumbColor,
-              transform: [{ translateX: translateXAnim }],
+              transform: [{ translateX }],
             },
           ]}
         />

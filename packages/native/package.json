@@ -63,13 +63,12 @@
     "react-native": "^0.80.2",
     "react-native-builder-bob": "^0.23.2",
     "ts-jest": "^29.1.2",
-    "@storybook/react": "^8.6.14",
-    "@storybook/addon-essentials": "^8.6.14",
-    "@storybook/addon-interactions": "^8.6.14",
-    "@storybook/addon-links": "^8.6.14",
-    "@storybook/addon-actions": "^8.6.14",
-    "@storybook/react-vite": "^8.6.14",
-    "storybook": "^8.6.14",
+    "@storybook/react": "^7.6.17",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/react-webpack5": "^7.6.17",
+    "storybook": "^7.6.17",
     "vite": "^4.5.2",
     "react-native-web": "^0.19.10",
     "react-dom": "^18.3.1"
@@ -89,7 +88,9 @@
     "test:debug": "jest --detectOpenHandles --forceExit",
     "storybook": "storybook dev -p 7007",
     "storybook:build": "storybook build",
-    "storybook:loader": "react-native-storybook-loader"
+    "storybook:loader": "react-native-storybook-loader",
+    "playground": "node playground.js",
+    "dev": "./dev-playground.sh"
   },
   "publishConfig": {
     "access": "public",

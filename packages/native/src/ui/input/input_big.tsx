@@ -8,7 +8,7 @@ import {
   ViewStyle,
   TextStyle,
   Pressable,
-  Animated, // <=
+  Animated,
   Easing,
 } from 'react-native';
 import { Label } from '../text/text';

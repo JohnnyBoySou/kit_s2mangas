@@ -1,11 +1,11 @@
 {
   "name": "@s2mangas/native",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "description": "React Native UI components library for S2Mangas",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "types": "lib/typescript/index.d.ts",
+  "types": "lib/typescript/native/src/index.d.ts",
   "react-native": "src/index.ts",
   "source": "src/index.ts",
   "files": [

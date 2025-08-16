@@ -48,7 +48,7 @@ const Avatar: React.FC<AvatarProps> = ({
   const getBackgroundColor = (name: string) => {
     const colors = [
       theme.color.primary,
-      theme.color.secundary,
+      theme.color.secondary,
       theme.color.blue,
       theme.color.muted,
       theme.color.destructive,

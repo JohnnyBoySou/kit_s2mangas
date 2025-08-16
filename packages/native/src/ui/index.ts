@@ -26,7 +26,7 @@ import FlatList from "./flatlist/flatlist";
 import Switch from "./switch/switch";
 import Icon from "./icon/icon";
 import Card from "./card/card";
-import Modal from "./modal";
+import Modal from "./modal/modal";
 import Divider from "./divider/divider";
 
 export {

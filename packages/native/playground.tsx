@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Button } from './src/ui/button';
 import { Text as TextComponent } from './src/ui/text';
-import Modal from './src/ui/modal';
+import Modal from './src/ui/modal/modal';
 
 const Playground = () => {
   const [modalVisible, setModalVisible] = useState(false);

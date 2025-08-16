@@ -4,32 +4,32 @@ import Avatar from './avatar';
 describe('Avatar Component', () => {
   it('renders with image url', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       testID: "avatar"
     });
     
     expect(element).toBeDefined();
     expect(element.type).toBe(Avatar);
-    expect(element.props.url).toBe("https://example.com/avatar.jpg");
+    expect(element.props.src).toBe("https://example.com/avatar.jpg");
     expect(element.props.testID).toBe("avatar");
   });
 
   it('renders with custom width and height', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
-      width: 60,
-      height: 60,
+      src: "https://example.com/avatar.jpg",
+      w: 60,
+      h: 60,
       testID: "avatar"
     });
     
     expect(element).toBeDefined();
-    expect(element.props.width).toBe(60);
-    expect(element.props.height).toBe(60);
+    expect(element.props.w).toBe(60);
+    expect(element.props.h).toBe(60);
   });
 
   it('renders with circle shape', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       shape: "circle",
       testID: "avatar"
     });
@@ -40,7 +40,7 @@ describe('Avatar Component', () => {
 
   it('renders with square shape', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       shape: "square",
       testID: "avatar"
     });
@@ -57,13 +57,13 @@ describe('Avatar Component', () => {
     
     expect(element).toBeDefined();
     expect(element.props.initials).toBe("JD");
-    expect(element.props.url).toBeUndefined();
+    expect(element.props.src).toBeUndefined();
   });
 
   it('applies custom styles', () => {
     const customStyle = { borderWidth: 2, borderColor: 'red' };
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       style: customStyle,
       testID: "avatar"
     });
@@ -74,7 +74,7 @@ describe('Avatar Component', () => {
 
   it('renders with accessibility props', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       testID: "avatar",
       accessibilityLabel: "User avatar",
       accessibilityRole: "image"
@@ -88,7 +88,7 @@ describe('Avatar Component', () => {
   it('handles press events', () => {
     const mockOnPress = jest.fn();
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       onPress: mockOnPress,
       testID: "avatar"
     });
@@ -99,7 +99,7 @@ describe('Avatar Component', () => {
 
   it('renders in disabled state', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       disabled: true,
       testID: "avatar"
     });
@@ -110,7 +110,7 @@ describe('Avatar Component', () => {
 
   it('renders with loading state', () => {
     const element = React.createElement(Avatar, {
-      url: "https://example.com/avatar.jpg",
+      src: "https://example.com/avatar.jpg",
       loading: true,
       testID: "avatar"
     });

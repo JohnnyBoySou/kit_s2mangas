@@ -1,5 +1,37 @@
 # @s2mangas/native
 
+## 0.0.6
+
+### Patch Changes
+
+- **fix**: corrigir caminho de tipos no package.json para react-native-builder-bob
+  - Corrigido o caminho do campo "types" de `lib/typescript/index.d.ts` para `lib/typescript/native/src/index.d.ts`
+  - Resolvido erro de build do react-native-builder-bob
+
+- **fix**: corrigir testes do componente Card
+  - Substituído `borderRadius` por `r` conforme interface CardProps
+  - Substituído `backgroundColor` por `bgColor` conforme interface CardProps
+  - Adicionados testes para props `w`, `h`, `borderColor`, `borderWidth`, `align`, `justify`
+
+- **fix**: corrigir testes do componente CheckBox
+  - Substituído `status` e `setStatus` por `value` e `setValue` conforme interface CheckProps
+  - Atualizados todos os testes para usar as props corretas
+
+- **feat**: integração com expo-image para caching de imagens
+  - Adicionado suporte ao expo-image no componente Image
+  - Configurado Jest para mock do expo-image
+  - Adicionado expo-image como peerDependency
+
+- **refactor**: mover funções de máscara para @s2mangas/core
+  - Movidas todas as funções de máscara (CPF, CEP, PHONE, etc.) para utils do core
+  - Refatorados componentes Input e InputBig para usar máscaras do core
+  - Melhorada organização do código e reutilização
+
+- **feat**: adicionar animações aos componentes Input
+  - Implementada animação de cor da borda no Input
+  - Implementadas animações de foco e hover no InputBig
+  - Adicionado suporte a useImperativeHandle para controle externo
+
 ## 0.0.5
 
 ### Patch Changes

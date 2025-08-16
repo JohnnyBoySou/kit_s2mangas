@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from './skeleton';
+import Skeleton  from './skeleton';
 
 describe('Skeleton Component', () => {
   it('renders correctly with default props', () => {

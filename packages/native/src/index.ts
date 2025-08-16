@@ -19,9 +19,8 @@ export { default as Image } from './ui/image/image';
 export { default as FlatList } from './ui/flatlist/flatlist';
 export { default as Switch } from './ui/switch/switch';
 export { default as Icon } from './ui/icon/icon';
-export { CachedImage } from './ui/cachedimage';
 export { default as Card } from './ui/card/card';
-export { default as Modal } from './ui/modal';
+export { default as Modal } from './ui/modal/modal';
 export { default as Divider } from './ui/divider/divider';
 
 // Export layout components
@@ -31,7 +30,7 @@ export { Column, Row, Main, ScrollHorizontal, ScrollVertical, } from './ui/layou
 export { Title, HeadTitle, Label, SubLabel, U, Description } from './ui/text/text';
 
 // Export utility components
-export { Skeleton } from './ui/skeleton/skeleton';
+export { default as Skeleton } from './ui/skeleton/skeleton';
 export { default as MultiStepProgress } from './ui/progress/progress';
 
 // Export theme and utilities from core

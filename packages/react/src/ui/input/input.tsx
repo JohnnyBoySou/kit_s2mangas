@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from "react";
-import { theme, getMaskFunction, MaskType } from "../../../../core/src/utils";
+import { getMaskFunction, MaskType } from "../../../../core/src/utils";
+import { theme } from "../../../../core/src/theme";
 
 // Interface para os props do Input
 interface InputProps

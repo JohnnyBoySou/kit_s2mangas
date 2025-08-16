@@ -41,6 +41,12 @@ jest.mock('react-native', () => {
       timing: jest.fn(),
       spring: jest.fn(),
     },
+    Easing: {
+      out: jest.fn((easing) => easing),
+      quad: jest.fn(),
+      linear: jest.fn(),
+      ease: jest.fn(),
+    },
   };
 });
 

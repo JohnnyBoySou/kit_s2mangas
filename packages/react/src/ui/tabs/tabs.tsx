@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { theme } from "@s2mangas/core";
 
 interface TabsProps {
   value?: string;

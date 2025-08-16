@@ -59,25 +59,25 @@ describe('Card Component', () => {
 
   it('renders with custom borderRadius', () => {
     const element = React.createElement(Card, {
-      borderRadius: 12,
+      r: 12,
       testID: "test-card",
       children: React.createElement('div', {}, 'Test Content')
     });
     
     expect(element).toBeDefined();
-    expect(element.props.borderRadius).toBe(12);
+    expect(element.props.r).toBe(12);
     expect(element.props.testID).toBe("test-card");
   });
 
   it('renders with custom backgroundColor', () => {
     const element = React.createElement(Card, {
-      backgroundColor: "#ff0000",
+      bgColor: "#ff0000",
       testID: "test-card",
       children: React.createElement('div', {}, 'Test Content')
     });
     
     expect(element).toBeDefined();
-    expect(element.props.backgroundColor).toBe("#ff0000");
+    expect(element.props.bgColor).toBe("#ff0000");
     expect(element.props.testID).toBe("test-card");
   });
 
@@ -91,6 +91,48 @@ describe('Card Component', () => {
     
     expect(element).toBeDefined();
     expect(element.props.style).toBe(customStyle);
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with custom width and height', () => {
+    const element = React.createElement(Card, {
+      w: 200,
+      h: 150,
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.w).toBe(200);
+    expect(element.props.h).toBe(150);
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with custom border properties', () => {
+    const element = React.createElement(Card, {
+      borderColor: "#00ff00",
+      borderWidth: 2,
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.borderColor).toBe("#00ff00");
+    expect(element.props.borderWidth).toBe(2);
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with custom layout properties', () => {
+    const element = React.createElement(Card, {
+      align: "center",
+      justify: "space-between",
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.align).toBe("center");
+    expect(element.props.justify).toBe("space-between");
     expect(element.props.testID).toBe("test-card");
   });
 });

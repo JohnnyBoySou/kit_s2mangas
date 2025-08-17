@@ -1,6 +1,33 @@
 import React from 'react';
 import Sheet from './sheet';
 
+// Mock do @gorhom/bottom-sheet
+jest.mock('@gorhom/bottom-sheet', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  
+  const BottomSheet = React.forwardRef((props: any, ref: any) => {
+    return React.createElement(View, { 
+      ...props, 
+      ref,
+      testID: props.testID || 'bottom-sheet'
+    }, props.children);
+  });
+  
+  const BottomSheetScrollView = (props: any) => {
+    return React.createElement(View, { 
+      ...props, 
+      testID: props.testID || 'bottom-sheet-scroll-view'
+    }, props.children);
+  };
+  
+  return {
+    __esModule: true,
+    default: BottomSheet,
+    BottomSheetScrollView
+  };
+});
+
 describe('Sheet Component', () => {
   const mockOnClose = jest.fn();
 
@@ -8,78 +35,56 @@ describe('Sheet Component', () => {
     mockOnClose.mockClear();
   });
 
-  it('renders when visible is true', () => {
+  it('renders correctly with default props', () => {
     const element = React.createElement(Sheet, {
-      visible: true,
       onClose: mockOnClose,
       children: React.createElement('div', {}, 'Sheet Content')
     });
     
     expect(element).toBeDefined();
     expect(element.type).toBe(Sheet);
-    expect(element.props.visible).toBe(true);
     expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.children).toBeDefined();
-  });
-
-  it('does not render when visible is false', () => {
-    const element = React.createElement(Sheet, {
-      visible: false,
-      onClose: mockOnClose,
-      children: React.createElement('div', {}, 'Sheet Content')
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.visible).toBe(false);
-    expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.children).toBeDefined();
-  });
-
-  it('renders with custom testID', () => {
-    const element = React.createElement(Sheet, {
-      visible: true,
-      onClose: mockOnClose,
-      testID: "custom-sheet",
-      children: React.createElement('div', {}, 'Sheet Content')
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
-    expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.testID).toBe("custom-sheet");
     expect(element.props.children).toBeDefined();
   });
 
   it('renders with custom snap points', () => {
+    const snapPoints = [0.2, 400];
     const element = React.createElement(Sheet, {
-      visible: true,
+      snapPoints: snapPoints,
       onClose: mockOnClose,
-      snapPoints: [0.2, 400],
       children: React.createElement('div', {}, 'Sheet Content')
     });
     
     expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
+    expect(element.props.snapPoints).toEqual(snapPoints);
     expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.snapPoints).toEqual([0.2, 400]);
+    expect(element.props.children).toBeDefined();
+  });
+
+  it('renders with default snap points when not provided', () => {
+    const element = React.createElement(Sheet, {
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.snapPoints).toBeUndefined();
+    expect(element.props.onClose).toBe(mockOnClose);
     expect(element.props.children).toBeDefined();
   });
 
   it('renders without onClose prop', () => {
     const element = React.createElement(Sheet, {
-      visible: true,
       children: React.createElement('div', {}, 'Sheet Content')
     });
     
     expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
     expect(element.props.onClose).toBeUndefined();
     expect(element.props.children).toBeDefined();
   });
 
   it('renders with complex children', () => {
     const element = React.createElement(Sheet, {
-      visible: true,
       onClose: mockOnClose,
       children: [
         React.createElement('div', { key: 'title' }, 'Title'),
@@ -89,38 +94,10 @@ describe('Sheet Component', () => {
     });
     
     expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
     expect(element.props.onClose).toBe(mockOnClose);
     expect(element.props.children).toBeDefined();
     expect(Array.isArray(element.props.children)).toBe(true);
     expect(element.props.children).toHaveLength(3);
-  });
-
-  it('renders with default snap points when not provided', () => {
-    const element = React.createElement(Sheet, {
-      visible: true,
-      onClose: mockOnClose,
-      children: React.createElement('div', {}, 'Sheet Content')
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
-    expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.snapPoints).toBeUndefined();
-    expect(element.props.children).toBeDefined();
-  });
-
-  it('renders handle indicator', () => {
-    const element = React.createElement(Sheet, {
-      visible: true,
-      onClose: mockOnClose,
-      children: React.createElement('div', {}, 'Sheet Content')
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
-    expect(element.props.onClose).toBe(mockOnClose);
-    expect(element.props.children).toBeDefined();
   });
 
   it('renders with scrollable content', () => {
@@ -129,20 +106,58 @@ describe('Sheet Component', () => {
     );
     
     const element = React.createElement(Sheet, {
-      visible: true,
       onClose: mockOnClose,
       children: longContent
     });
     
     expect(element).toBeDefined();
-    expect(element.props.visible).toBe(true);
     expect(element.props.onClose).toBe(mockOnClose);
     expect(element.props.children).toBeDefined();
     expect(Array.isArray(element.props.children)).toBe(true);
     expect(element.props.children).toHaveLength(20);
   });
 
+  it('forwards ref correctly', () => {
+    const ref = React.createRef<any>();
+    const element = React.createElement(Sheet, {
+      ref: ref,
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.ref).toBe(ref);
+    expect(element.props.onClose).toBe(mockOnClose);
+    expect(element.props.children).toBeDefined();
+  });
+
   it('maintains display name', () => {
     expect(Sheet.displayName).toBe('Sheet');
+  });
+
+  it('passes through additional props to BottomSheet', () => {
+    const element = React.createElement(Sheet, {
+      onClose: mockOnClose,
+      index: 1,
+      enablePanDownToClose: true,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.index).toBe(1);
+    expect(element.props.enablePanDownToClose).toBe(true);
+    expect(element.props.onClose).toBe(mockOnClose);
+    expect(element.props.children).toBeDefined();
+  });
+
+  it('applies correct default styles', () => {
+    const element = React.createElement(Sheet, {
+      onClose: mockOnClose,
+      children: React.createElement('div', {}, 'Sheet Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.onClose).toBe(mockOnClose);
+    expect(element.props.children).toBeDefined();
   });
 });

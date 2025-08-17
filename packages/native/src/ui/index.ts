@@ -6,7 +6,7 @@ import { theme } from '@s2mangas/core';
 import { Dimensions, Pressable, View } from "react-native";
 import { Column, Row, Main, ScrollHorizontal, ScrollVertical } from "./layout/layout";
 import { Title, HeadTitle, Label, SubLabel, U, Description } from "./text/text";
-
+import Radio from "./radio/radio";
 import Button from "./button/button";
 import Avatar from "./avatar/avatar";
 import Skeleton from "./skeleton/skeleton";
@@ -49,6 +49,7 @@ export {
     Card,
     Modal,
     Divider,
-    View
+    View,
+    Radio
 };
     

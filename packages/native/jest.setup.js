@@ -71,6 +71,24 @@ jest.mock('lucide-react-native', () => {
   return new Proxy({}, { get: () => (props) => React.createElement(View, props) });
 });
 
+// Mock do react-native-reanimated
+jest.mock('react-native-reanimated', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  
+  return {
+    default: {
+      View: (props) => React.createElement(View, props, props.children),
+    },
+    useSharedValue: jest.fn((initialValue) => ({ value: initialValue })),
+    useAnimatedStyle: jest.fn(() => ({})),
+    withSpring: jest.fn((value) => value),
+    withTiming: jest.fn((value) => value),
+    interpolateColor: jest.fn((value, inputRange, outputRange) => outputRange[0]),
+    View: (props) => React.createElement(View, props, props.children),
+  };
+});
+
 // Mock do @s2mangas/core
 jest.mock('@s2mangas/core', () => ({
   theme: {

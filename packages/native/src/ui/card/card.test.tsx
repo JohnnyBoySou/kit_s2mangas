@@ -135,4 +135,57 @@ describe('Card Component', () => {
     expect(element.props.justify).toBe("space-between");
     expect(element.props.testID).toBe("test-card");
   });
+
+  it('renders with selected prop as false by default', () => {
+    const element = React.createElement(Card, {
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.selected).toBeUndefined();
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with selected prop as true', () => {
+    const element = React.createElement(Card, {
+      selected: true,
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.selected).toBe(true);
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with selected and border properties', () => {
+    const element = React.createElement(Card, {
+      selected: true,
+      borderColor: "#00ff00",
+      borderWidth: 2,
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.selected).toBe(true);
+    expect(element.props.borderColor).toBe("#00ff00");
+    expect(element.props.borderWidth).toBe(2);
+    expect(element.props.testID).toBe("test-card");
+  });
+
+  it('renders with selected and backgroundColor (should not affect bgColor when selected)', () => {
+    const element = React.createElement(Card, {
+      selected: true,
+      bgColor: "#ff0000",
+      testID: "test-card",
+      children: React.createElement('div', {}, 'Test Content')
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.props.selected).toBe(true);
+    expect(element.props.bgColor).toBe("#ff0000");
+    expect(element.props.testID).toBe("test-card");
+  });
 });

@@ -26,6 +26,7 @@ interface CardProps {
   bgColor?: string;
   borderColor?: string;
   borderWidth?: number;
+  selected?: boolean;
   
   w?: number,
   h?: number,
@@ -68,11 +69,19 @@ const Card: React.FC<CardProps> = ({
   bgColor,
   borderColor,
   borderWidth,
+  selected = false,
   
   testID,
 }) => {
   const shouldUseBorder = !bgColor;
-  const defaultBorderColor = theme.color.muted; 
+  const defaultBorderColor = theme.color.muted;
+  const finalBorderColor = shouldUseBorder ? (borderColor || defaultBorderColor) : borderColor;
+  const finalBorderWidth = shouldUseBorder ? (borderWidth || 1) : (borderWidth || 0);
+  
+  // Se selected for true e houver borda, usa a cor da borda como fundo
+  const finalBgColor = selected && finalBorderWidth > 0 
+    ? finalBorderColor 
+    : (bgColor || 'transparent');
   
   return (
     <View
@@ -80,7 +89,7 @@ const Card: React.FC<CardProps> = ({
       style={[
         {
           // Background
-          backgroundColor: bgColor || 'transparent',
+          backgroundColor: finalBgColor,
           
           // Padding
           padding: padding,
@@ -108,8 +117,8 @@ const Card: React.FC<CardProps> = ({
           height: h,
           // Border
           borderRadius: r,
-          borderWidth: shouldUseBorder ? (borderWidth || 1) : (borderWidth || 0),
-          borderColor: shouldUseBorder ? (borderColor || defaultBorderColor) : borderColor,
+          borderWidth: finalBorderWidth,
+          borderColor: finalBorderColor,
           
           // Shadow
           shadowColor: '#000',

@@ -67,3 +67,4 @@ export { SCREEN_WIDTH, SCREEN_HEIGHT } from './ui';
 
 // Export React Native components for convenience
 export { View, Pressable } from 'react-native';
+export type { SheetProps } from './ui/sheet/sheet';

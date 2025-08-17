@@ -28,6 +28,7 @@ import Icon from "./icon/icon";
 import Card from "./card/card";
 import Modal from "./modal/modal";
 import Divider from "./divider/divider";
+import type { SheetProps } from "./sheet/sheet";
 
 export {
     MultiStepProgress,
@@ -50,6 +51,7 @@ export {
     Modal,
     Divider,
     View,
-    Radio
+    Radio,
 };
     
+export type { SheetProps };

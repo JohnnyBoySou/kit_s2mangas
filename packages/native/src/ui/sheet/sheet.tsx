@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import type { BottomSheetProps } from '@gorhom/bottom-sheet';
 
-interface SheetProps extends BottomSheetProps {
+export interface SheetProps extends BottomSheetProps {
   children: ReactNode;
   snapPoints?: (number | string)[];
   onClose?: () => void; 

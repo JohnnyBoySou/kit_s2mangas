@@ -78,6 +78,7 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
   } = props;
 
   const [focus, setFocus] = useState<boolean>(!!focused);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const inputRef = useRef<TextInput>(null);
 
   useImperativeHandle(ref, () => ({
@@ -134,6 +135,10 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleFocus = () => setFocus(true);
   const handleBlur = () => setFocus(false);
 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleChangeText = (text: string) => {
     const { maskFunction, maxLength } = getMaskFunction(mask);
     let maskedText = maskFunction(text);
@@ -142,6 +147,20 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
   };
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;
+
+  // Determina qual ícone mostrar no lado direito
+  const getRightIcon = () => {
+    if (secure) {
+      return showPassword ? 'EyeOff' : 'Eye';
+    }
+    return iconRight;
+  };
+
+  const handleRightIconPress = () => {
+    if (secure) {
+      handleTogglePassword();
+    }
+  };
 
   return (
     <Pressable onPress={handlePress} disabled={disabled}>
@@ -213,20 +232,24 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
                 onSubmitEditing={onSubmitEditing}
                 keyboardType={keyboardType}
                 placeholder={restProps.placeholder}
-                secureTextEntry={secure}
+                secureTextEntry={secure && !showPassword}
                 placeholderTextColor={placeholderColor}
               />
             </Row>
 
-            {iconRight && (
-              <Column style={{ alignSelf: 'flex-end', marginTop: 10, }}>
-                <Animated.View>
+            {(secure || iconRight) && (
+              <Column style={{ alignSelf: 'flex-end', marginTop: 10 }}>
+                <Pressable 
+                  onPress={handleRightIconPress} 
+                  disabled={disabled}
+                  style={{ padding: 4 }}
+                >
                   <Icon
-                    name={iconRight as IconName}
+                    name={getRightIcon() as IconName}
                     size={16}
                     color={disabled ? theme.color.label : theme.color.title}
                   />
-                </Animated.View>
+                </Pressable>
               </Column>
             )}
           </Row>

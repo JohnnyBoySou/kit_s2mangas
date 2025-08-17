@@ -58,10 +58,13 @@ export default function InputsScreen() {
                   keyboardType="email-address"
                 />
                 <Input
+                  iconRight="Senha"
                   placeholder="Digite sua senha..."
                   value={passwordValue}
                   onChangeText={setPasswordValue}
                   secure
+                  // O ícone de olho aparecerá automaticamente quando secure=true
+                  // Clique no ícone para alternar entre mostrar/ocultar a senha
                 />
               </Column>
             </Card>
@@ -160,10 +163,12 @@ export default function InputsScreen() {
             <Card pv={16} ph={16}>
               <Column gv={12}>
                 <Input
+                  label='Email'
                   placeholder="Email obrigatório"
                   value={emailValue}
                   onChangeText={setEmailValue}
                   keyboardType="email-address"
+                  required
                   error={
                     emailValue && !emailValue.includes('@')
                       ? 'Email inválido'
@@ -171,10 +176,12 @@ export default function InputsScreen() {
                   }
                 />
                 <Input
+                  label='Senha'
                   placeholder="Senha (mínimo 6 caracteres)"
                   value={passwordValue}
                   onChangeText={setPasswordValue}
-                  secure
+                  secure={true}
+                  required
                   error={
                     passwordValue && passwordValue.length < 6
                       ? 'Senha muito curta'

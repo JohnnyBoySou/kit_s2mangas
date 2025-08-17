@@ -212,4 +212,18 @@ describe('Input Component', () => {
     expect(element.props.onChangeText).toBe(mockSetValue);
     expect(element.props.testID).toBe("input-big");
   });
+
+  it('renders with secure prop', () => {
+    const element = React.createElement(Input, {
+      value: "",
+      onChangeText: mockSetValue,
+      secure: true
+    });
+    
+    expect(element).toBeDefined();
+    expect(element.type).toBe(Input);
+    expect(element.props.value).toBe("");
+    expect(element.props.onChangeText).toBe(mockSetValue);
+    expect(element.props.secure).toBe(true);
+  });
 });

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, ScrollView, ViewStyle, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
+import type { ViewStyle } from "react-native";
 import { theme } from '@s2mangas/core';
 
 interface LayoutProps {

@@ -1,2 +1,8 @@
 packages:
   - packages/*
+
+onlyBuiltDependencies:
+  - '@evilmartians/lefthook'
+  - '@swc/core'
+  - esbuild
+  - unrs-resolver

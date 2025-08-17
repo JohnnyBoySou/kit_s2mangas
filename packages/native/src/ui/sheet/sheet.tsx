@@ -1,5 +1,7 @@
-import { forwardRef, ReactNode, useRef, useEffect } from 'react';
-import { Modal, View, ScrollView, Pressable, Animated, Dimensions, ViewStyle } from 'react-native';
+import { forwardRef, useRef, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { Modal, View, ScrollView, Pressable, Animated, Dimensions } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
 interface SheetProps {
   children: ReactNode;

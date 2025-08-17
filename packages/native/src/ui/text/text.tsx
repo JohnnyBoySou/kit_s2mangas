@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, TextStyle } from "react-native";
+import { Text } from "react-native";
+import type { TextStyle } from "react-native";
 
 // Definição de tipo para as propriedades de estilo
 interface StyleProps {
@@ -99,7 +100,7 @@ const getAccessibilityLabel = (children: React.ReactNode): string => {
   }
   if (React.isValidElement(children)) {
     // Se for um elemento React, tenta extrair o texto dos children
-    const childChildren = children.props?.children;
+    const childChildren = (children.props as any)?.children;
     if (typeof childChildren === 'string') {
       return childChildren;
     }

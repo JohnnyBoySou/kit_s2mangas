@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, ScrollView, ViewStyle, TextStyle } from "react-native";
+import { View, Text, Pressable, ScrollView, } from "react-native";
+import type { ViewStyle, TextStyle } from "react-native";
 
 // Interface para as opções do Select
 interface Option {

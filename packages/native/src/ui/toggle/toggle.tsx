@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Check } from "lucide-react-native";
-import { Animated, Pressable, ActivityIndicator, ViewStyle, View } from "react-native";
+import { Animated, Pressable, ActivityIndicator, View } from "react-native";
+import type { ViewStyle } from "react-native";
 
 // Wrapper temporário para contornar incompatibilidade de tipos com React 19
 const CheckIcon: React.FC<{ size: number; color: string; style?: any }> = (props) => {

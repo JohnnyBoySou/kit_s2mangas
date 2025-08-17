@@ -1,6 +1,9 @@
-import React, { ReactNode } from 'react';
-import { ThemeProvider, ThemeProviderProps, useTheme } from './theme-provider';
-import { ColorProvider, ColorProviderProps, useColors } from './color-provider';
+import React from 'react';
+import { ThemeProvider, useTheme } from './theme-provider';
+import { ColorProvider, useColors } from './color-provider';
+import type { ReactNode } from 'react';
+import type { ThemeProviderProps } from './theme-provider';
+import type { ColorProviderProps } from './color-provider';
 
 // Re-export dos providers individuais
 export { ThemeProvider, useTheme, useThemeColors, useThemeSizes, useThemeFonts, lightTheme, darkTheme } from './theme-provider';

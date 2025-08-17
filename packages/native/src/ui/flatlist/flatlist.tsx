@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  ViewStyle,
   FlatList as RNFlatList,
-  ListRenderItem,
 } from 'react-native';
+import type { ViewStyle, ListRenderItem } from 'react-native';
 
 interface CustomFlatListProps<T> {
   data: T[];

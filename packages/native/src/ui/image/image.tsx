@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  StyleProp,
-  ImageStyle,
   View,
-  ViewStyle,
   Pressable,
-  ImageSourcePropType,
 } from "react-native";
+import type { ViewStyle, ImageStyle, ImageSourcePropType, StyleProp } from "react-native";
 import { Image as ExpoImage } from "expo-image";
 
 interface CustomImageProps {

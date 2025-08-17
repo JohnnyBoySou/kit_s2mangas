@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Pressable, ViewStyle } from "react-native";
+import { Animated, Pressable } from "react-native";
+import type { ViewStyle } from "react-native";
 import { theme } from "@s2mangas/core";
 
 // Interface para os props do componente Switch

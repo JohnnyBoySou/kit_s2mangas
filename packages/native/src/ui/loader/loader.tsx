@@ -1,5 +1,6 @@
 import React from "react";
-import { ActivityIndicator, ActivityIndicatorProps } from "react-native";
+import { ActivityIndicator } from "react-native";
+import type { ActivityIndicatorProps } from "react-native";
 
 // Interface para os props do Loader
 interface LoaderProps {

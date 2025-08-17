@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, Pressable, ViewStyle, TextStyle, ActivityIndicator, View } from "react-native";
-import { theme } from '../../../../core/src/theme';
+import { Text, Pressable, ActivityIndicator, View } from "react-native";
+import type { ViewStyle, TextStyle } from "react-native";
+import { theme } from '@s2mangas/core';
 
 export interface ButtonProps {
 	label?: string;
@@ -67,7 +68,7 @@ const Button: React.FC<ButtonProps> = ({
 		}
 		if (React.isValidElement(text)) {
 			// Se for um elemento React, tenta extrair o texto dos children
-			const children = text.props?.children;
+			const children = (text.props as any)?.children;
 			if (typeof children === 'string') {
 				return children;
 			}
@@ -104,7 +105,7 @@ const Button: React.FC<ButtonProps> = ({
 		textAlign: "center",
 		fontFamily: currentSize.fontFamily,
 		color: variant === "blur" ? theme.color.textGhost : 
-		       variant === "default" ? theme.color.textGhost : 
+		       variant === "default" ? theme.color.background : 
 		       variant === "secondary" ? theme.color.textGhost : 
 		       variant === "destructive" ? theme.color.textGhost : 
 		       variant === "ghost" ? theme.color.textGhost : 

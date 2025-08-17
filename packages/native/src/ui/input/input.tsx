@@ -2,18 +2,22 @@ import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 're
 import { Column, Row } from '../layout/layout';
 import {
   TextInput,
-  KeyboardTypeOptions,
   Platform,
-  TextInputProps,
-  ViewStyle,
-  TextStyle,
   Pressable,
   Animated,
   Easing,
 } from 'react-native';
+import type {
+  KeyboardTypeOptions,
+  TextInputProps,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import { Label } from '../text/text';
-import { getMaskFunction, MaskType, theme } from '../../../../core/src';
-import Icon, { IconName } from '../icon/icon';
+import { getMaskFunction, theme } from '@s2mangas/core';
+import type { MaskType } from '@s2mangas/core';
+import Icon from '../icon/icon';
+import type { IconName } from '../icon/icon';
 
 export type InputBigRef = {
   focus: () => void;

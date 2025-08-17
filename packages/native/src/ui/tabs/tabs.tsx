@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { ScrollHorizontal } from "../layout/layout";
 import { Title } from "../text/text";
-import { Pressable, ViewStyle, Animated } from "react-native";
+import { Pressable, Animated } from "react-native";
+import type { ViewStyle } from "react-native";
 
 interface TabsProps {
   value?: string;

@@ -1,5 +1,6 @@
 import React from "react";
-import { ViewStyle, View, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import type { ViewStyle } from "react-native";
 import * as Icons from "lucide-react-native";
 import { theme } from "@s2mangas/core";
 

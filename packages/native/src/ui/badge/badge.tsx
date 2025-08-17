@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Pressable, ViewStyle, TextStyle } from "react-native";
-import { theme } from "../../../../core/src/theme"
+import { View, Text, Pressable } from "react-native";
+import type { ViewStyle, TextStyle } from "react-native";
+import { theme } from '@s2mangas/core';
 
 interface BadgeProps {
   children: React.ReactNode;

@@ -1,5 +1,6 @@
 import { useRef, useEffect, forwardRef } from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { TextInput } from "react-native";
+import type { TextInputProps } from "react-native";
 import { Column } from "../layout/layout";
 
 interface InputOTPProps extends TextInputProps {

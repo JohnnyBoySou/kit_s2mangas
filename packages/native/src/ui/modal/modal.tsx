@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal as RNModal, ViewStyle, Pressable } from 'react-native';
+import { Modal as RNModal, Pressable } from 'react-native';
+import type { ViewStyle } from 'react-native';
 import { theme } from '@s2mangas/core';
 
 interface ModalProps {

@@ -46,7 +46,7 @@ describe('Select Component', () => {
   });
 
   it('displays selected option label', () => {
-    const selectedOption = mockOptions[0];
+    const selectedOption = mockOptions[0]!;
     const element = React.createElement(Select, {
       options: mockOptions,
       value: selectedOption,
@@ -175,7 +175,7 @@ describe('Select Component', () => {
   });
 
   it('highlights selected option in dropdown', () => {
-    const selectedOption = mockOptions[1];
+    const selectedOption = mockOptions[1]!;
     const element = React.createElement(Select, {
       options: mockOptions,
       value: selectedOption,

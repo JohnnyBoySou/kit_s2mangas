@@ -1,5 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "cd packages/native && pnpm check"
-  }
-}

@@ -122,6 +122,9 @@ export default function ButtonsScreen() {
             <Card pv={16} ph={16}>
               <Column gv={12}>
                 <Row gh={8}>
+                  <Button variant="default" icon="plus">
+                    Adicionar
+                  </Button>
                   <Button variant="primary" icon="plus">
                     Adicionar
                   </Button>

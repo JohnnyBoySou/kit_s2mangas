@@ -1,6 +1,6 @@
 {
   "name": "@s2mangas/native",
-  "version": "0.0.11",
+  "version": "0.0.10",
   "description": "React Native UI components library for S2Mangas",
   "type": "module",
   "main": "./lib/commonjs/index.js",
@@ -31,7 +31,12 @@
     "!**/.*"
   ],
   "sideEffects": false,
-  "keywords": ["react-native", "ui-components", "s2mangas", "typescript"],
+  "keywords": [
+    "react-native",
+    "ui-components",
+    "s2mangas",
+    "typescript"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JohnnyBoySou/kit_s2mangas"
@@ -95,15 +100,21 @@
     "targets": [
       [
         "commonjs",
-        { "esm": false }
+        {
+          "esm": false
+        }
       ],
       [
         "module",
-        { "esm": true }
+        {
+          "esm": true
+        }
       ],
       [
         "typescript",
-        { "project": "tsconfig.build.json" }
+        {
+          "project": "tsconfig.build.json"
+        }
       ]
     ]
   },
@@ -112,9 +123,10 @@
     "type": "library",
     "version": "0.52.1"
   },
-
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "prettier": {
     "quoteProps": "consistent",

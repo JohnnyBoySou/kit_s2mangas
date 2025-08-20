@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Input from "./input";
@@ -237,5 +237,39 @@ describe("Input Component", () => {
 
     const input = screen.getByTestId("input");
     expect(input).toHaveAttribute("autocomplete", "email");
+  });
+
+  it("should preserve cursor position when applying mask", async () => {
+    const TestComponent = () => {
+      const [value, setValue] = useState("");
+      return <Input value={value} onChange={setValue} mask="CPF" testID="input" />;
+    };
+
+    render(<TestComponent />);
+
+    const input = screen.getByTestId("input") as HTMLInputElement;
+    
+    // Type some characters to test mask behavior
+    await userEvent.type(input, "123456");
+    
+    // Check final value in the input
+    expect(input.value).toBe("123.456");
+  });
+
+  it("should apply phone mask progressively without flicker", async () => {
+    const TestComponent = () => {
+      const [value, setValue] = useState("");
+      return <Input value={value} onChange={setValue} mask="PHONE" testID="input" />;
+    };
+
+    render(<TestComponent />);
+
+    const input = screen.getByTestId("input") as HTMLInputElement;
+    
+    // Type a full phone number
+    await userEvent.type(input, "11987654321");
+    
+    // Check final value in the input
+    expect(input.value).toBe("(11) 98765-4321");
   });
 });

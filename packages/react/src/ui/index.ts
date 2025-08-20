@@ -11,6 +11,7 @@ export { default as Avatar } from "./avatar/avatar";
 export { default as Image } from "./image/image";
 export { default as Select } from "./select/select";
 export { default as Skeleton } from "./skeleton/skeleton";
+export { default as SearchIssues } from "./search-issues/search-issues";
 
 // Export layout components
 export {

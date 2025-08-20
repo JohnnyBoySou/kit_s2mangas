@@ -22,6 +22,7 @@ export { default as Card } from './ui/card/card';
 export { default as Modal } from './ui/modal/modal';
 export { default as Divider } from './ui/divider/divider';
 export { default as Radio } from './ui/radio/radio';
+export { default as SearchIssues } from './ui/search-issues/search-issues';
 
 // Export layout components
 export { Column, Row, Main, ScrollHorizontal, ScrollVertical, } from './ui/layout/layout';

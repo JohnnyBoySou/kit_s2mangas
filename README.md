@@ -64,6 +64,9 @@ npm install @s2mangas/native @s2mangas/core
 yarn add @s2mangas/native @s2mangas/core
 # ou
 pnpm add @s2mangas/native @s2mangas/core
+
+# Dependências adicionais necessárias:
+npm install react-native-reanimated expo-image @gorhom/bottom-sheet
 ```
 
 ### Configuração Inicial
@@ -191,6 +194,16 @@ pnpm storybook:native
 ```
 **Acesse**: http://localhost:7007
 
+### 💻 Projetos de Exemplo
+
+#### React Web
+- **[Exemplo HTML](./examples/index.html)** - Demonstração completa dos componentes React Web
+- Execute: Abra `examples/index.html` no navegador
+
+#### React Native  
+- **[App de Exemplo](./packages/native/example)** - Projeto Expo completo
+- Execute: `cd packages/native/example && npm start`
+
 ### 📖 Guias de Uso
 
 - 📋 **[Guia de Componentes](./docs/components.md)** - Documentação detalhada de cada componente
@@ -225,14 +238,23 @@ pnpm format
 pnpm format:check
 ```
 
-### Análise de Bundle
+### Análise de Performance
 ```bash
 # Analisar tamanho dos pacotes
 pnpm size
 
 # Verificar bundlewatch
 pnpm bundle
+
+# Auditoria de dependências
+pnpm audit
 ```
+
+### Métricas de Qualidade
+- **Cobertura de Testes**: >80% em todos os pacotes
+- **Bundle Size**: <10KB (React Web), <15KB (React Native)
+- **Tree Shaking**: Suporte completo para imports otimizados
+- **Performance**: Renderização otimizada com React.memo
 
 ## 🔧 Desenvolvimento
 

@@ -28,6 +28,7 @@ import Icon from "./icon/icon";
 import Card from "./card/card";
 import Modal from "./modal/modal";
 import Divider from "./divider/divider";
+import SearchIssues from "./search-issues/search-issues";
 import type { SheetProps } from "./sheet/sheet";
 
 export {
@@ -52,6 +53,7 @@ export {
     Divider,
     View,
     Radio,
+    SearchIssues,
 };
     
 export type { SheetProps };

@@ -12,6 +12,7 @@ export { default as Checkbox } from "./ui/checkbox/checkbox";
 export { default as Switch } from "./ui/switch/switch";
 export { default as Tooltip } from "./ui/tooltip/tooltip";
 export { default as Breadcrumb } from "./ui/breadcrumb/breadcrumb";
+export { default as SearchIssues } from "./ui/search-issues/search-issues";
 
 // Export layout components
 export {

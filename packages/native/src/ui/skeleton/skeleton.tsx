@@ -12,25 +12,25 @@ interface SkeletonProps extends React.ComponentPropsWithoutRef<typeof View> {
 }
 
 const Skeleton: React.FC<SkeletonProps> = ({ style, c = DEFAULT_BACKGROUND_COLOR, ...props }) => {
-  const colorAnim = useRef(new Animated.Value(0)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
   const { width: windowWidth } = useWindowDimensions();
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(colorAnim, {
+        Animated.timing(opacityAnim, {
           toValue: 1,
           duration: 1000,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
-        Animated.timing(colorAnim, {
+        Animated.timing(opacityAnim, {
           toValue: 0,
           duration: 1000,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
       ])
     ).start();
-  }, [colorAnim]);
+  }, [opacityAnim]);
 
   const calculateDimension = (value: string | number): number => {
     if (typeof value === 'string' && value.endsWith('%')) {
@@ -47,19 +47,34 @@ const Skeleton: React.FC<SkeletonProps> = ({ style, c = DEFAULT_BACKGROUND_COLOR
   };
 
   return (
-    <Animated.View
-      style={[
-        animatedStyle,
-        {
-          backgroundColor: colorAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [c, SECONDARY_BACKGROUND_COLOR]
-          })
-        },
-        style
-      ]}
-      {...props}
-    />
+    <View style={[animatedStyle, style]} {...props}>
+      {/* Cor base */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: c,
+          borderRadius: props.r,
+        }}
+      />
+      {/* Cor secundária animada */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: SECONDARY_BACKGROUND_COLOR,
+          borderRadius: props.r,
+          opacity: opacityAnim,
+        }}
+      />
+    </View>
   );
 }
+
 export default Skeleton;

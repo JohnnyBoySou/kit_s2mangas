@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useRef, useEffect } from "react";
 import { getMaskFunction, MaskType } from "../../../../core/src/utils";
 import { theme } from "../../../../core/src/theme";
 
@@ -47,6 +47,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [isFocused, setIsFocused] = useState<boolean>(focused);
     const [isSecure, setIsSecure] = useState<boolean>(isPassword);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const cursorPositionRef = useRef<number>(0);
+
+    // Use forwarded ref or internal ref
+    const actualRef = (ref as React.RefObject<HTMLInputElement>) || inputRef;
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
@@ -65,15 +70,60 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!onChange) return;
 
+      const input = e.target;
+      const cursorStart = input.selectionStart || 0;
+      const oldValue = value || "";
+      const newValue = input.value;
+
+      // Apply mask
       const { maskFunction, maxLength } = getMaskFunction(mask);
-      let maskedText = maskFunction(e.target.value);
+      let maskedText = maskFunction(newValue);
 
       if (maxLength && maskedText.length > maxLength) {
         maskedText = maskedText.slice(0, maxLength);
       }
 
+      // Calculate new cursor position
+      let newCursorPosition = cursorStart;
+      
+      if (mask && maskedText !== newValue) {
+        // If mask was applied, calculate appropriate cursor position
+        const oldLength = oldValue.length;
+        const newLength = maskedText.length;
+        const lengthDiff = newLength - oldLength;
+        
+        // Adjust cursor position based on mask application
+        if (lengthDiff > 0) {
+          // Text was added by mask, move cursor accordingly
+          newCursorPosition = Math.min(cursorStart + lengthDiff, maskedText.length);
+        } else if (lengthDiff < 0) {
+          // Text was removed, adjust cursor
+          newCursorPosition = Math.max(cursorStart + lengthDiff, 0);
+        }
+        
+        // Store the cursor position to be applied after the state update
+        cursorPositionRef.current = newCursorPosition;
+      }
+
       onChange(maskedText);
     };
+
+    // Effect to restore cursor position after mask application
+    useEffect(() => {
+      if (mask && actualRef.current && cursorPositionRef.current > 0) {
+        const input = actualRef.current;
+        const position = cursorPositionRef.current;
+        
+        // Use setTimeout to ensure the DOM has been updated
+        setTimeout(() => {
+          if (input === document.activeElement) {
+            input.setSelectionRange(position, position);
+          }
+        }, 0);
+        
+        cursorPositionRef.current = 0; // Reset
+      }
+    }, [value, mask]);
 
     const togglePasswordVisibility = () => {
       setIsSecure(!isSecure);
@@ -122,7 +172,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div style={{ position: "relative" }}>
           <input
             {...props}
-            ref={ref}
+            ref={actualRef}
             data-testid={testID}
             type={isSecure ? "password" : type}
             style={{

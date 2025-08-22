@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, useWindowDimensions } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Animated, useWindowDimensions } from 'react-native';
 
 const DEFAULT_BACKGROUND_COLOR = "#303030";
 const SECONDARY_BACKGROUND_COLOR = "#404040";
@@ -19,23 +19,31 @@ const Skeleton: React.FC<SkeletonProps> = ({
   testID,
   ...props 
 }) => {
-  const [isAnimating, setIsAnimating] = useState(false);
   const { width: windowWidth } = useWindowDimensions();
-  const intervalRef = useRef<number | null>(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Inicia a animação
-    intervalRef.current = setInterval(() => {
-      setIsAnimating(prev => !prev);
-    }, 1000);
-
-    // Cleanup
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+    const startAnimation = () => {
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => startAnimation());
     };
-  }, []);
+
+    startAnimation();
+
+    return () => {
+      fadeAnim.stopAnimation();
+    };
+  }, [fadeAnim]);
 
   const calculateDimension = (value: string | number): number => {
     if (typeof value === 'string' && value.endsWith('%')) {
@@ -66,7 +74,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
         }}
       />
       {/* Cor secundária animada */}
-      <View
+      <Animated.View
         style={{
           position: 'absolute',
           top: 0,
@@ -75,7 +83,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
           bottom: 0,
           backgroundColor: SECONDARY_BACKGROUND_COLOR,
           borderRadius: props.r,
-          opacity: isAnimating ? 1 : 0,
+          opacity: fadeAnim,
         }}
       />
     </View>

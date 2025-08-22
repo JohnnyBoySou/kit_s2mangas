@@ -13,6 +13,7 @@ import {
   Button,
   Image,
   Avatar,
+  Skeleton,
 } from '@s2mangas/native';
 
 export default function CardsScreen() {
@@ -288,6 +289,73 @@ export default function CardsScreen() {
                 )}
               </Column>
             </Card>
+          </Column>
+
+          {/* Card com Skeleton */}
+          <Column gv={12}>
+            <Column gv={6} mv={12}>
+              <Title level={2}>Card com Skeleton</Title>
+              <Description>
+                Exemplos de como usar o componente Skeleton em cards para mostrar
+                estados de carregamento.
+              </Description>
+            </Column>
+            <Column gv={12}>
+              {/* Skeleton de Card Básico */}
+              <Card pv={16} ph={16}>
+                <Column gv={12}>
+                  <Skeleton w={200} h={24} r={12} />
+                  <Skeleton w={300} h={16} r={12} />
+                  <Skeleton w={250} h={16} r={12} />
+                </Column>
+              </Card>
+
+              {/* Skeleton de Card com Avatar */}
+              <Card pv={16} ph={16}>
+                <Column gv={12}>
+                  <Row gh={12}>
+                    <Skeleton w={50} h={50} r={25} />
+                    <Column gv={4}>
+                      <Skeleton w={120} h={20} />
+                      <Skeleton w={150} h={14} />
+                    </Column>
+                  </Row>
+                  <Skeleton w={280} h={16} />
+                  <Skeleton w={250} h={16} />
+                </Column>
+              </Card>
+
+              {/* Skeleton de Card com Imagem */}
+              <Card pv={16} ph={16}>
+                <Column gv={12}>
+                  <Skeleton w={300} h={200} />
+                  <Skeleton w={200} h={24} />
+                  <Skeleton w={280} h={16} />
+                  <Skeleton w={250} h={16} />
+                </Column>
+              </Card>
+
+              {/* Skeleton de Card Complexo */}
+              <Card pv={16} ph={16}>
+                <Column gv={12}>
+                  <Row gh={12}>
+                    <Skeleton w={60} h={60} r={30} />
+                    <Column gv={4}>
+                      <Skeleton w={140} h={20} />
+                      <Skeleton w={180} h={14} />
+                      <Skeleton w={120} h={14} />
+                    </Column>
+                  </Row>
+                  <Skeleton w={350} h={175} />
+                  <Skeleton w={280} h={16} />
+                  <Skeleton w={250} h={16} />
+                  <Row gh={8}>
+                    <Skeleton w={80} h={32} />
+                    <Skeleton w={100} h={32} />
+                  </Row>
+                </Column>
+              </Card>
+            </Column>
           </Column>
 
           {/* Card com Diferentes Temas */}

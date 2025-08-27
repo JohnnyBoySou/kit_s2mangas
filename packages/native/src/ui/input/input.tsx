@@ -142,32 +142,15 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleChangeText = (text: string) => {
     const { maskFunction, maxLength } = getMaskFunction(mask);
     let maskedText = maskFunction(text);
-    if (maxLength && maskedText.length > maxLength) maskedText = maskedText.slice(0, maxLength);
-    
-    // For React Native, we need to handle cursor position differently
-    if (mask && maskedText !== text) {
-      const oldValue = value || '';
-      const oldLength = oldValue.length;
-      const newLength = maskedText.length;
-      const lengthDiff = newLength - oldLength;
-      
-      // Store cursor position for potential restoration
-      if (inputRef.current) {
-        // In React Native, cursor position management is more limited
-        // We'll focus on preventing excessive re-renders instead
-        setTimeout(() => {
-          if (inputRef.current && lengthDiff > 0) {
-            // For masked inputs, try to position cursor after the new content
-            const newPosition = Math.min(maskedText.length, oldLength + 1 + lengthDiff);
-            inputRef.current.setNativeProps({
-              selection: { start: newPosition, end: newPosition }
-            });
-          }
-        }, 0);
-      }
+
+    if (maxLength && maskedText.length > maxLength) {
+      maskedText = maskedText.slice(0, maxLength);
     }
-    
-    onChangeText?.(maskedText);
+
+    // Atualize o estado apenas se o valor realmente mudar
+    if (maskedText !== value) {
+      onChangeText?.(maskedText);
+    }
   };
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;

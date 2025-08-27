@@ -14,7 +14,7 @@ import type {
   TextStyle,
 } from 'react-native';
 import { Label } from '../text/text';
-import { getMaskFunction, theme } from '@s2mangas/core';
+import { theme } from '@s2mangas/core';
 import type { MaskType } from '@s2mangas/core';
 import Icon from '../icon/icon';
 import type { IconName } from '../icon/icon';
@@ -23,7 +23,7 @@ export type InputBigRef = {
   focus: () => void;
   blur: () => void;
   clear: () => void;
-  getNode: () => TextInput | null; 
+  getNode: () => TextInput | null;
 };
 
 interface InputProps extends TextInputProps {
@@ -52,7 +52,7 @@ interface InputProps extends TextInputProps {
 const DUR = 140; // animação rápida
 const EASE = Easing.out(Easing.quad);
 
-const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
+const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const {
     value = '',
     onChangeText,
@@ -138,19 +138,8 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
   const handleChangeText = (text: string) => {
-    const { maskFunction, maxLength } = getMaskFunction(mask);
-    let maskedText = maskFunction(text);
-
-    if (maxLength && maskedText.length > maxLength) {
-      maskedText = maskedText.slice(0, maxLength);
-    }
-
-    // Atualize o estado apenas se o valor realmente mudar
-    if (maskedText !== value) {
-      onChangeText?.(maskedText);
-    }
+    onChangeText?.(text);
   };
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;
@@ -190,7 +179,7 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
         }}
       >
         <Column ph={12} pv={12} justify="center">
-          <Animated.Text 
+          <Animated.Text
             style={[
               { fontSize: 12, letterSpacing: -0.5, color: disabled ? theme.color.title : theme.color.text, fontFamily: theme.font.book },
               labelStyle,
@@ -246,8 +235,8 @@ const Input= forwardRef<InputBigRef, InputProps>((props, ref) => {
 
             {(secure || iconRight) && (
               <Column style={{ alignSelf: 'flex-end', marginTop: 10 }}>
-                <Pressable 
-                  onPress={handleRightIconPress} 
+                <Pressable
+                  onPress={handleRightIconPress}
                   disabled={disabled}
                   style={{ padding: 4 }}
                 >

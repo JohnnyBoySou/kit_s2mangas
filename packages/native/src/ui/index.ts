@@ -15,6 +15,7 @@ import InputOTP from "./otp/otp";
 import Toast from "./toast/toast";
 import Sheet from './sheet/sheet';
 import Select from './select/select';
+import Selectable from './selectable/selectable';
 import Loader from './loader/loader';
 import Toggle from "./toggle/toggle";
 import Badge from "./badge/badge";
@@ -54,6 +55,7 @@ export {
     View,
     Radio,
     SearchIssues,
+    Selectable,
 };
     
 export type { SheetProps };

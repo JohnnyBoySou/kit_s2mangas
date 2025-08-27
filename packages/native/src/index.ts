@@ -23,19 +23,40 @@ export { default as Modal } from './ui/modal/modal';
 export { default as Divider } from './ui/divider/divider';
 export { default as Radio } from './ui/radio/radio';
 export { default as SearchIssues } from './ui/search-issues/search-issues';
+export { default as Selectable } from './ui/selectable/selectable';
 
 // Export layout components
-export { Column, Row, Main, ScrollHorizontal, ScrollVertical, } from './ui/layout/layout';
+export {
+  Column,
+  Row,
+  Main,
+  ScrollHorizontal,
+  ScrollVertical,
+} from './ui/layout/layout';
 
 // Export text components
-export { Title, HeadTitle, Label, SubLabel, U, Description } from './ui/text/text';
+export {
+  Title,
+  HeadTitle,
+  Label,
+  SubLabel,
+  U,
+  Description,
+} from './ui/text/text';
 
 // Export utility components
 export { default as Skeleton } from './ui/skeleton/skeleton';
 export { default as MultiStepProgress } from './ui/progress/progress';
 
 // Export theme and utilities from core
-export { theme, BREAKPOINTS, Z_INDEX, ANIMATION, BORDER_RADIUS, SHADOWS } from '@s2mangas/core';
+export {
+  theme,
+  BREAKPOINTS,
+  Z_INDEX,
+  ANIMATION,
+  BORDER_RADIUS,
+  SHADOWS,
+} from '@s2mangas/core';
 
 // Export providers
 export {
@@ -52,7 +73,7 @@ export {
   lightTheme as lightTheme,
   darkTheme as darkTheme,
   defaultColorPalette as defaultColorPalette,
-  darkColorPalette as darkColorPalette
+  darkColorPalette as darkColorPalette,
 } from './providers';
 
 export type {
@@ -60,7 +81,7 @@ export type {
   ThemeColors,
   ThemeSizes,
   ThemeFonts,
-  ColorPalette
+  ColorPalette,
 } from './providers';
 
 // Export constants

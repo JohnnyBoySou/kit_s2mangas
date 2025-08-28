@@ -12,7 +12,7 @@ const config = {
 
   url: 'https://s2mangas-kit.vercel.app',
   baseUrl: '/',
-  organizationName: 'JohnnyBoySoy',
+  organizationName: 'JohnnyBoySou',
   projectName: 'kit_s2mangas',
 
   onBrokenLinks: 'throw',

@@ -11,7 +11,7 @@ const config = {
   },
 
   url: 'https://s2mangas-kit.vercel.app',
-  baseUrl: '/',
+  baseUrl: '/kit_s2mangas/',
   organizationName: 'JohnnyBoySou',
   projectName: 'kit_s2mangas',
 

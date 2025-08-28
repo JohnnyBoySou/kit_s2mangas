@@ -64,11 +64,3 @@ import { theme } from "@s2mangas/core";
 
 console.log(theme.colors.primary); // exemplo: acessar cor primária
 ```
-
----
-
-## 📚 Próximos Passos
-
-- [🚀 Comece Agora](./get-started.md)
-- [🌱 Motivação & Filosofia](./motivation.md)
-- Explore os [📦 Componentes](./components.md)

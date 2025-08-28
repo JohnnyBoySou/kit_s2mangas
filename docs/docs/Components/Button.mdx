@@ -1,0 +1,104 @@
+---
+sidebar_position: 1
+---
+
+# Button
+
+O componente Button fornece uma interface interativa para ações do usuário, com suporte a diferentes variantes, tamanhos e estados.
+
+## Importação
+
+```tsx
+import { Button } from '@s2mangas/native';
+```
+
+## Propriedades
+
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| `label` | `string` | - | Texto a ser exibido no botão |
+| `onPress` | `() => void` | - | Função chamada quando o botão é pressionado |
+| `variant` | `"default" \| "secondary" \| "destructive" \| "ghost" \| "link" \| "outline" \| "primary" \| "blur"` | `"default"` | Estilo visual do botão |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Tamanho do botão |
+| `style` | `ViewStyle` | - | Estilos personalizados para o contêiner do botão |
+| `textStyle` | `TextStyle` | - | Estilos personalizados para o texto do botão |
+| `loading` | `boolean` | `false` | Quando `true`, exibe um indicador de carregamento |
+| `icon` | `React.ReactNode` | - | Ícone a ser exibido no botão |
+| `disabled` | `boolean` | `false` | Quando `true`, desativa o botão |
+| `testID` | `string` | - | ID para testes automatizados |
+| `children` | `React.ReactNode` | - | Conteúdo do botão (alternativa ao `label`) |
+
+## Exemplos
+
+### Variantes
+
+```tsx
+<Button variant="default" onPress={() => {}}>Default</Button>
+<Button variant="primary" onPress={() => {}}>Primary</Button>
+<Button variant="secondary" onPress={() => {}}>Secondary</Button>
+<Button variant="destructive" onPress={() => {}}>Destructive</Button>
+<Button variant="ghost" onPress={() => {}}>Ghost</Button>
+<Button variant="link" onPress={() => {}}>Link</Button>
+<Button variant="outline" onPress={() => {}}>Outline</Button>
+<Button variant="blur" onPress={() => {}}>Blur</Button>
+```
+
+### Tamanhos
+
+```tsx
+<Button size="sm" onPress={() => {}}>Small</Button>
+<Button size="md" onPress={() => {}}>Medium</Button>
+<Button size="lg" onPress={() => {}}>Large</Button>
+```
+
+### Estados
+
+```tsx
+<Button disabled onPress={() => {}}>Disabled</Button>
+<Button loading onPress={() => {}}>Loading</Button>
+```
+
+### Com Ícone
+
+```tsx
+<Button 
+  icon={<YourIcon />} 
+  onPress={() => {}}
+>
+  Com Ícone
+</Button>
+
+{/* Botão apenas com ícone */}
+<Button 
+  icon={<YourIcon />} 
+  onPress={() => {}}
+/>
+```
+
+## Acessibilidade
+
+O componente Button implementa as seguintes características de acessibilidade:
+
+- Utiliza o elemento nativo `Pressable` com `accessibilityRole="button"`
+- Fornece `accessibilityLabel` automaticamente baseado no texto do botão
+- Suporta estados de desabilitado e carregamento
+
+## Personalização
+
+O Button pode ser personalizado através das propriedades `style` e `textStyle`:
+
+```tsx
+<Button 
+  style={{ 
+    borderRadius: 8,
+    backgroundColor: '#6200ee'
+  }}
+  textStyle={{ 
+    color: '#ffffff',
+    fontWeight: 'bold'
+  }}
+  onPress={() => {}}
+>
+  Botão Personalizado
+</Button>
+```

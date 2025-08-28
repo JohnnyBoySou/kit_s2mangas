@@ -138,6 +138,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+  // Evita flicker ao digitar: só atualiza valor, não mexe no foco/anim
   const handleChangeText = (text: string) => {
     onChangeText?.(text);
   };

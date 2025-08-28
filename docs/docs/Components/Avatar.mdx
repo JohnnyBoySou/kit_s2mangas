@@ -1,0 +1,170 @@
+---
+sidebar_position: 4
+---
+
+# Avatar
+
+O componente Avatar fornece uma interface para exibição de imagens de perfil, iniciais ou ícones em formato circular ou quadrado.
+
+## Importação
+
+```tsx
+import { Avatar } from '@s2mangas/native';
+```
+
+## Propriedades
+
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| `w` | `number` | `40` | Largura do avatar em pixels |
+| `h` | `number` | `40` | Altura do avatar em pixels |
+| `r` | `number` | - | Raio da borda do avatar (opcional) |
+| `backgroundColor` | `string` | `'#d3d3d3'` | Cor de fundo do avatar |
+| `src` | `string` | - | URL da imagem a ser exibida |
+| `style` | `ViewStyle` | - | Estilos personalizados para o contêiner do avatar |
+| `textStyle` | `TextStyle` | - | Estilos personalizados para o texto de iniciais |
+| `imageStyle` | `ImageStyle` | - | Estilos personalizados para a imagem |
+| `shape` | `'circle' \| 'square'` | `'circle'` | Formato do avatar |
+| `initials` | `string` | - | Iniciais a serem exibidas quando não há imagem |
+| `testID` | `string` | - | ID para testes automatizados |
+| `onPress` | `() => void` | - | Função chamada quando o avatar é pressionado |
+| `disabled` | `boolean` | `false` | Quando `true`, desativa o avatar |
+| `icon` | `React.ReactNode` | - | Ícone a ser exibido quando não há imagem ou iniciais |
+| `accessibilityLabel` | `string` | - | Rótulo de acessibilidade para leitores de tela |
+| `accessibilityRole` | `'text' \| 'button' \| 'image' \| 'link' \| 'none' \| 'search'` | `'image'` | Papel de acessibilidade do componente |
+| `loading` | `boolean` | - | Quando `true`, exibe um indicador de carregamento |
+
+## Exemplos
+
+### Avatar com Imagem
+
+```tsx
+import React from 'react';
+import { Avatar } from '@s2mangas/native';
+
+function ExemploAvatarImagem() {
+  return (
+    <Avatar 
+      src="https://exemplo.com/imagem-perfil.jpg" 
+      w={50}
+      h={50}
+    />
+  );
+}
+```
+
+### Avatar com Iniciais
+
+```tsx
+import React from 'react';
+import { Avatar } from '@s2mangas/native';
+
+function ExemploAvatarIniciais() {
+  return (
+    <Avatar 
+      initials="JD" 
+      backgroundColor="#6200ee"
+      textStyle={{ color: '#ffffff' }}
+      w={60}
+      h={60}
+    />
+  );
+}
+```
+
+### Avatar Quadrado
+
+```tsx
+import React from 'react';
+import { Avatar } from '@s2mangas/native';
+
+function ExemploAvatarQuadrado() {
+  return (
+    <Avatar 
+      src="https://exemplo.com/imagem-perfil.jpg" 
+      shape="square"
+      w={80}
+      h={80}
+    />
+  );
+}
+```
+
+### Avatar com Ação
+
+```tsx
+import React from 'react';
+import { Avatar } from '@s2mangas/native';
+
+function ExemploAvatarComAcao() {
+  const handlePress = () => {
+    console.log('Avatar pressionado');
+  };
+  
+  return (
+    <Avatar 
+      src="https://exemplo.com/imagem-perfil.jpg" 
+      onPress={handlePress}
+      accessibilityLabel="Abrir perfil do usuário"
+      accessibilityRole="button"
+    />
+  );
+}
+```
+
+### Avatar com Estado de Carregamento
+
+```tsx
+import React from 'react';
+import { Avatar } from '@s2mangas/native';
+
+function ExemploAvatarCarregando() {
+  return (
+    <Avatar 
+      loading={true}
+      backgroundColor="#e0e0e0"
+    />
+  );
+}
+```
+
+## Comportamento
+
+O componente Avatar possui um sistema de fallback para lidar com diferentes cenários:
+
+1. Se a propriedade `src` for fornecida e a imagem carregar com sucesso, a imagem será exibida
+2. Se a imagem falhar ao carregar ou `src` não for fornecido, mas `initials` estiver presente, as iniciais serão exibidas
+3. Se nem `src` nem `initials` forem fornecidos, mas `icon` estiver presente, o ícone será exibido
+4. Durante o carregamento, se `loading` for `true`, um indicador de atividade será exibido
+
+## Acessibilidade
+
+O componente Avatar implementa as seguintes características de acessibilidade:
+
+- Suporta `accessibilityLabel` para fornecer descrição para leitores de tela
+- Permite definir `accessibilityRole` para indicar o tipo de elemento
+- Mantém contraste adequado entre texto e fundo
+- Fornece feedback visual claro sobre o estado desabilitado
+
+## Personalização
+
+O Avatar pode ser personalizado através das propriedades de estilo:
+
+```tsx
+<Avatar
+  src="https://exemplo.com/imagem-perfil.jpg"
+  w={60}
+  h={60}
+  style={{
+    borderWidth: 2,
+    borderColor: '#6200ee',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3
+  }}
+  imageStyle={{
+    resizeMode: 'contain'
+  }}
+/>
+```

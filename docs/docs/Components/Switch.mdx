@@ -1,0 +1,114 @@
+---
+sidebar_position: 3
+---
+
+# Switch
+
+O componente Switch fornece uma interface para alternar entre dois estados (ligado/desligado), com animação suave e suporte a acessibilidade.
+
+## Importação
+
+```tsx
+import { Switch } from '@s2mangas/native';
+```
+
+## Propriedades
+
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| `value` | `boolean` | - | Estado atual do switch (true = ligado, false = desligado) |
+| `setValue` | `(value: boolean) => void` | - | Função chamada quando o estado do switch é alterado |
+| `testID` | `string` | - | ID para testes automatizados |
+| `accessibilityLabel` | `string` | - | Rótulo de acessibilidade para leitores de tela |
+| `accessibilityRole` | `"checkbox" \| "switch"` | - | Papel de acessibilidade do componente |
+| `disabled` | `boolean` | `false` | Quando `true`, desativa o switch |
+
+## Exemplos
+
+### Switch Básico
+
+```tsx
+import React, { useState } from 'react';
+import { Switch } from '@s2mangas/native';
+
+function ExemploSwitch() {
+  const [ativado, setAtivado] = useState(false);
+  
+  return (
+    <Switch 
+      value={ativado} 
+      setValue={setAtivado} 
+    />
+  );
+}
+```
+
+### Com Estado Desabilitado
+
+```tsx
+import React, { useState } from 'react';
+import { Switch } from '@s2mangas/native';
+
+function ExemploSwitchDesabilitado() {
+  const [ativado, setAtivado] = useState(true);
+  
+  return (
+    <Switch 
+      value={ativado} 
+      setValue={setAtivado}
+      disabled={true}
+    />
+  );
+}
+```
+
+### Com Acessibilidade
+
+```tsx
+import React, { useState } from 'react';
+import { Switch } from '@s2mangas/native';
+
+function ExemploSwitchAcessivel() {
+  const [modoNoturno, setModoNoturno] = useState(false);
+  
+  return (
+    <Switch 
+      value={modoNoturno} 
+      setValue={setModoNoturno}
+      accessibilityLabel="Ativar modo noturno"
+      accessibilityRole="switch"
+    />
+  );
+}
+```
+
+## Comportamento
+
+O componente Switch utiliza animações para proporcionar uma transição suave entre os estados ligado e desligado. Quando o valor muda:
+
+1. A cor de fundo alterna entre cinza (`#505050`) e a cor primária do tema
+2. A cor do indicador (thumb) alterna entre cinza claro (`#909090`) e branco semi-transparente (`#ffffff90`)
+3. O indicador desliza horizontalmente para representar o estado atual
+
+## Acessibilidade
+
+O componente Switch implementa as seguintes características de acessibilidade:
+
+- Suporta `accessibilityLabel` para fornecer descrição para leitores de tela
+- Permite definir `accessibilityRole` como "checkbox" ou "switch"
+- Comunica automaticamente o estado atual (ligado/desligado) através de `accessibilityState`
+- Mantém contraste adequado entre os estados
+- Fornece feedback visual claro sobre o estado atual
+
+## Personalização
+
+O componente Switch utiliza cores do tema para manter a consistência visual com o restante da aplicação. As cores são definidas da seguinte forma:
+
+- Estado desligado: fundo cinza (`#505050`), indicador cinza claro (`#909090`)
+- Estado ligado: fundo na cor primária do tema, indicador branco semi-transparente (`#ffffff90`)
+- Estado desabilitado: opacidade reduzida (0.5)
+
+As dimensões do componente são fixas:
+- Largura: 46px
+- Altura: 28px
+- Tamanho do indicador: 16px x 16px com margem de 6px

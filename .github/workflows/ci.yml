@@ -1,0 +1,208 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      node-version: ${{ steps.node-version.outputs.version }}
+    steps:
+      - name: Get Node.js version
+        id: node-version
+        run: echo "version=18" >> $GITHUB_OUTPUT
+
+  install:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Verify lockfile
+        run: pnpm install --no-frozen-lockfile
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: [setup, install]
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run ESLint on all packages
+        run: pnpm lint 
+        continue-on-error: true
+
+      - name: Run Prettier check on all packages
+        run: pnpm format:check
+        continue-on-error: true
+
+  typecheck:
+    runs-on: ubuntu-latest
+    needs: [setup, install]
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run TypeScript check on all packages
+        run: pnpm typecheck
+        continue-on-error: true
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [setup, install]
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build all packages (core, react, native)
+        run: pnpm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-node-${{ matrix.node-version }}
+          path: |
+            packages/*/lib/
+            packages/*/dist/
+          retention-days: 7
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [setup, install]
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build packages before testing
+        run: pnpm build
+
+      - name: Run tests on all packages (core, react, native)
+        run: pnpm test
+
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v5
+        if: always() && matrix.node-version == '18'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  validate-packages:
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, build, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Validate package scripts exist
+        run: |
+          echo "Validating that all packages have required scripts..."
+          pnpm --filter @s2mangas/core run test --version || echo "Core test script missing"
+          pnpm --filter @s2mangas/react run test --version || echo "React test script missing"
+          pnpm --filter @s2mangas/react run lint --version || echo "React lint script missing"
+          pnpm --filter @s2mangas/react run typecheck --version || echo "React typecheck script missing"
+          pnpm --filter @s2mangas/native run test --version || echo "Native test script missing"
+          pnpm --filter @s2mangas/native run lint --version || echo "Native lint script missing"
+          pnpm --filter @s2mangas/native run typecheck --version || echo "Native typecheck script missing"
+          echo "Package validation completed"

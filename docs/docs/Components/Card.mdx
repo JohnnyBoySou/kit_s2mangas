@@ -1,0 +1,172 @@
+---
+sidebar_position: 5
+---
+
+# Card
+
+O componente Card fornece um contêiner flexível para agrupar e exibir conteúdo, com suporte para personalização de bordas, sombras e espaçamento.
+
+## Importação
+
+```tsx
+import { Card } from '@s2mangas/native';
+```
+
+## Propriedades
+
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| `children` | `React.ReactNode` | - | Conteúdo a ser renderizado dentro do card |
+| `style` | `ViewStyle` | - | Estilos personalizados para o card |
+| `padding` | `number` | - | Espaçamento interno em todos os lados |
+| `pv` | `number` | - | Espaçamento interno vertical (paddingVertical) |
+| `ph` | `number` | - | Espaçamento interno horizontal (paddingHorizontal) |
+| `pt` | `number` | - | Espaçamento interno superior (paddingTop) |
+| `pb` | `number` | - | Espaçamento interno inferior (paddingBottom) |
+| `pl` | `number` | - | Espaçamento interno esquerdo (paddingLeft) |
+| `pr` | `number` | - | Espaçamento interno direito (paddingRight) |
+| `margin` | `number` | - | Margem em todos os lados |
+| `mv` | `number` | - | Margem vertical (marginVertical) |
+| `mh` | `number` | - | Margem horizontal (marginHorizontal) |
+| `mt` | `number` | - | Margem superior (marginTop) |
+| `mb` | `number` | - | Margem inferior (marginBottom) |
+| `ml` | `number` | - | Margem esquerda (marginLeft) |
+| `mr` | `number` | - | Margem direita (marginRight) |
+| `w` | `number` | - | Largura do card em pixels |
+| `h` | `number` | - | Altura do card em pixels |
+| `r` | `number` | `8` | Raio da borda do card |
+| `align` | `'flex-start' \| 'flex-end' \| 'center' \| 'stretch' \| 'baseline'` | - | Alinhamento vertical dos itens dentro do card |
+| `justify` | `'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around' \| 'space-evenly'` | - | Alinhamento horizontal dos itens dentro do card |
+| `elevation` | `number` | `2` | Nível de elevação (sombra) do card |
+| `bgColor` | `string` | `'transparent'` | Cor de fundo do card |
+| `borderColor` | `string` | - | Cor da borda do card |
+| `borderWidth` | `number` | - | Largura da borda do card |
+| `selected` | `boolean` | `false` | Quando `true`, aplica estilo de seleção ao card |
+| `testID` | `string` | - | ID para testes automatizados |
+
+## Exemplos
+
+### Card Básico
+
+```tsx
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Card } from '@s2mangas/native';
+
+function ExemploCardBasico() {
+  return (
+    <Card padding={16}>
+      <Text>Conteúdo do Card</Text>
+    </Card>
+  );
+}
+```
+
+### Card com Estilo Personalizado
+
+```tsx
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Card } from '@s2mangas/native';
+
+function ExemploCardEstilizado() {
+  return (
+    <Card
+      padding={16}
+      bgColor="#f5f5f5"
+      borderColor="#6200ee"
+      borderWidth={2}
+      r={12}
+      elevation={4}
+    >
+      <Text>Card com Estilo Personalizado</Text>
+    </Card>
+  );
+}
+```
+
+### Card com Alinhamento
+
+```tsx
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Card } from '@s2mangas/native';
+
+function ExemploCardAlinhamento() {
+  return (
+    <Card
+      padding={16}
+      h={150}
+      align="center"
+      justify="center"
+      bgColor="#e0f7fa"
+    >
+      <Text>Conteúdo Centralizado</Text>
+    </Card>
+  );
+}
+```
+
+### Card Selecionável
+
+```tsx
+import React, { useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
+import { Card } from '@s2mangas/native';
+
+function ExemploCardSelecionavel() {
+  const [selecionado, setSelecionado] = useState(false);
+  
+  return (
+    <Pressable onPress={() => setSelecionado(!selecionado)}>
+      <Card
+        padding={16}
+        borderColor="#6200ee"
+        borderWidth={1}
+        selected={selecionado}
+      >
+        <Text>Toque para selecionar</Text>
+      </Card>
+    </Pressable>
+  );
+}
+```
+
+## Comportamento
+
+O componente Card possui as seguintes características de comportamento:
+
+1. Se `bgColor` não for fornecido, o card usará uma borda com a cor padrão ou a cor especificada em `borderColor`
+2. Quando `selected` é `true` e há uma borda definida, a cor da borda é usada como cor de fundo
+3. A elevação (sombra) é aplicada de acordo com o valor de `elevation`, proporcionando efeito de profundidade
+
+## Acessibilidade
+
+O componente Card não implementa comportamentos específicos de acessibilidade por si só, mas pode ser combinado com outros componentes acessíveis. Para melhorar a acessibilidade:
+
+- Combine com elementos interativos como `Pressable` quando o card for clicável
+- Forneça rótulos de acessibilidade adequados para o conteúdo interno
+- Mantenha contraste adequado entre o conteúdo e o fundo do card
+
+## Personalização
+
+O Card pode ser personalizado através das propriedades de estilo e layout:
+
+```tsx
+<Card
+  style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }}
+  padding={16}
+  bgColor="#ffffff"
+  borderColor="#e0e0e0"
+  borderWidth={1}
+  r={16}
+  elevation={3}
+  mh={8}
+  mv={12}
+>
+  <Text>Conteúdo Personalizado</Text>
+</Card>
+```

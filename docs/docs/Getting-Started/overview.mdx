@@ -1,0 +1,79 @@
+---
+id: overview
+title: 📐 Visão Geral
+sidebar_position: 2
+---
+
+# 📐 Visão Geral
+
+O **S2Mangás Kit** foi projetado para ser **modular e flexível**, permitindo que você escolha apenas o que precisa no seu projeto.  
+Ele é dividido em dois pacotes principais:
+
+- **`@s2mangas/native`** → Componentes visuais prontos para React Native / Expo  
+- **`@s2mangas/core`** → Tema e variáveis de estilo (cores, tamanhos, espaçamentos, etc.)  
+
+---
+
+## 🧩 Estrutura do Kit
+
+```bash
+s2mangas-kit/
+├── @s2mangas/native   # Componentes de UI prontos para uso
+│   ├── Button
+│   ├── Switch
+│   ├── Input
+│   ├── Loader
+│   └── ...
+│
+└── @s2mangas/core     # Tema e variáveis de estilo
+    ├── colors
+    ├── sizes
+    ├── spacing
+    └── ...
+````
+
+---
+
+## 📦 Quando usar cada pacote?
+
+* Use **`@s2mangas/native`** se você precisa de **componentes visuais** prontos, como botões, switches, inputs e loaders.
+* Use **`@s2mangas/core`** se você precisa de **tema e estilo padronizado**, para cores, tamanhos e espaçamentos.
+* Use os **dois juntos** para ter **UI consistente + tema padronizado**, acelerando o desenvolvimento.
+
+---
+
+## ⚡ Fluxo de Uso Típico
+
+1. **Instale os pacotes que precisa**
+
+```bash
+npm install @s2mangas/native @s2mangas/core
+# ou
+yarn add @s2mangas/native @s2mangas/core
+```
+
+2. **Importe e use os componentes do Native**
+
+```tsx
+import { Button, Switch } from "@s2mangas/native";
+
+<Button title="Clique aqui" onPress={() => console.log("clicou")} />
+<Switch value={true} onValueChange={(val) => console.log(val)} />
+```
+
+3. **Use o tema do Core para padronizar estilos**
+
+```tsx
+import { theme } from "@s2mangas/core";
+
+console.log(theme.colors.primary); // acessar cor primária
+```
+
+---
+
+## 🎯 Objetivo da Arquitetura
+
+* **Separação de responsabilidades** → interface no `native`, tema no `core`
+* **Flexibilidade** → use apenas o que precisar
+* **Reuso** → mesmo tema e componentes podem ser usados em diferentes apps
+* **Escalabilidade** → fácil evoluir sem quebrar compatibilidade

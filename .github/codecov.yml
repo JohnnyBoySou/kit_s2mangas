@@ -1,0 +1,39 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 5%
+    patch:
+      default:
+        target: 80%
+        threshold: 5%
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+ignore:
+  - "packages/*/node_modules/"
+  - "packages/*/lib/"
+  - "packages/*/dist/"
+  - "packages/*/coverage/"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "**/__tests__/**"
+  - "**/test/**"
+  - "**/*.d.ts"
+  - "**/*.config.*"
+  - "**/jest.config.*"
+  - "**/tsconfig.*"
+  - "**/.eslintrc.*"
+  - "**/.prettierrc.*"

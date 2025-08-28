@@ -1,0 +1,91 @@
+---
+sidebar_position: 15
+---
+
+# Loader
+
+O componente Loader exibe um indicador de carregamento animado, útil para informar aos usuários que uma operação está em andamento.
+
+## Importação
+
+```tsx
+import { Loader } from '@s2mangas/native';
+```
+
+## Propriedades
+
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| `size` | `"small" \| "large" \| number` | `24` | Tamanho do indicador de carregamento |
+| `color` | `string` | `"#fff"` | Cor do indicador de carregamento |
+| `visible` | `boolean` | `true` | Define se o loader está visível |
+| `testID` | `string` | - | ID para testes automatizados |
+| `accessibilityLabel` | `string` | `"loader"` | Rótulo de acessibilidade para leitores de tela |
+| `accessibilityRole` | `"progressbar" \| "alert"` | `"progressbar"` | Função de acessibilidade do componente |
+
+## Exemplos
+
+### Uso Básico
+
+```tsx
+import { Loader } from '@s2mangas/native';
+
+const LoadingComponent = () => (
+  <Loader />
+);
+```
+
+### Com Tamanho e Cor Personalizados
+
+```tsx
+<Loader size={36} color="#007bff" />
+```
+
+### Tamanhos Predefinidos
+
+```tsx
+<Loader size="small" color="#ff0000" />
+<Loader size="large" color="#00ff00" />
+```
+
+### Controlando a Visibilidade
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { Loader, Button } from '@s2mangas/native';
+
+const LoadingExample = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const startLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 3000);
+  };
+  
+  return (
+    <View>
+      <Button onPress={startLoading}>Iniciar Carregamento</Button>
+      <Loader visible={isLoading} />
+    </View>
+  );
+};
+```
+
+## Comportamento
+
+- O Loader exibe uma animação de rotação contínua
+- Quando a propriedade `visible` é definida como `false`, o componente não é renderizado
+- O componente se adapta automaticamente ao tema claro/escuro da aplicação com as cores padrão
+
+## Acessibilidade
+
+O componente Loader implementa as seguintes características de acessibilidade:
+
+- Utiliza `accessibilityRole="progressbar"` por padrão para indicar que é um indicador de progresso
+- Fornece um `accessibilityLabel` padrão "loader" que pode ser personalizado
+- Pode ser configurado com `accessibilityRole="alert"` para situações em que o carregamento deve ser anunciado com maior prioridade
+
+## Personalização
+
+O componente Loader pode ser personalizado através das propriedades `size` e `color`. O tamanho pode ser definido como um valor numérico específico ou usando os valores predefinidos "small" e "large". A cor pode ser qualquer valor de cor válido em React Native, incluindo códigos hexadecimais, nomes de cores CSS e notações rgba.

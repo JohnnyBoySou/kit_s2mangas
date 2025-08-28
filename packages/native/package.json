@@ -1,0 +1,140 @@
+{
+  "name": "@s2mangas/native",
+  "version": "0.0.21",
+  "description": "React Native UI components library for S2Mangas",
+  "type": "module",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "react-native": "src/index.ts",
+  "source": "src/index.ts",
+  "types": "./lib/typescript/commonjs/src/index.d.ts",
+  "exports": {
+    ".": {
+      "react-native": "./lib/module/index.js",
+      "import": {
+        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "workspaces": [
+    "example"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "react-native",
+    "ui-components",
+    "s2mangas",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnnyBoySou/kit_s2mangas"
+  },
+  "author": "JohnnyBoySou <joaodesousa101@gmail.com> (https://github.com/JohnnyBoySou)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JohnnyBoySou/kit_s2mangas/issues"
+  },
+  "homepage": "https://github.com/JohnnyBoySou/kit_s2mangas#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.73",
+    "expo-image": ">=2.0.0"
+  },
+  "dependencies": {
+    "@s2mangas/core": "^1.0.3",
+    "@gorhom/bottom-sheet": "^5.1.8",
+    "lucide-react-native": "^0.539.0",
+    "react-native-reanimated": "~3.17.5"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "@evilmartians/lefthook": "^1.5.0",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.0.12",
+    "commitlint": "^19.6.1",
+    "del-cli": "^6.0.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "react": "19.1.1",
+    "react-native": "0.81.0",
+    "react-native-builder-bob": "^0.40.13",
+    "release-it": "^19.0.4",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "build": "bob build",
+    "clean": "del-cli lib",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "typecheck": "tsc",
+    "test": "jest --config jest.config.cjs",
+    "prepare": "bob build",
+    "release": "release-it --only-version",
+    "example": "pnpm -C example start",
+    "example:expo": "cd example && npx expo start"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "esm": false
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "languages": "js",
+    "type": "library",
+    "version": "0.52.1"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "s2mangas_native-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~5.0.4",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
+    "expo": "~53.0.20",
+    "expo-font": "~13.3.2",
+    "expo-router": "~5.1.4",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.81.0",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~4.0.2",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.14.1",
+    "react-native-web": "~0.20.0",
+    "@s2mangas/native": "file:../",
+    "@s2mangas/core": "file:../core"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "react-native-builder-bob": "^0.40.13",
+    "react-native-monorepo-config": "^0.1.9"
+  },
+  "private": true
+}

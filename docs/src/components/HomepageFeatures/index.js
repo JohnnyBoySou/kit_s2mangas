@@ -4,38 +4,35 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Componentes Prontos para React Native',
+    Svg: require('@site/static/img/undraw_react_native.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        O <strong>@s2mangas/native</strong> fornece componentes de UI reutilizáveis como <code>Button</code>, <code>Switch</code>, <code>Input</code> e <code>Loader</code>, prontos para usar em qualquer aplicação React Native.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Tema Consistente',
+    Svg: require('@site/static/img/undraw_theme.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        O <strong>@s2mangas/core</strong> fornece cores, espaçamentos, tamanhos e outras variáveis de estilo, garantindo consistência visual em todos os componentes e telas do seu app.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Produtividade e Flexibilidade',
+    Svg: require('@site/static/img/undraw_productivity.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Com o S2Mangás Kit, você economiza tempo e mantém a qualidade do projeto, usando apenas os pacotes que precisa, de forma modular e fácil de personalizar.
       </>
     ),
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, title, description }) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

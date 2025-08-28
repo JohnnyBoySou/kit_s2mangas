@@ -3,12 +3,11 @@ import { themes as prismThemes } from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'S2Mangás Kit',
-  tagline: 'S2Mangás Kit é uma ferramenta para ajudar a comunidade de mangás a se organizar e a se divertir.',
+  tagline: 'S2Mangás Kit é uma ferramenta para ajudar a desenvolver interfaces mais rapidamente',
   favicon: 'img/favicon.ico',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
   url: 'https://s2mangas-kit.vercel.app',
@@ -31,25 +30,8 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/JohnnyBoySou/kit_s2mangas/tree/main/',
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+            'https://github.com/JohnnyBoySou/kit_s2mangas/tree/main/docs/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -76,9 +58,8 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/JohnnyBoySoy/kit_s2mangas',
+            href: 'https://github.com/JohnnyBoySou/kit_s2mangas',
             label: 'GitHub',
             position: 'right',
           },

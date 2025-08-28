@@ -10,7 +10,7 @@ const config = {
     v4: true,
   },
 
-  url: 'https://s2mangas-kit.vercel.app',
+  url: 'https://johnnyboysou.github.io',
   baseUrl: '/kit_s2mangas/',
   organizationName: 'JohnnyBoySou',
   projectName: 'kit_s2mangas',

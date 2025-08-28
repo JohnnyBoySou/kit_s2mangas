@@ -10,7 +10,7 @@ const config = {
     v4: true,
   },
 
-  organizationName: 'JohnnyBoySoy',
+  organizationName: 'JohnnyBoySou',
   projectName: 'kit_s2mangas',
   url: 'https://johnnyboysou.github.io',
   onBrokenLinks: 'throw',

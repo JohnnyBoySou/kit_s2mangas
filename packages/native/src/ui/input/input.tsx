@@ -101,7 +101,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       useNativeDriver: false,
     }).start();
   }, [focus, disabled]);
-  
+
   // Atualiza o estado interno quando o valor da prop muda
   useEffect(() => {
     setInputValue(value);
@@ -228,8 +228,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
                   onChangeText?.(text);
                 }}
                 value={inputValue}
-                onSubmitEditing={(e) => {
-                  // Garantir que o evento de submissão seja propagado corretamente
+                onSubmitEditing={() => {
                   if (onSubmitEditing) {
                     onSubmitEditing();
                   }

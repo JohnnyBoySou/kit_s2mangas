@@ -97,7 +97,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       toValue,
       duration: DUR,
       easing: EASE,
-      useNativeDriver: false, // cores/tamanho não suportam driver nativo
+      useNativeDriver: false,
     }).start();
   }, [focus, disabled]);
 
@@ -138,14 +138,9 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-  // Evita flicker ao digitar: só atualiza valor, não mexe no foco/anim
-  const handleChangeText = (text: string) => {
-    onChangeText?.(text);
-  };
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;
 
-  // Determina qual ícone mostrar no lado direito
   const getRightIcon = () => {
     if (secure) {
       return showPassword ? 'EyeOff' : 'Eye';
@@ -224,7 +219,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
                 onBlur={handleBlur}
                 autoFocus={focused}
                 editable={!disabled}
-                onChangeText={handleChangeText}
+                onChangeText={onChangeText}
                 value={value}
                 onSubmitEditing={onSubmitEditing}
                 keyboardType={keyboardType}

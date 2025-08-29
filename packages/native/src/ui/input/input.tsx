@@ -15,7 +15,6 @@ import type {
 } from 'react-native';
 import { Label } from '../text/text';
 import { theme } from '@s2mangas/core';
-import type { MaskType } from '@s2mangas/core';
 import Icon from '../icon/icon';
 import type { IconName } from '../icon/icon';
 
@@ -32,7 +31,6 @@ interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
   helperText?: string;
-  mask?: MaskType;
   keyboardType?: KeyboardTypeOptions;
   onSubmitEditing?: () => void;
   secure?: boolean;
@@ -47,6 +45,8 @@ interface InputProps extends TextInputProps {
   testID?: string;
   iconLeft?: string;
   iconRight?: string;
+  returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+  blurOnSubmit?: boolean;
 }
 
 const DUR = 140; // animação rápida
@@ -59,7 +59,6 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
     label,
     error,
     helperText,
-    mask,
     keyboardType = 'default',
     onSubmitEditing,
     secure = false,
@@ -74,11 +73,14 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
     testID,
     iconLeft,
     iconRight,
+    returnKeyType = 'next',
+    blurOnSubmit = false,
     ...restProps
   } = props;
 
   const [focus, setFocus] = useState<boolean>(!!focused);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(value);
   const inputRef = useRef<TextInput>(null);
 
   useImperativeHandle(ref, () => ({
@@ -88,7 +90,6 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
     getNode: () => inputRef.current,
   }), []);
 
-  // animação: 0 = blur/idle, 1 = focus/hover
   const anim = useRef(new Animated.Value(focus && !disabled ? 1 : 0)).current;
 
   useEffect(() => {
@@ -100,13 +101,16 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       useNativeDriver: false,
     }).start();
   }, [focus, disabled]);
+  
+  // Atualiza o estado interno quando o valor da prop muda
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
-  // estilos animados
   const bgColor = anim.interpolate({
     inputRange: [0, 1],
     outputRange: ["#151515", theme.color.borderGhost],
   });
-
 
   const labelColor = anim.interpolate({
     inputRange: [0, 1],
@@ -156,7 +160,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
 
   return (
     <Pressable onPress={handlePress} disabled={disabled}>
-      <Animated.View // container animado (substitui Column direto)
+      <Animated.View
         style={{
           transform: [{ scale }],
           backgroundColor: disabled ? '#101010' : bgColor as any,
@@ -219,9 +223,19 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
                 onBlur={handleBlur}
                 autoFocus={focused}
                 editable={!disabled}
-                onChangeText={onChangeText}
-                value={value}
-                onSubmitEditing={onSubmitEditing}
+                onChangeText={(text) => {
+                  setInputValue(text);
+                  onChangeText?.(text);
+                }}
+                value={inputValue}
+                onSubmitEditing={(e) => {
+                  // Garantir que o evento de submissão seja propagado corretamente
+                  if (onSubmitEditing) {
+                    onSubmitEditing();
+                  }
+                }}
+                returnKeyType={returnKeyType}
+                blurOnSubmit={blurOnSubmit}
                 keyboardType={keyboardType}
                 placeholder={restProps.placeholder}
                 secureTextEntry={secure && !showPassword}

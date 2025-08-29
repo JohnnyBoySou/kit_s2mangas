@@ -1,22 +1,34 @@
-import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
-import { Column, Row } from '../layout/layout';
+import React, {
+  useState,
+  useImperativeHandle,
+  useRef,
+  useCallback,
+  forwardRef,
+  useMemo,
+  useEffect,
+} from "react";
 import {
   TextInput,
   Platform,
   Pressable,
-  Animated,
-  Easing,
-} from 'react-native';
+
+} from "react-native";
 import type {
-  KeyboardTypeOptions,
   TextInputProps,
   ViewStyle,
   TextStyle,
-} from 'react-native';
-import { Label } from '../text/text';
-import { theme } from '@s2mangas/core';
-import Icon from '../icon/icon';
-import type { IconName } from '../icon/icon';
+} from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  interpolate,
+  interpolateColor,
+  Easing,
+} from "react-native-reanimated";
+
+import { Label, Icon, Column, Row } from "../index";
+import { theme } from "@s2mangas/core";
 
 export type InputBigRef = {
   focus: () => void;
@@ -26,16 +38,15 @@ export type InputBigRef = {
 };
 
 interface InputProps extends TextInputProps {
-  value?: string;
+  value?: string; // prop "value" do pai (opcional). Se fornecido, será sincronizado.
   onChangeText?: (text: string) => void;
   label?: string;
   error?: string;
   helperText?: string;
-  keyboardType?: KeyboardTypeOptions;
+  keyboardType?: TextInputProps["keyboardType"];
   onSubmitEditing?: () => void;
   secure?: boolean;
   disabled?: boolean;
-  focused?: boolean;
   required?: boolean;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
@@ -45,194 +56,207 @@ interface InputProps extends TextInputProps {
   testID?: string;
   iconLeft?: string;
   iconRight?: string;
-  returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+  returnKeyType?: "done" | "go" | "next" | "search" | "send";
   blurOnSubmit?: boolean;
 }
 
-const DUR = 140; // animação rápida
+const DUR = 140;
 const EASE = Easing.out(Easing.quad);
 
 const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const {
-    value = '',
+    value, // não aplicamos direto ao TextInput
     onChangeText,
     label,
     error,
     helperText,
-    keyboardType = 'default',
+    keyboardType = "default",
     onSubmitEditing,
     secure = false,
     disabled = false,
-    focused = false,
     required = false,
     containerStyle,
-    inputStyle,
     labelStyle,
-    errorStyle,
-    helperStyle,
     testID,
     iconLeft,
     iconRight,
-    returnKeyType = 'next',
+    returnKeyType = "next",
     blurOnSubmit = false,
     ...restProps
   } = props;
 
-  const [focus, setFocus] = useState<boolean>(!!focused);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(value);
-  const inputRef = useRef<TextInput>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const inputRef = useRef<TextInput | null>(null);
 
-  useImperativeHandle(ref, () => ({
-    focus: () => inputRef.current?.focus(),
-    blur: () => inputRef.current?.blur(),
-    clear: () => inputRef.current?.clear(),
-    getNode: () => inputRef.current,
-  }), []);
+  // armazenar valor atual sem causar rerender do componente
+  const textRef = useRef<string>(value ?? "");
 
-  const anim = useRef(new Animated.Value(focus && !disabled ? 1 : 0)).current;
+  // expõe métodos imperativos
+  useImperativeHandle(
+    ref,
+    () => ({
+      focus: () => inputRef.current?.focus(),
+      blur: () => inputRef.current?.blur(),
+      clear: () => {
+        // limpa native e o textRef e notifica pai
+        inputRef.current?.clear();
+        textRef.current = "";
+        onChangeText?.("");
+      },
+      getNode: () => inputRef.current,
+    }),
+    [onChangeText]
+  );
 
+  // animação (reanimated)
+  const focus = useSharedValue(0);
+
+  const handleFocus = useCallback(() => {
+    focus.value = withTiming(1, { duration: DUR, easing: EASE });
+  }, [focus]);
+
+  const handleBlur = useCallback(() => {
+    focus.value = withTiming(0, { duration: DUR, easing: EASE });
+  }, [focus]);
+
+  // handler que NÃO faz setState local (evita re-render).
+  // TextInput já atualiza o texto nativo. Mantemos textRef em sincronia
+  const handleChangeText = useCallback(
+    (t: string) => {
+      textRef.current = t;
+      onChangeText?.(t);
+    },
+    [onChangeText]
+  );
+
+  const handleTogglePassword = useCallback(() => {
+    setShowPassword((p) => !p);
+  }, []);
+
+  const getRightIcon = useCallback(() => {
+    if (secure) return showPassword ? "EyeOff" : "Eye";
+    return iconRight;
+  }, [secure, showPassword, iconRight]);
+
+  // Se o pai modificar `value` (ex.: carregar dados), sincronizamos sem re-render.
   useEffect(() => {
-    const toValue = disabled ? 0 : (focus ? 1 : 0);
-    Animated.timing(anim, {
-      toValue,
-      duration: DUR,
-      easing: EASE,
-      useNativeDriver: false,
-    }).start();
-  }, [focus, disabled]);
-
-  // Atualiza o estado interno quando o valor da prop muda
-  useEffect(() => {
-    setInputValue(value);
+    if (typeof value === "undefined") return;
+    if (value === textRef.current) return;
+    textRef.current = value;
+    // atualiza texto no input nativo sem re-render
+    if (inputRef.current && typeof inputRef.current.setNativeProps === "function") {
+      inputRef.current.setNativeProps({ text: value });
+    }
   }, [value]);
 
-  const bgColor = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["#151515", theme.color.borderGhost],
+  // estilos animados - reanimated (executa na UI thread)
+  const animatedContainer = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: interpolate(focus.value, [0, 1], [1, 1.02]) }],
+      backgroundColor: disabled
+        ? "#101010"
+        : interpolateColor(focus.value, [0, 1], ["#151515", theme.color.borderGhost]),
+      borderRadius: 8,
+      borderTopWidth: 0.6,
+      borderBottomWidth: 0.6,
+      borderLeftWidth: 0.8,
+      borderRightWidth: 0.8,
+      borderColor: disabled
+        ? "#101010"
+        : interpolateColor(focus.value, [0, 1], [theme.color.off10, theme.color.off40]),
+      shadowColor: "#000",
+      shadowOpacity: interpolate(focus.value, [0, 1], [0, 0.25]),
+      shadowRadius: 12,
+      // shadowOffset é um objeto — colocar static (não retornado por worklet em algumas plataformas)
+      // em Reanimated v3 isso é suportado, mas se ocorrer warning, coloque shadowOffset no style externo
+      elevation: focus.value ? 6 : 0,
+    };
   });
 
-  const labelColor = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [theme.color.label, theme.color.title],
-  });
+  const animatedLabel = useAnimatedStyle(() => ({
+    color: disabled
+      ? theme.color.title
+      : interpolateColor(focus.value, [0, 1], [theme.color.label, theme.color.title]),
+  }));
 
-  const scale = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.02],
-  });
-
-  const shadowOpacity = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 0.25],
-  });
-
-  const borderColor = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [theme.color.off10, theme.color.off40],
-  });
-
-  const handlePress = () => {
-    if (!disabled) inputRef.current?.focus();
-  };
-
-  const handleFocus = () => setFocus(true);
-  const handleBlur = () => setFocus(false);
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const animatedHelper = useAnimatedStyle(() => ({
+    opacity: interpolate(focus.value, [0, 1], [0.8, 1]),
+  }));
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;
 
-  const getRightIcon = () => {
-    if (secure) {
-      return showPassword ? 'EyeOff' : 'Eye';
-    }
-    return iconRight;
-  };
-
-  const handleRightIconPress = () => {
-    if (secure) {
-      handleTogglePassword();
-    }
-  };
+  // memorizar estilo do TextInput para não recriar objeto
+  const inputTextStyle = useMemo(
+    () => ({
+      fontSize: 18,
+      marginBottom: Platform.OS === "android" ? -12 : 0,
+      marginTop: Platform.OS === "android" ? -2 : 2,
+      fontFamily: "Font_Book",
+      color: disabled ? "#ffffff90" : "#fff",
+      flex: 1,
+      minWidth: 0,
+    }),
+    [disabled]
+  );
 
   return (
-    <Pressable onPress={handlePress} disabled={disabled}>
-      <Animated.View
-        style={{
-          transform: [{ scale }],
-          backgroundColor: disabled ? '#101010' : bgColor as any,
-          borderRadius: 8,
-          borderTopWidth: .6,
-          borderBottomWidth: .6,
-          borderLeftWidth: .8,
-          borderRightWidth: .8,
-          borderColor: disabled ? '#101010' : borderColor as any,
-          shadowColor: '#000000',
-          shadowOffset: { width: 0, height: 6 },
-          shadowRadius: 12,
-          shadowOpacity: shadowOpacity as any,
-          elevation: focus ? 6 : 0,
-          ...(containerStyle || {}),
-        }}
-      >
+    <Pressable
+      onPress={() => !disabled && inputRef.current?.focus()}
+      disabled={disabled}
+    >
+      {/* shadowOffset como estilo "fixo" fora do worklet pra evitar warnings */}
+      <Animated.View style={[animatedContainer, containerStyle as any, { shadowOffset: { width: 0, height: 6 } }]}>
         <Column ph={12} pv={12} justify="center">
           <Animated.Text
             style={[
-              { fontSize: 12, letterSpacing: -0.5, color: disabled ? theme.color.title : theme.color.text, fontFamily: theme.font.book },
+              {
+                fontSize: 12,
+                letterSpacing: -0.5,
+                fontFamily: theme.font.book,
+              },
               labelStyle,
-
-              !disabled && { color: labelColor as any },
+              animatedLabel,
             ]}
           >
             {label}
             {required && (
-              <Label style={{ color: theme.color.destructive, fontFamily: theme.font.book }}> *</Label>
+              <Label
+                style={{
+                  color: theme.color.destructive,
+                  fontFamily: theme.font.book,
+                }}
+              >
+                {" "}
+                *
+              </Label>
             )}
           </Animated.Text>
 
           <Row gh={6} align="center" justify="space-between">
-            <Row gh={6} align='center' justify='center'>
+            <Row gh={6} align="center" justify="center">
               {iconLeft && (
-                <Column style={{ marginTop: 10, }}>
-                  <Animated.View>
-                    <Icon
-                      name={iconLeft as IconName}
-                      size={16}
-                      color={disabled ? theme.color.label : theme.color.title}
-                    />
-                  </Animated.View>
+                <Column style={{ marginTop: 10 }}>
+                  <Icon
+                    name={iconLeft as any}
+                    size={16}
+                    color={disabled ? theme.color.label : theme.color.title}
+                  />
                 </Column>
               )}
 
               <TextInput
                 {...restProps}
-                ref={inputRef}
-                style={{
-                  fontSize: 18,
-                  letterSpacing: -1,
-                  marginBottom: Platform.OS === 'android' ? -12 : 0,
-                  marginTop: Platform.OS === 'android' ? -2 : 2,
-                  fontFamily: 'Font_Book',
-                  color: disabled ? '#ffffff90' : '#fff',
-                  ...(inputStyle || {}),
+                ref={(node) => {
+                  inputRef.current = node;
                 }}
+                defaultValue={textRef.current}
+                style={[inputTextStyle, props.inputStyle as any]}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                autoFocus={focused}
                 editable={!disabled}
-                onChangeText={(text) => {
-                  setInputValue(text);
-                  onChangeText?.(text);
-                }}
-                value={inputValue}
-                onSubmitEditing={() => {
-                  if (onSubmitEditing) {
-                    onSubmitEditing();
-                  }
-                }}
+                value={value ?? textRef.current}
+                onChangeText={handleChangeText}
+                onSubmitEditing={onSubmitEditing}
                 returnKeyType={returnKeyType}
                 blurOnSubmit={blurOnSubmit}
                 keyboardType={keyboardType}
@@ -243,14 +267,14 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
             </Row>
 
             {(secure || iconRight) && (
-              <Column style={{ alignSelf: 'flex-end', marginTop: 10 }}>
+              <Column style={{ alignSelf: "flex-end", marginTop: 10 }}>
                 <Pressable
-                  onPress={handleRightIconPress}
+                  onPress={handleTogglePassword}
                   disabled={disabled}
                   style={{ padding: 4 }}
                 >
                   <Icon
-                    name={getRightIcon() as IconName}
+                    name={getRightIcon() as any}
                     size={16}
                     color={disabled ? theme.color.label : theme.color.title}
                   />
@@ -259,15 +283,16 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
             )}
           </Row>
 
-          {/* helper / erro (opcional com fade) */}
           {(helperText || error) && (
             <Animated.Text
-              style={{
-                marginTop: 8,
-                fontSize: 12,
-                color: error ? theme.color.destructive : theme.color.muted,
-                opacity: anim.interpolate({ inputRange: [0, 1], outputRange: [0.8, 1] }) as any,
-              }}
+              style={[
+                {
+                  marginTop: 8,
+                  fontSize: 12,
+                  color: error ? theme.color.destructive : theme.color.muted,
+                },
+                animatedHelper,
+              ]}
             >
               {error ?? helperText}
             </Animated.Text>
@@ -278,5 +303,5 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   );
 });
 
-Input.displayName = 'Input';
-export default Input;
+Input.displayName = "Input";
+export default React.memo(Input);

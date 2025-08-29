@@ -164,14 +164,12 @@ describe('Input Component', () => {
     const element = React.createElement(Input, {
       value: "",
       onChangeText: mockSetValue,
-      focused: true
     });
 
     expect(element).toBeDefined();
     expect(element.type).toBe(Input);
     expect(element.props.value).toBe("");
     expect(element.props.onChangeText).toBe(mockSetValue);
-    expect(element.props.focused).toBe(true);
   });
 
   it('respects maxLength for masks', () => {

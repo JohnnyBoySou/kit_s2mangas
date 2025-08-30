@@ -57,15 +57,15 @@ interface InputProps extends TextInputProps {
   iconLeft?: string;
   iconRight?: string;
   returnKeyType?: "done" | "go" | "next" | "search" | "send";
-  blurOnSubmit?: boolean;
 }
 
 const DUR = 140;
 const EASE = Easing.out(Easing.quad);
 
+
 const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const {
-    value,
+    value, // não aplicamos direto ao TextInput
     onChangeText,
     label,
     error,
@@ -81,7 +81,6 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
     iconLeft,
     iconRight,
     returnKeyType = "next",
-    blurOnSubmit = false,
     ...restProps
   } = props;
 
@@ -128,6 +127,11 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
     },
     [onChangeText]
   );
+
+  const handleSubmitEditing = useCallback(() => {
+    onSubmitEditing?.();
+    inputRef.current?.blur();
+  }, [onSubmitEditing]);
 
   const handleTogglePassword = useCallback(() => {
     setShowPassword((p) => !p);
@@ -206,7 +210,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       disabled={disabled}
     >
       <Animated.View style={[animatedContainer, containerStyle as any, { shadowOffset: { width: 0, height: 6 } }]}>
-        <Column justify="center" style={{ paddingTop: 12, paddingLeft: 12, }}>
+        <Column justify="center" style={{ paddingTop: 12, paddingLeft: 12, paddingBottom: 12, }}>
           <Animated.Text
             style={[
               {
@@ -260,9 +264,8 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
               editable={!disabled}
               value={value ?? textRef.current}
               onChangeText={handleChangeText}
-              onSubmitEditing={onSubmitEditing}
+              onSubmitEditing={handleSubmitEditing}
               returnKeyType={returnKeyType}
-              blurOnSubmit={blurOnSubmit}
               keyboardType={keyboardType}
               placeholder={restProps.placeholder}
               secureTextEntry={secure && !showPassword}
@@ -273,7 +276,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
               <Pressable
                 onPress={handleTogglePassword}
                 disabled={disabled}
-                style={{ height: 42, width: 42, justifyContent: "center", alignContent: "center", }}
+                style={{ height: 42, width: 42, marginBottom: -12, justifyContent: "center", alignContent: "center", }}
               >
                 <Icon
                   name={getRightIcon() as any}

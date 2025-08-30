@@ -65,7 +65,7 @@ const EASE = Easing.out(Easing.quad);
 
 const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const {
-    value, // não aplicamos direto ao TextInput
+    value,
     onChangeText,
     label,
     error,
@@ -124,7 +124,7 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
   const handleChangeText = useCallback(
     (t: string) => {
       textRef.current = t;
-      onChangeText?.(t);
+      onChangeText?.(t); // notifica o pai
     },
     [onChangeText]
   );
@@ -167,8 +167,6 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       shadowColor: "#000",
       shadowOpacity: interpolate(focus.value, [0, 1], [0, 0.25]),
       shadowRadius: 12,
-      // shadowOffset é um objeto — colocar static (não retornado por worklet em algumas plataformas)
-      // em Reanimated v3 isso é suportado, mas se ocorrer warning, coloque shadowOffset no style externo
       elevation: focus.value ? 6 : 0,
     };
   });
@@ -185,16 +183,19 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
 
   const placeholderColor = disabled ? theme.color.muted : theme.color.text;
 
-  // memorizar estilo do TextInput para não recriar objeto
   const inputTextStyle = useMemo(
     () => ({
       fontSize: 18,
       marginBottom: Platform.OS === "android" ? -12 : 0,
       marginTop: Platform.OS === "android" ? -2 : 2,
+      height: 42,
       fontFamily: "Font_Book",
       color: disabled ? "#ffffff90" : "#fff",
-      flex: 1,
+      flexGrow: 1,
       minWidth: 0,
+      marginLeft: -4,
+      alignSelf: "flex-start",
+      textAlign: "left",
     }),
     [disabled]
   );
@@ -204,9 +205,8 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
       onPress={() => !disabled && inputRef.current?.focus()}
       disabled={disabled}
     >
-      {/* shadowOffset como estilo "fixo" fora do worklet pra evitar warnings */}
       <Animated.View style={[animatedContainer, containerStyle as any, { shadowOffset: { width: 0, height: 6 } }]}>
-        <Column ph={12} pv={12} justify="center">
+        <Column justify="center" style={{ paddingTop: 12, paddingLeft: 12, }}>
           <Animated.Text
             style={[
               {
@@ -232,54 +232,56 @@ const Input = forwardRef<InputBigRef, InputProps>((props, ref) => {
             )}
           </Animated.Text>
 
-          <Row gh={6} align="center" justify="space-between">
-            <Row gh={6} align="center" justify="center">
-              {iconLeft && (
-                <Column style={{ marginTop: 10 }}>
-                  <Icon
-                    name={iconLeft as any}
-                    size={16}
-                    color={disabled ? theme.color.label : theme.color.title}
-                  />
-                </Column>
-              )}
+          <Row>
+            {iconLeft && (
+              <Column>
+                <Icon
+                  style={{
+                    width: 42,
+                    height: 42,
+                  }}
+                  name={iconLeft as any}
+                  size={18}
+                  strokeWidth={2}
+                  color={disabled ? theme.color.label : theme.color.title}
+                />
+              </Column>
+            )}
 
-              <TextInput
-                {...restProps}
-                ref={(node) => {
-                  inputRef.current = node;
-                }}
-                defaultValue={textRef.current}
-                style={[inputTextStyle, props.inputStyle as any]}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                editable={!disabled}
-                value={value ?? textRef.current}
-                onChangeText={handleChangeText}
-                onSubmitEditing={onSubmitEditing}
-                returnKeyType={returnKeyType}
-                blurOnSubmit={blurOnSubmit}
-                keyboardType={keyboardType}
-                placeholder={restProps.placeholder}
-                secureTextEntry={secure && !showPassword}
-                placeholderTextColor={placeholderColor}
-              />
-            </Row>
+            <TextInput
+              {...restProps}
+              ref={(node) => {
+                inputRef.current = node;
+              }}
+              defaultValue={textRef.current}
+              style={[inputTextStyle, props.inputStyle as any, {}]}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              editable={!disabled}
+              value={value ?? textRef.current}
+              onChangeText={handleChangeText}
+              onSubmitEditing={onSubmitEditing}
+              returnKeyType={returnKeyType}
+              blurOnSubmit={blurOnSubmit}
+              keyboardType={keyboardType}
+              placeholder={restProps.placeholder}
+              secureTextEntry={secure && !showPassword}
+              placeholderTextColor={placeholderColor}
+            />
 
             {(secure || iconRight) && (
-              <Column style={{ alignSelf: "flex-end", marginTop: 10 }}>
-                <Pressable
-                  onPress={handleTogglePassword}
-                  disabled={disabled}
-                  style={{ padding: 4 }}
-                >
-                  <Icon
-                    name={getRightIcon() as any}
-                    size={16}
-                    color={disabled ? theme.color.label : theme.color.title}
-                  />
-                </Pressable>
-              </Column>
+              <Pressable
+                onPress={handleTogglePassword}
+                disabled={disabled}
+                style={{ height: 42, width: 42, justifyContent: "center", alignContent: "center", }}
+              >
+                <Icon
+                  name={getRightIcon() as any}
+                  size={18}
+                  strokeWidth={2}
+                  color={disabled ? theme.color.label : theme.color.title}
+                />
+              </Pressable>
             )}
           </Row>
 

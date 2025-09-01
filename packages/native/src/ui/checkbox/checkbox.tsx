@@ -10,7 +10,7 @@ const CheckIcon: React.FC<{ color: string; size: number }> = (props) => {
 };
 
 // Interface para os props do componente Check
-interface CheckProps {
+export interface CheckBoxProps {
   value: boolean;
   setValue: (value: boolean) => void;
   label?: string;
@@ -24,7 +24,7 @@ interface CheckProps {
   disabled?: boolean;
 }
 
-const CheckBox: React.FC<CheckProps> = ({
+const CheckBox: React.FC<CheckBoxProps> = ({
   value,
   setValue,
   label,

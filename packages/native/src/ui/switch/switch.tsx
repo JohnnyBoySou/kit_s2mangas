@@ -4,7 +4,7 @@ import type { ViewStyle } from "react-native";
 import { theme } from "@s2mangas/core";
 
 // Interface para os props do componente Switch
-interface SwitchProps {
+export interface SwitchProps {
   value: boolean;
   setValue: (value: boolean) => void;
   testID?: string;

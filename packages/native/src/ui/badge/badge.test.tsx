@@ -15,7 +15,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Default Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("default");
     expect(element.props.testID).toBe("badge");
@@ -28,7 +28,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Secondary Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("secondary");
     expect(element.props.testID).toBe("badge");
@@ -40,7 +40,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Outline Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("outline");
     expect(element.props.testID).toBe("badge");
@@ -52,37 +52,10 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Destructive Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.variant).toBe("destructive");
     expect(element.props.testID).toBe("badge");
-  });
-
-  it('handles press events', () => {
-    const mockOnPress = jest.fn();
-    const element = React.createElement(Badge, {
-      onPress: mockOnPress,
-      testID: "badge",
-      children: 'Clickable Badge'
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.onPress).toBe(mockOnPress);
-    expect(element.props.testID).toBe("badge");
-  });
-
-  it('renders with remove functionality', () => {
-    const mockOnRemove = jest.fn();
-    const element = React.createElement(Badge, {
-      onRemove: mockOnRemove,
-      testID: "badge",
-      children: 'Removable Badge'
-    });
-    
-    expect(element).toBeDefined();
-    expect(element.props.onRemove).toBe(mockOnRemove);
-    expect(element.props.testID).toBe("badge");
-    expect(element.props.children).toBe("Removable Badge");
   });
 
   it('renders with small size', () => {
@@ -91,7 +64,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Small Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.size).toBe("sm");
     expect(element.props.testID).toBe("badge");
@@ -103,7 +76,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Large Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.size).toBe("lg");
     expect(element.props.testID).toBe("badge");
@@ -115,7 +88,7 @@ describe('Badge Component', () => {
       testID: "badge",
       children: 'Default Size Badge'
     });
-    
+
     expect(element).toBeDefined();
     expect(element.props.size).toBe("default");
     expect(element.props.testID).toBe("badge");

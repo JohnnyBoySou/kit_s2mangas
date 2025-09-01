@@ -5,7 +5,7 @@ import { Row, Column } from "../layout/layout";
 import { Title, Label } from "../text/text";
 import Icon, { type IconName } from "../icon/icon";
 
-interface SelectableProps {
+export interface SelectableProps {
     name: string;
     description: string;
     icon: IconName,

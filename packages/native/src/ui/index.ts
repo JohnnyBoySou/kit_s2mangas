@@ -19,9 +19,11 @@ import Selectable from './selectable/selectable';
 import Loader from './loader/loader';
 import Toggle from "./toggle/toggle";
 import Badge from "./badge/badge";
+import Chip from './chip/chip';
+
 import MultiStepProgress from "./progress/progress";
 import CheckBox from "./checkbox/checkbox";
-import Tabs from "./tabs/tabs"; 
+import Tabs from "./tabs/tabs";
 import Image from "./image/image";
 import FlatList from "./flatlist/flatlist";
 import Switch from "./switch/switch";
@@ -30,15 +32,27 @@ import Card from "./card/card";
 import Modal from "./modal/modal";
 import Divider from "./divider/divider";
 import SearchIssues from "./search-issues/search-issues";
+
+
+import type { ImageProps } from "./image/image";
+import type { } from ".//";
 import type { SheetProps } from "./sheet/sheet";
+import type { InputProps, InputBigRef } from "./input/input";
+import type { SwitchProps } from './switch/switch';
+import type { ButtonProps } from './button/button';
+import type { BadgeProps } from "./badge/badge";
+import type { ChipProps } from './chip/chip';
+import type { SkeletonProps } from './skeleton/skeleton';
+import type { SelectableProps } from './selectable/selectable';
+import type { CheckBoxProps } from './checkbox/checkbox';
 
 export {
     MultiStepProgress,
     Column, Row, Main, ScrollHorizontal, ScrollVertical,
     Title, HeadTitle, Label, SubLabel, U, Description,
-    Button, Avatar, theme, 
+    Button, Avatar, theme,
     Skeleton,
-    Tabs, 
+    Tabs,
     SCREEN_WIDTH, SCREEN_HEIGHT,
     Input, Toast,
     Sheet, Select, Loader,
@@ -56,6 +70,20 @@ export {
     Radio,
     SearchIssues,
     Selectable,
+    Chip
 };
-    
-export type { SheetProps };
+
+export type {
+    SheetProps,
+    ChipProps,
+    BadgeProps,
+    InputProps,
+    InputBigRef,
+    SwitchProps,
+    ButtonProps,
+    CheckBoxProps,
+    SelectableProps,
+    SkeletonProps,
+    ImageProps,
+
+};

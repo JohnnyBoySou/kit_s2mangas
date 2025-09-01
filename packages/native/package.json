@@ -1,6 +1,6 @@
 {
   "name": "@s2mangas/native",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "React Native UI components library for S2Mangas",
   "type": "module",
   "main": "./lib/commonjs/index.js",
@@ -80,7 +80,7 @@
     "prettier": "^3.0.3",
     "react": "19.1.1",
     "react-native": "0.81.0",
-    "react-native-builder-bob": "^0.40.13",
+    "react-native-builder-bob": "0.39.0",
     "release-it": "^19.0.4",
     "typescript": "^5.8.3"
   },

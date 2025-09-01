@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, useWindowDimensions } from 'react-native';
-import Animated, { 
-  useSharedValue, 
-  useAnimatedStyle, 
-  withRepeat, 
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
   withTiming,
   cancelAnimation,
   Easing,
@@ -14,7 +14,7 @@ import Animated, {
 const DEFAULT_BACKGROUND_COLOR = "#303030";
 const SHINE_COLOR = "rgba(255, 255, 255, 0.15)";
 
-interface SkeletonProps {
+export interface SkeletonProps {
   w?: number | string;
   h?: number | string;
   r?: number;
@@ -23,11 +23,11 @@ interface SkeletonProps {
   style?: any;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ 
-  style, 
-  c = DEFAULT_BACKGROUND_COLOR, 
+const Skeleton: React.FC<SkeletonProps> = ({
+  style,
+  c = DEFAULT_BACKGROUND_COLOR,
   testID,
-  ...props 
+  ...props
 }) => {
   const { width: windowWidth } = useWindowDimensions();
   const shineProgress = useSharedValue(0);
@@ -89,7 +89,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
           borderRadius: props.r,
         }}
       />
-      
+
       {/* Efeito de shine */}
       <Animated.View
         style={[

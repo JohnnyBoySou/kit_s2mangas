@@ -6,7 +6,7 @@ import {
 import type { ViewStyle, ImageStyle, ImageSourcePropType, StyleProp } from "react-native";
 import { Image as ExpoImage } from "expo-image";
 
-interface CustomImageProps {
+export interface ImageProps {
   src?: string | number;
   w?: number | string;
   h?: number | string;
@@ -23,19 +23,19 @@ interface CustomImageProps {
   accessibilityLabel?: string;
   accessibilityHint?: string;
   accessibilityRole?:
-    | "button"
-    | "image"
-    | "none"
-    | "adjustable"
-    | "header"
-    | "search"
-    | "imagebutton";
+  | "button"
+  | "image"
+  | "none"
+  | "adjustable"
+  | "header"
+  | "search"
+  | "imagebutton";
   cachePolicy?: "memory" | "disk" | "memory-disk" | "none";
   priority?: "low" | "normal" | "high";
   source?: ImageSourcePropType;
 }
 
-const Image: React.FC<CustomImageProps> = ({
+const Image: React.FC<ImageProps> = ({
   src,
   w = 0,
   h = 0,
@@ -63,7 +63,7 @@ const Image: React.FC<CustomImageProps> = ({
     if (source) {
       return source;
     }
-    
+
     // Se src foi passado
     if (src !== undefined) {
       // Se src é um número (require), usa diretamente
@@ -75,12 +75,12 @@ const Image: React.FC<CustomImageProps> = ({
         return { uri: src };
       }
     }
-    
+
     return undefined;
   };
 
   const imageSource = getImageSource();
-  
+
   const imageStyle = {
     borderRadius: r,
     width: w,
@@ -134,7 +134,7 @@ const Image: React.FC<CustomImageProps> = ({
       </Pressable>
     );
   }
-  
+
   if (onPress) {
     return (
       <Pressable onPress={onPress}>

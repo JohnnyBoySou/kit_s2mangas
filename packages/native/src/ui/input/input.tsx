@@ -37,8 +37,8 @@ export type InputBigRef = {
   getNode: () => TextInput | null;
 };
 
-interface InputProps extends TextInputProps {
-  value?: string; // prop "value" do pai (opcional). Se fornecido, será sincronizado.
+export interface InputProps extends TextInputProps {
+  value?: string;
   onChangeText?: (text: string) => void;
   label?: string;
   error?: string;

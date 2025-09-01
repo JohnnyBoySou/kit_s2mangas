@@ -24,6 +24,7 @@ export { default as Divider } from './ui/divider/divider';
 export { default as Radio } from './ui/radio/radio';
 export { default as SearchIssues } from './ui/search-issues/search-issues';
 export { default as Selectable } from './ui/selectable/selectable';
+export { default as Chip } from './ui/chip/chip';
 
 // Export layout components
 export {

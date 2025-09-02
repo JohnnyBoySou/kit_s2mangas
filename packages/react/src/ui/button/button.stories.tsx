@@ -29,9 +29,9 @@ export default {
 };
 
 export const Default = {
-  args: {
-    children: "Button",
-    variant: "default",
+  args:{
+    children:"Button",
+    variant:"ghost",
   },
 };
 

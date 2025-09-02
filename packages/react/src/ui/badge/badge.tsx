@@ -1,7 +1,7 @@
 import React from "react";
 import { theme } from "@s2mangas/core";
 
-interface BadgeProps {
+export interface BadgeProps {
   children: React.ReactNode;
   variant?: "default" | "secondary" | "destructive" | "outline";
   size?: "sm" | "md" | "lg";

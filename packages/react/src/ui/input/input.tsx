@@ -3,7 +3,7 @@ import { getMaskFunction, MaskType } from "../../../../core/src/utils";
 import { theme } from "../../../../core/src/theme";
 
 // Interface para os props do Input
-interface InputProps
+export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   value?: string;
   onChange?: (text: string) => void;

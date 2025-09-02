@@ -1,3 +1,4 @@
+// .storybook/main.ts
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import type { StorybookConfig } from "@storybook/react-vite";
@@ -11,9 +12,12 @@ const config: StorybookConfig = {
   ],
 
   addons: [
-    getAbsolutePath("@storybook/addon-links"), 
-    getAbsolutePath("@storybook/addon-essentials"),
-    getAbsolutePath("@storybook/addon-interactions")
+    getAbsolutePath("@storybook/addon-links"),
+   // getAbsolutePath("@storybook/addon-essentials"),
+   // getAbsolutePath("@storybook/addon-actions"),     // novo
+   // getAbsolutePath("@storybook/addon-controls"),    // novo
+   // getAbsolutePath("@storybook/addon-backgrounds"), // novo
+   // getAbsolutePath("@storybook/addon-viewport"),    // novo
   ],
 
   framework: {
@@ -23,12 +27,13 @@ const config: StorybookConfig = {
 
   typescript: {
     check: false,
-    reactDocgen: 'react-docgen-typescript',
+    reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
       shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+      propFilter: (prop) =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
     },
-  }
+  },
 };
 
 export default config;

@@ -1,0 +1,200 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  position: relative;
+  font-family: inherit;
+  border: none;
+}
+
+.chip:focus-visible {
+  outline: 2px solid;
+  outline-offset: 2px;
+}
+
+/* Variantes */
+.chip--default {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.chip--default:hover:not(.chip--disabled) {
+  background-color: #e5e7eb;
+}
+
+.chip--default:focus-visible {
+  outline-color: #6b7280;
+}
+
+.chip--primary {
+  background-color: #dbeafe;
+  color: #1e3a8a;
+}
+
+.chip--primary:hover:not(.chip--disabled) {
+  background-color: #bfdbfe;
+}
+
+.chip--primary:focus-visible {
+  outline-color: #3b82f6;
+}
+
+.chip--secondary {
+  background-color: #e9d5ff;
+  color: #581c87;
+}
+
+.chip--secondary:hover:not(.chip--disabled) {
+  background-color: #ddd6fe;
+}
+
+.chip--secondary:focus-visible {
+  outline-color: #8b5cf6;
+}
+
+.chip--success {
+  background-color: #dcfce7;
+  color: #14532d;
+}
+
+.chip--success:hover:not(.chip--disabled) {
+  background-color: #bbf7d0;
+}
+
+.chip--success:focus-visible {
+  outline-color: #22c55e;
+}
+
+.chip--warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.chip--warning:hover:not(.chip--disabled) {
+  background-color: #fde68a;
+}
+
+.chip--warning:focus-visible {
+  outline-color: #f59e0b;
+}
+
+.chip--error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.chip--error:hover:not(.chip--disabled) {
+  background-color: #fecaca;
+}
+
+.chip--error:focus-visible {
+  outline-color: #ef4444;
+}
+
+/* Tamanhos */
+.chip--sm {
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.chip--md {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.chip--lg {
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Estado desabilitado */
+.chip--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Conteúdo */
+.chip__content {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botão de remoção */
+.chip__remove-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 2px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  outline: none;
+}
+
+.chip__remove-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.chip__remove-button:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 1px;
+}
+
+.chip__remove-button--sm {
+  width: 12px;
+  height: 12px;
+}
+
+.chip__remove-button--md {
+  width: 16px;
+  height: 16px;
+}
+
+.chip__remove-button--lg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Ícone de remoção */
+.chip__remove-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .chip--lg {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .chip--md {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Dark mode (opcional) */
+@media (prefers-color-scheme: dark) {
+  .chip--default {
+    background-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .chip--default:hover:not(.chip--disabled) {
+    background-color: #4b5563;
+  }
+}

@@ -1,13 +1,13 @@
 import React from "react";
 import { theme } from "@s2mangas/core";
 
-interface LayoutProps {
+export interface LayoutProps {
   children: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
 }
 
-interface ColumnProps extends LayoutProps {
+export interface ColumnProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
   justifyContent?:
@@ -18,7 +18,7 @@ interface ColumnProps extends LayoutProps {
     | "space-around";
 }
 
-interface RowProps extends LayoutProps {
+export interface RowProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
   justifyContent?:
@@ -29,7 +29,7 @@ interface RowProps extends LayoutProps {
     | "space-around";
 }
 
-interface ScrollProps extends LayoutProps {
+export interface ScrollProps extends LayoutProps {
   gap?: number;
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch";
   justifyContent?:

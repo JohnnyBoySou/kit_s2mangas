@@ -1,7 +1,7 @@
 import React from "react";
 import { theme } from "@s2mangas/core";
 
-interface CardProps {
+export interface CardProps {
   children: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;

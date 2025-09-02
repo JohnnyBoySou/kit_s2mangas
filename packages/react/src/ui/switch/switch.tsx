@@ -1,7 +1,7 @@
 import * as React from "react";
 import { theme } from "@s2mangas/core";
 
-interface SwitchProps {
+export interface SwitchProps {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   disabled?: boolean;

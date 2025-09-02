@@ -1,7 +1,7 @@
 import React from "react";
 import { theme } from "@s2mangas/core";
 
-interface DividerProps {
+export interface DividerProps {
   orientation?: "horizontal" | "vertical";
   color?: string;
   thickness?: number;

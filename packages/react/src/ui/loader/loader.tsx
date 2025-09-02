@@ -1,7 +1,7 @@
 import React from "react";
 import { theme } from "@s2mangas/core";
 
-interface LoaderProps {
+export interface LoaderProps {
   size?: "sm" | "md" | "lg";
   color?: string;
   style?: React.CSSProperties;

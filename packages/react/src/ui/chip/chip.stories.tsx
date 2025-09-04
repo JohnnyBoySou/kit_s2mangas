@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import Chip from './chip'
 
 const meta: Meta<typeof Chip> = {
-  title: 'UI/Chip',
+  title: 'Components/Chip',
   component: Chip,
   parameters: {
     layout: 'centered',

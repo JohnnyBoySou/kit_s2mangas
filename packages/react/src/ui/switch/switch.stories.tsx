@@ -1,12 +1,14 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import Switch from "./switch";
 
-export default {
+const meta: Meta<typeof Switch> = {
   title: "Components/Switch",
   component: Switch,
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
   argTypes: {
     checked: {
       control: { type: "boolean" },
@@ -16,90 +18,71 @@ export default {
       control: { type: "boolean" },
       description: "Desabilitar o switch",
     },
-    onChange: { action: "changed" },
+    onChange: {
+      action: "switch changed",
+    },
+    style: {
+      control: { type: "object" },
+    },
+    className: {
+      control: { type: "text" },
+    },
   },
 };
 
-// Story básica
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     checked: false,
     disabled: false,
   },
 };
 
-// Switch ligado
-export const Checked = {
+export const Checked: Story = {
   args: {
     checked: true,
     disabled: false,
   },
 };
 
-// Switch desabilitado
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     checked: false,
     disabled: true,
   },
 };
 
-// Switch desabilitado e ligado
-export const DisabledChecked = {
+export const DisabledChecked: Story = {
   args: {
     checked: true,
     disabled: true,
   },
 };
 
-// Comparação de estados
-export const StateComparison = {
-  render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-        minWidth: "300px",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Switch checked={false} />
-        <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-          Switch desligado
-        </span>
-      </div>
+export const Interactive: Story = {
+  render: () => {
+    const [checked, setChecked] = useState(false);
 
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Switch checked={true} />
-        <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-          Switch ligado
-        </span>
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          fontFamily: "Font_Book",
+          fontSize: "14px",
+        }}
+      >
+        <Switch checked={checked} onChange={setChecked} />
+        <span>Estado: {checked ? "Ligado" : "Desligado"}</span>
       </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Switch checked={false} disabled={true} />
-        <span
-          style={{ fontFamily: "Font_Book", fontSize: "14px", color: "#666" }}
-        >
-          Switch desabilitado
-        </span>
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Switch checked={true} disabled={true} />
-        <span
-          style={{ fontFamily: "Font_Book", fontSize: "14px", color: "#666" }}
-        >
-          Switch desabilitado e ligado
-        </span>
-      </div>
-    </div>
-  ),
+    );
+  },
 };
 
-// Switch interativo
-export const Interactive = {
+export const WithCustomStyle: Story = {
   render: () => {
     const [checked, setChecked] = useState(false);
 
@@ -109,158 +92,42 @@ export const Interactive = {
           display: "flex",
           flexDirection: "column",
           gap: "16px",
-          minWidth: "300px",
+          alignItems: "center",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <Switch checked={checked} onChange={setChecked} />
-          <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-            Switch Interativo
-          </span>
-        </div>
+        <Switch
+          checked={checked}
+          onChange={setChecked}
+          style={{
+            border: "2px solid #007AFF",
+            borderRadius: "30px",
+            padding: "2px",
+            backgroundColor: "#1a1a1a",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
+          }}
+        />
 
         <p
           style={{
-            fontFamily: "Font_Book",
-            fontSize: "14px",
+            fontSize: "12px",
             color: "#666",
-            margin: "0",
+            textAlign: "center",
+            fontFamily: "Font_Book",
+            margin: 0,
           }}
         >
-          Estado: {checked ? "Ligado" : "Desligado"}
+          Switch com estilo customizado
         </p>
       </div>
     );
   },
 };
 
-// Múltiplos switches
-export const MultipleSwitches = {
+export const MultipleStates: Story = {
   render: () => {
-    const [switches, setSwitches] = useState({
-      notifications: false,
-      darkMode: true,
-      autoSave: false,
-      sound: true,
-    });
-
-    const handleSwitchChange = (key: string, value: boolean) => {
-      setSwitches((prev) => ({ ...prev, [key]: value }));
-    };
-
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          minWidth: "300px",
-        }}
-      >
-        <h3
-          style={{
-            margin: "0 0 16px 0",
-            fontFamily: "Font_Bold",
-            fontSize: "16px",
-          }}
-        >
-          Configurações
-        </h3>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-            Notificações
-          </span>
-          <Switch
-            checked={switches.notifications}
-            onChange={(value) => handleSwitchChange("notifications", value)}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-            Modo Escuro
-          </span>
-          <Switch
-            checked={switches.darkMode}
-            onChange={(value) => handleSwitchChange("darkMode", value)}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-            Salvar Automaticamente
-          </span>
-          <Switch
-            checked={switches.autoSave}
-            onChange={(value) => handleSwitchChange("autoSave", value)}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>Som</span>
-          <Switch
-            checked={switches.sound}
-            onChange={(value) => handleSwitchChange("sound", value)}
-          />
-        </div>
-
-        <div
-          style={{
-            marginTop: "16px",
-            padding: "12px",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            fontFamily: "Font_Book",
-            fontSize: "14px",
-          }}
-        >
-          <strong>Configurações ativas:</strong>{" "}
-          {Object.keys(switches)
-            .filter((key) => switches[key as keyof typeof switches])
-            .join(", ") || "Nenhuma"}
-        </div>
-      </div>
-    );
-  },
-};
-
-// Switch com descrição
-export const WithDescription = {
-  render: () => {
-    const [switches, setSwitches] = useState({
-      email: false,
-      push: true,
-      sms: false,
-    });
-
-    const handleSwitchChange = (key: string, value: boolean) => {
-      setSwitches((prev) => ({ ...prev, [key]: value }));
-    };
+    const [state1, setState1] = useState(true);
+    const [state2, setState2] = useState(false);
+    const [state3, setState3] = useState(true);
 
     return (
       <div
@@ -268,131 +135,41 @@ export const WithDescription = {
           display: "flex",
           flexDirection: "column",
           gap: "20px",
-          minWidth: "400px",
+          alignItems: "center",
+          fontFamily: "Font_Book",
+          fontSize: "14px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: "16px",
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <h4
-              style={{
-                margin: "0 0 4px 0",
-                fontFamily: "Font_Bold",
-                fontSize: "14px",
-              }}
-            >
-              Notificações por Email
-            </h4>
-            <p
-              style={{
-                margin: "0",
-                fontFamily: "Font_Book",
-                fontSize: "12px",
-                color: "#666",
-              }}
-            >
-              Receba atualizações importantes por email
-            </p>
-          </div>
-          <Switch
-            checked={switches.email}
-            onChange={(value) => handleSwitchChange("email", value)}
-          />
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={state1} onChange={setState1} />
+          <span>Notificações: {state1 ? "Ativadas" : "Desativadas"}</span>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: "16px",
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <h4
-              style={{
-                margin: "0 0 4px 0",
-                fontFamily: "Font_Bold",
-                fontSize: "14px",
-              }}
-            >
-              Notificações Push
-            </h4>
-            <p
-              style={{
-                margin: "0",
-                fontFamily: "Font_Book",
-                fontSize: "12px",
-                color: "#666",
-              }}
-            >
-              Receba notificações instantâneas no navegador
-            </p>
-          </div>
-          <Switch
-            checked={switches.push}
-            onChange={(value) => handleSwitchChange("push", value)}
-          />
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={state2} onChange={setState2} />
+          <span>Modo escuro: {state2 ? "Ativado" : "Desativado"}</span>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: "16px",
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <h4
-              style={{
-                margin: "0 0 4px 0",
-                fontFamily: "Font_Bold",
-                fontSize: "14px",
-              }}
-            >
-              Notificações SMS
-            </h4>
-            <p
-              style={{
-                margin: "0",
-                fontFamily: "Font_Book",
-                fontSize: "12px",
-                color: "#666",
-              }}
-            >
-              Receba mensagens de texto no seu celular
-            </p>
-          </div>
-          <Switch
-            checked={switches.sms}
-            onChange={(value) => handleSwitchChange("sms", value)}
-          />
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={state3} onChange={setState3} />
+          <span>Auto-save: {state3 ? "Ativado" : "Desativado"}</span>
         </div>
       </div>
     );
   },
 };
 
-// Switch com validação
-export const WithValidation = {
+export const FormExample: Story = {
   render: () => {
-    const [agreed, setAgreed] = useState(false);
-    const [showError, setShowError] = useState(false);
+    const [formData, setFormData] = useState({
+      notifications: true,
+      newsletter: false,
+      publicProfile: false,
+      twoFactor: true,
+    });
 
-    const handleSubmit = () => {
-      if (!agreed) {
-        setShowError(true);
-      } else {
-        alert("Formulário enviado com sucesso!");
-        setShowError(false);
-      }
+    const updateField = (field: keyof typeof formData) => (value: boolean) => {
+      setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
     return (
@@ -401,172 +178,195 @@ export const WithValidation = {
           display: "flex",
           flexDirection: "column",
           gap: "16px",
-          minWidth: "400px",
+          alignItems: "flex-start",
+          padding: "20px",
+          backgroundColor: "#f8f9fa",
+          borderRadius: "8px",
+          fontFamily: "Font_Book",
+          fontSize: "14px",
+          minWidth: "300px",
         }}
       >
-        <h3
-          style={{
-            margin: "0 0 16px 0",
-            fontFamily: "Font_Bold",
-            fontSize: "16px",
-          }}
-        >
-          Termos e Condições
+        <h3 style={{ margin: "0 0 16px 0", color: "#333" }}>
+          Configurações da Conta
         </h3>
 
-        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-          <Switch
-            checked={agreed}
-            onChange={(value) => {
-              setAgreed(value);
-              setShowError(false);
-            }}
-          />
-          <div style={{ flex: 1 }}>
-            <p
-              style={{
-                margin: "0",
-                fontFamily: "Font_Book",
-                fontSize: "14px",
-                lineHeight: "1.4",
-              }}
-            >
-              Concordo com os{" "}
-              <span style={{ textDecoration: "underline", cursor: "pointer" }}>
-                termos e condições
-              </span>
-              e a{" "}
-              <span style={{ textDecoration: "underline", cursor: "pointer" }}>
-                política de privacidade
-              </span>
-              .
-            </p>
-            {showError && (
-              <p
-                style={{
-                  margin: "8px 0 0 0",
-                  color: "#dc3545",
-                  fontSize: "12px",
-                  fontFamily: "Font_Book",
-                }}
-              >
-                Você deve concordar com os termos para continuar.
-              </p>
-            )}
-          </div>
-        </div>
-
-        <button
-          onClick={handleSubmit}
+        <div
           style={{
-            backgroundColor: "#007AFF",
-            color: "white",
-            border: "none",
-            padding: "12px 24px",
-            borderRadius: "8px",
-            fontFamily: "Font_Medium",
-            fontSize: "14px",
-            cursor: "pointer",
-            alignSelf: "flex-start",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            width: "100%",
           }}
         >
-          Continuar
-        </button>
+          <Switch
+            checked={formData.notifications}
+            onChange={updateField("notifications")}
+          />
+          <span>Receber notificações</span>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            width: "100%",
+          }}
+        >
+          <Switch
+            checked={formData.newsletter}
+            onChange={updateField("newsletter")}
+          />
+          <span>Newsletter semanal</span>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            width: "100%",
+          }}
+        >
+          <Switch
+            checked={formData.publicProfile}
+            onChange={updateField("publicProfile")}
+          />
+          <span>Perfil público</span>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            width: "100%",
+          }}
+        >
+          <Switch
+            checked={formData.twoFactor}
+            onChange={updateField("twoFactor")}
+          />
+          <span>Autenticação de dois fatores</span>
+        </div>
+
+        <div
+          style={{
+            marginTop: "16px",
+            padding: "12px",
+            backgroundColor: "#e9ecef",
+            borderRadius: "6px",
+            fontSize: "12px",
+            color: "#666",
+          }}
+        >
+          <strong>Estado atual:</strong>
+          <br />
+          {JSON.stringify(formData, null, 2)}
+        </div>
       </div>
     );
   },
 };
 
-// Switch em card
-export const InCard = {
+export const DisabledStates: Story = {
   render: () => {
-    const [settings, setSettings] = useState({
-      wifi: true,
-      bluetooth: false,
-      airplane: false,
-    });
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          alignItems: "center",
+          fontFamily: "Font_Book",
+          fontSize: "14px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={false} disabled={true} />
+          <span style={{ color: "#999" }}>Desabilitado (Off)</span>
+        </div>
 
-    const handleSettingChange = (key: string, value: boolean) => {
-      setSettings((prev) => ({ ...prev, [key]: value }));
-    };
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={true} disabled={true} />
+          <span style={{ color: "#999" }}>Desabilitado (On)</span>
+        </div>
+
+        <p
+          style={{
+            fontSize: "12px",
+            color: "#666",
+            textAlign: "center",
+            margin: 0,
+            marginTop: "8px",
+          }}
+        >
+          Switches desabilitados não podem ser alterados
+        </p>
+      </div>
+    );
+  },
+};
+
+export const WithTestID: Story = {
+  render: () => {
+    const [checked, setChecked] = useState(false);
+
+    return (
+      <Switch
+        checked={checked}
+        onChange={setChecked}
+        testID="switch-component"
+      />
+    );
+  },
+};
+
+export const SizeVariations: Story = {
+  render: () => {
+    const [small, setSmall] = useState(false);
+    const [medium, setMedium] = useState(true);
+    const [large, setLarge] = useState(false);
 
     return (
       <div
         style={{
-          padding: "20px",
-          border: "1px solid #e0e0e0",
-          borderRadius: "12px",
-          backgroundColor: "white",
-          minWidth: "350px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          alignItems: "center",
+          fontFamily: "Font_Book",
+          fontSize: "14px",
         }}
       >
-        <h3
-          style={{
-            margin: "0 0 20px 0",
-            fontFamily: "Font_Bold",
-            fontSize: "18px",
-          }}
-        >
-          Configurações do Dispositivo
-        </h3>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          <div
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch
+            checked={small}
+            onChange={setSmall}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              width: "32px",
+              height: "18px",
             }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div style={{ fontSize: "20px" }}>📶</div>
-              <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-                Wi-Fi
-              </span>
-            </div>
-            <Switch
-              checked={settings.wifi}
-              onChange={(value) => handleSettingChange("wifi", value)}
-            />
-          </div>
+          />
+          <span>Pequeno</span>
+        </div>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div style={{ fontSize: "20px" }}>🔵</div>
-              <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-                Bluetooth
-              </span>
-            </div>
-            <Switch
-              checked={settings.bluetooth}
-              onChange={(value) => handleSettingChange("bluetooth", value)}
-            />
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch checked={medium} onChange={setMedium} />
+          <span>Médio (padrão)</span>
+        </div>
 
-          <div
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Switch
+            checked={large}
+            onChange={setLarge}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              width: "56px",
+              height: "30px",
             }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div style={{ fontSize: "20px" }}>✈️</div>
-              <span style={{ fontFamily: "Font_Book", fontSize: "14px" }}>
-                Modo Avião
-              </span>
-            </div>
-            <Switch
-              checked={settings.airplane}
-              onChange={(value) => handleSettingChange("airplane", value)}
-            />
-          </div>
+          />
+          <span>Grande</span>
         </div>
       </div>
     );

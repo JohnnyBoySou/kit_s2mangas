@@ -4,7 +4,7 @@ import Tooltip from "./tooltip";
 import Button from "../button/button";
 
 const meta: Meta<typeof Tooltip> = {
-  title: "UI/Tooltip",
+  title: "Components/Tooltip",
   component: Tooltip,
   parameters: {
     layout: "centered",

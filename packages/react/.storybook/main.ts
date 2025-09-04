@@ -13,6 +13,7 @@ const config: StorybookConfig = {
 
   addons: [
     getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-docs"), 
    // getAbsolutePath("@storybook/addon-essentials"),
    // getAbsolutePath("@storybook/addon-actions"),     // novo
    // getAbsolutePath("@storybook/addon-controls"),    // novo
@@ -33,6 +34,11 @@ const config: StorybookConfig = {
       propFilter: (prop) =>
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
     },
+  },
+   viteFinal: async (config) => {
+    config.esbuild = config.esbuild || {};
+    config.esbuild.jsx = 'transform';
+    return config;
   },
 };
 

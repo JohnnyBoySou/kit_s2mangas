@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { theme } from "@s2mangas/core";
 
 // Componentes de ícone customizados
 const CheckIcon = ({

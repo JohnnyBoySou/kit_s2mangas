@@ -1,78 +1,144 @@
 {
   "name": "@s2mangas/native",
   "version": "0.0.30",
-  "description": "React Native UI components library for S2Mangas",
-  "type": "module",
-  "main": "./lib/commonjs/index.js",
-  "module": "./lib/module/index.js",
-  "react-native": "src/index.ts",
-  "source": "src/index.ts",
-  "types": "./lib/typescript/commonjs/src/index.d.ts",
-  "exports": {
-    ".": {
-      "react-native": "./lib/module/index.js",
-      "import": {
-        "types": "./lib/typescript/commonjs/src/index.d.ts",
-        "default": "./lib/module/index.js"
-      },
-      "default": "./lib/module/index.js"
-    },
-    "./package.json": "./package.json"
-  },
+  "description": "S2Mangas Native Components",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
   "files": [
-    "lib",
     "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "!lib/typescript/example",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
     "!**/.*"
   ],
-  "sideEffects": false,
-  "peerDependencies": {
-    "react": ">=18 <19",
-    "react-native": ">=0.73 <0.82",
-    "expo-image": ">=2.0.0"
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepack": "bob build",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "build": "bob build",
+    "clean": "del-cli lib"
   },
-  "dependencies": {
-    "@s2mangas/core": "^1.0.3",
-    "@gorhom/bottom-sheet": "^5.1.8",
-    "lucide-react-native": "^0.539.0",
-    "react-native-reanimated": "~3.17.5"
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": "https://github.com/s2mangas/kit_s2mangas",
+  "author": "S2Mangas <your-email@example.com> (https://github.com/s2mangas)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/s2mangas/kit_s2mangas/issues"
+  },
+  "homepage": "https://github.com/s2mangas/kit_s2mangas#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
-    "@types/react": "^18.3.0",
-    "@eslint/js": "^9.22.0",
-    "@eslint/eslintrc": "^3.3.0",
-    "@eslint/compat": "^1.2.7",
-    "@evilmartians/lefthook": "^1.5.0",
-    "@release-it/conventional-changelog": "^10.0.1",
-    "commitlint": "^19.6.1",
-    "del-cli": "^6.0.0",
-    "eslint": "^9.22.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "jest": "^29.7.0",
-    "prettier": "^3.0.3",
-    "react": "18.3.0",
-    "react-native": "0.81.0",
-    "react-native-builder-bob": "0.39.0",
-    "release-it": "^19.0.4",
-    "typescript": "^5.8.3"
+    "@react-native/eslint-config": "^0.72.0",
+    "@types/jest": "^28.1.2",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "0.70.0",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.4.1",
+    "jest": "^28.1.1",
+    "pod-install": "^0.1.0",
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-builder-bob": "^0.39.0",
+    "release-it": "^15.0.0",
+    "typescript": "^4.5.2"
   },
-  "scripts": {
-    "build": "bob build",
-    "clean": "del-cli lib",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "typecheck": "tsc",
-    "test": "jest --config jest.config.cjs",
-    "prepare": "bob build",
-    "release": "release-it --only-version",
-    "example": "pnpm -C example start",
-    "example:expo": "cd example && npx expo start"
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "packageManager": "^pnpm@8.0.0",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

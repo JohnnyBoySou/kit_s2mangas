@@ -11,7 +11,7 @@
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
     "@react-navigation/native": "^6.1.9",
-    "@react-navigation/stack": "^6.3.20",
+    "@react-navigation/stack": "^7.4.7",
     "expo": "~53.0.20",
     "expo-font": "~13.3.2",
     "expo-router": "~5.1.4",

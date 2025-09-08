@@ -65,7 +65,7 @@ jobs:
 
       - name: Create issue for security vulnerabilities
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { data: issues } = await github.rest.issues.listForRepo({

@@ -105,7 +105,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Download native build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: native-build
           path: packages/native/lib/
@@ -147,7 +147,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Download native build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: native-build
           path: packages/native/lib/
